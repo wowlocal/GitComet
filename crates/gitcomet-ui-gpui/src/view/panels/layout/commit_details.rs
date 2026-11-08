@@ -212,7 +212,7 @@ impl DetailsPaneView {
                             cx,
                         )
                     } else {
-                        self.commit_details_message_view(theme, repo_id)
+                        self.commit_details_message_view(theme, repo_id, cx)
                     };
 
                     div()

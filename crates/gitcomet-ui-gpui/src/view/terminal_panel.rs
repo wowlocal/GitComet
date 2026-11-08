@@ -1280,6 +1280,10 @@ impl GitCometView {
             );
 
         tabs_row = tabs_row.child(new_tab);
+        let tabs_row = crate::kit::elastic_scroll::ElasticScroll::tracked_horizontal(
+            ("terminal_tabs_elastic", active_repo.0),
+            tabs_row,
+        );
 
         div()
             .flex()
