@@ -123,12 +123,19 @@ fn repo_tab_incoming_takes_the_status_slot_without_narrowing_the_name(
     state.repos.push(twin);
     store_for_assert.replace_snapshot_for_test(Arc::new(state.clone()));
     publish(&view, state.clone(), cx);
-    cx.simulate_resize(gpui::size(px(620.0), px(460.0)));
+    // Keep both comparison tabs in the viewport: offscreen decorative content
+    // is intentionally not laid out, while all tab shells remain measurable.
+    cx.simulate_resize(gpui::size(px(980.0), px(460.0)));
     test_support::redraw(cx);
+    let viewport = cx.update(|_, app| test_support::repo_tab_strip_viewport(view.read(app), app));
     let tab_before = cx.debug_bounds("repo_tab_2").unwrap();
     let badge_before = cx.debug_bounds("repo_tab_incoming_2").unwrap();
     let label_before = cx.debug_bounds("repo_tab_label_2").unwrap();
     let twin_tab = cx.debug_bounds("repo_tab_3").unwrap();
+    assert!(
+        viewport.contains(&tab_before.center()) && viewport.contains(&twin_tab.center()),
+        "compared tabs must be visible: viewport={viewport:?}, incoming={tab_before:?}, twin={twin_tab:?}"
+    );
     let twin_mark = cx.debug_bounds("repo_tab_initials_3").unwrap();
     let twin_label = cx.debug_bounds("repo_tab_label_3").unwrap();
     assert!(cx.debug_bounds("repo_tab_initials_2").is_none());
