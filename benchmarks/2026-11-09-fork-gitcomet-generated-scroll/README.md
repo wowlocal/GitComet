@@ -47,3 +47,5 @@ python3 analyze.py series manifest.json --out reanalysis.json
 ```
 
 `reanalysis.json` has the same numeric results; locally resolved paths can differ. `sample.py` and `perf_macos.py` are collector source provenance, not required for reanalysis. Raw telemetry/events/CUA numeric outputs are copied unchanged. Profiles, repository identities/paths, app logs, screenshots, tool conversation content and private orchestration are omitted. Public controls expose only counts/boolean preservation witnesses and native geometry/display settings.
+
+OpenAI Codex assisted the investigation, collection tools, analysis, independent agent reviews and report. Published at the reporter’s explicit request; agent review is not human review.
