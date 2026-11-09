@@ -121,6 +121,7 @@ fn forced_accessibility_history_frames_reuse_264_tab_presentations(cx: &mut Test
             let _ = window.draw(app);
         });
         let before = counters(&bar, cx);
+        let visuals_before = cx.update(|_, app| bar.read(app).presentation.visual_builds.get());
         assert_eq!(before.0, TAB_COUNT);
         assert_eq!(before.1, TAB_COUNT);
         let history = cx.update(|_, app| view.read(app).main_pane.read(app).history_view.clone());
@@ -162,6 +163,12 @@ fn forced_accessibility_history_frames_reuse_264_tab_presentations(cx: &mut Test
         assert!(
             after.2 >= before.2 + 10,
             "AX redraws must actually render the tab strip"
+        );
+        let visuals_after = cx.update(|_, app| bar.read(app).presentation.visual_builds.get());
+        assert!(visuals_after > visuals_before);
+        assert!(
+            visuals_after - visuals_before < (after.2 - before.2) * TAB_COUNT / 4,
+            "history frames must build only visible tab visuals"
         );
         cx.update(|window, app| {
             assert!(window.is_a11y_active());
@@ -205,6 +212,12 @@ fn forced_accessibility_history_frames_reuse_264_tab_presentations(cx: &mut Test
         );
         last
     });
+    assert!(cx.debug_bounds("repo_tab_label_264").is_some());
+    let painted = cx.debug_bounds("repo_tab_264").unwrap();
+    assert!(
+        painted.contains(&last.center()),
+        "actual={painted:?}, logical={last:?}"
+    );
     cx.simulate_click(last.center(), gpui::Modifiers::default());
     test_support::drain_store_worker(&view, cx);
     cx.update(|_, app| {
@@ -309,5 +322,185 @@ fn tab_presentations_refresh_changed_fields_fonts_and_closed_tabs(cx: &mut TestA
                 .iter()
                 .any(|tab| tab.id == RepoId(TAB_COUNT as u64))
         );
+    });
+}
+
+#[gpui::test]
+fn lazy_tab_visuals_preserve_all_bounds_and_accessibility_when_resized(cx: &mut TestAppContext) {
+    let (view, cx, _) = mount(cx);
+    let bar = bar(&view, cx);
+    for width in [260.0, 480.0, 980.0, 1600.0] {
+        cx.simulate_resize(gpui::size(px(width), px(900.0)));
+        test_support::redraw(cx);
+        // Compare the complete AX tree and all shell boxes against building
+        // every decorative subtree, including the offscreen ones.
+        let renders_before = cx.update(|_, app| {
+            bar.update(app, |bar, cx| {
+                let renders = bar.presentation.renders;
+                bar.presentation.force_visuals = true;
+                bar.presentation.visual_builds.set(0);
+                cx.notify();
+                renders
+            })
+        });
+        test_support::redraw(cx);
+        let (all_bounds, max, mut full_ax) = cx.update(|window, app| {
+            let bar = bar.read(app);
+            assert!(window.is_a11y_active());
+            assert_eq!(
+                bar.presentation.visual_builds.get(),
+                TAB_COUNT * (bar.presentation.renders - renders_before)
+            );
+            (
+                (0..TAB_COUNT)
+                    .map(|ix| bar.tab_scroll.tab_bounds(ix).unwrap())
+                    .collect::<Vec<_>>(),
+                bar.tab_scroll.max_scroll(),
+                window.a11y_tree().unwrap().clone(),
+            )
+        });
+        let old_label = cx.debug_bounds("repo_tab_label_text_1").unwrap();
+        cx.update(|_, app| {
+            bar.update(app, |bar, cx| {
+                bar.presentation.force_visuals = false;
+                bar.presentation.visual_builds.set(0);
+                cx.notify();
+            });
+        });
+        test_support::redraw(cx);
+        let mut culled_ax = cx.update(|window, app| {
+            let bar = bar.read(app);
+            let count = bar.presentation.visual_builds.get();
+            if bar.tab_scroll.viewport().size.width > px(0.0) {
+                assert!(
+                    count > 0 && count < TAB_COUNT / 4,
+                    "built {count} at width {width}"
+                );
+            } else {
+                assert_eq!(count, 0, "collapsed strip should not build visuals");
+            }
+            assert_eq!(bar.tab_scroll.max_scroll(), max);
+            assert_eq!(
+                (0..TAB_COUNT)
+                    .map(|ix| bar.tab_scroll.tab_bounds(ix).unwrap())
+                    .collect::<Vec<_>>(),
+                all_bounds,
+            );
+            window.a11y_tree().unwrap().clone()
+        });
+        if let Some(label) = cx.debug_bounds("repo_tab_label_text_1") {
+            assert_eq!(label, old_label);
+        }
+        assert!(
+            !full_ax.nodes.is_empty(),
+            "AX comparison needs a populated tree"
+        );
+        full_ax.nodes.sort_by_key(|(id, _)| *id);
+        culled_ax.nodes.sort_by_key(|(id, _)| *id);
+        assert_eq!(culled_ax, full_ax, "AX changed at width {width}");
+    }
+}
+
+#[cfg(target_os = "macos")]
+#[gpui::test]
+fn lazy_tab_visuals_follow_horizontal_wheels_elasticity_and_pending_reveal(
+    cx: &mut TestAppContext,
+) {
+    let (view, cx, _) = mount(cx);
+    let bar = bar(&view, cx);
+    crate::ui_runtime::with_override(crate::ui_runtime::UiRuntime::live(), || {
+        cx.update(|window, app| {
+            window.refresh();
+            let _ = window.draw(app);
+        });
+        let viewport = cx.update(|_, app| bar.read(app).tab_scroll.viewport());
+        let position = viewport.center();
+        let send = |cx: &mut VisualTestContext, x: f32, phase| {
+            cx.update(|window, app| {
+                window.dispatch_event(
+                    gpui::PlatformInput::ScrollWheel(ScrollWheelEvent {
+                        position,
+                        delta: ScrollDelta::Pixels(point(px(x), px(0.0))),
+                        touch_phase: phase,
+                        modifiers: Default::default(),
+                    }),
+                    app,
+                );
+                let _ = window.draw(app);
+            });
+        };
+        send(cx, -400.25, TouchPhase::Started);
+        assert!(cx.update(|_, app| bar.read(app).tab_scroll.scrolled()) > px(300.0));
+        // Check fresh current-frame boxes, rather than a visibility decision
+        // based on the previous frame's scroll offset.
+        let assert_visible_labels = |cx: &mut VisualTestContext| {
+            let bounds = cx.update(|_, app| {
+                let bar = bar.read(app);
+                let viewport = bar.tab_scroll.viewport();
+                (0..TAB_COUNT)
+                    .filter_map(|ix| {
+                        let bounds = bar.tab_scroll.tab_bounds(ix).unwrap();
+                        viewport.contains(&bounds.center()).then_some(ix + 1)
+                    })
+                    .collect::<Vec<_>>()
+            });
+            assert!(!bounds.is_empty());
+            for id in bounds {
+                assert!(
+                    cx.debug_bounds(Box::leak(format!("repo_tab_label_{id}").into_boxed_str()))
+                        .is_some(),
+                    "missing tab {id}"
+                );
+            }
+        };
+        assert_visible_labels(cx);
+        send(cx, 0.0, TouchPhase::Ended);
+        cx.update(|_, app| {
+            bar.update(app, |bar, cx| {
+                bar.tab_scroll.scroll_to_tab(0);
+                cx.notify();
+            })
+        });
+        test_support::redraw(cx);
+        let before = cx.debug_bounds("repo_tab_label_1").unwrap();
+        send(cx, 100.0, TouchPhase::Started);
+        let stretched = cx.debug_bounds("repo_tab_label_1").unwrap();
+        assert!(
+            stretched.left() > before.left() + px(20.0),
+            "before={before:?}, stretched={stretched:?}"
+        );
+        assert_eq!(
+            cx.update(|_, app| bar.read(app).tab_scroll.scrolled()),
+            px(0.0)
+        );
+        assert_visible_labels(cx);
+        send(cx, 0.0, TouchPhase::Ended);
+        cx.executor().advance_clock(Duration::from_secs(1));
+        cx.update(|window, app| {
+            window.simulate_next_frame(app);
+            let _ = window.draw(app);
+        });
+        assert_visible_labels(cx);
+        // Exercise the view's automatic pending reveal, not just the handle.
+        cx.update(|_, app| {
+            bar.update(app, |bar, cx| {
+                bar.pending_reveal = Some((RepoId(TAB_COUNT as u64), 0));
+                cx.notify();
+            })
+        });
+        for _ in 0..4 {
+            cx.executor().advance_clock(Duration::from_millis(200));
+            cx.update(|window, app| {
+                window.simulate_next_frame(app);
+                let _ = window.draw(app);
+            });
+        }
+        assert_visible_labels(cx);
+        assert!(cx.debug_bounds("repo_tab_label_264").is_some());
+        cx.update(|_, app| {
+            let bar = bar.read(app);
+            assert_eq!(bar.tab_scroll.scrolled(), bar.tab_scroll.max_scroll());
+            assert!(bar.pending_reveal.is_none());
+        });
     });
 }

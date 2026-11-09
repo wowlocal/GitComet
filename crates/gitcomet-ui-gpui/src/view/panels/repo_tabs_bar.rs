@@ -52,6 +52,46 @@ struct RepoTabPresentations {
     measurements: usize,
     #[cfg(test)]
     renders: usize,
+    #[cfg(test)]
+    visual_builds: Rc<Cell<usize>>,
+    #[cfg(test)]
+    force_visuals: bool,
+}
+
+/// Keep every tab's flex box and handlers in the strip, but only lay out its
+/// decorative content when the current (possibly elastic/dragged) box is visible.
+/// These descendants contain no accessibility nodes; the shell stays intact.
+fn repo_tab_visuals(force: bool, build: impl FnOnce() -> gpui::Div + 'static) -> impl IntoElement {
+    gpui::canvas(
+        move |bounds, window, cx| {
+            // The hover plate extends a few pixels beyond its content box.
+            let visible = bounds
+                .dilate(px(REPO_TAB_HOVER_BOX_X_OVERHANG_PX))
+                .intersect(&window.content_mask().bounds);
+            if !force && (visible.size.width <= px(0.0) || visible.size.height <= px(0.0)) {
+                return None;
+            }
+            let mut content = build().w_full().into_any_element();
+            content.layout_as_root(
+                gpui::size(
+                    gpui::AvailableSpace::Definite(bounds.size.width),
+                    gpui::AvailableSpace::Definite(bounds.size.height),
+                ),
+                window,
+                cx,
+            );
+            content.prepaint_at(bounds.origin, window, cx);
+            Some(content)
+        },
+        |_, content, window, cx| {
+            if let Some(mut content) = content {
+                content.paint(window, cx);
+            }
+        },
+    )
+    .flex_1()
+    .min_w(px(0.0))
+    .h(px(REPO_TAB_CONTENT_HEIGHT_PX))
 }
 
 struct RepoTabPresentation {
@@ -404,26 +444,31 @@ impl Element for RepoTabSlide {
         cx: &mut App,
     ) -> Self::PrepaintState {
         let now = Instant::now();
+        // Only animate reordering within the strip. Parent scroll and elastic
+        // translation must move content and hitboxes immediately. layout_bounds
+        // adds this snapped offset, so subtract the same value, not its fraction.
+        let layout_x =
+            window.pixel_snap(bounds.left() - window.pixel_snap_point(window.element_offset()).x);
         let offset_x = window.with_element_state(
             global_id.expect("repo tab slide requires a stable element id"),
             |state: Option<RepoTabSlideState>, window| {
                 let mut state = state.unwrap_or(RepoTabSlideState {
-                    layout_x: bounds.left(),
+                    layout_x,
                     from_offset_x: px(0.0),
                     started_at: now - REPO_TAB_SLIDE_DURATION,
                 });
 
                 let offset_x = if let Some(drag_left) = self.drag_left {
                     let offset_x = drag_left - bounds.left();
-                    state.layout_x = bounds.left();
+                    state.layout_x = layout_x;
                     state.from_offset_x = offset_x;
                     state.started_at = now;
                     offset_x
-                } else if state.layout_x != bounds.left() {
+                } else if state.layout_x != layout_x {
                     let current_offset_x = state.offset_at(now);
                     let previous_visual_x = state.layout_x + current_offset_x;
-                    state.layout_x = bounds.left();
-                    state.from_offset_x = previous_visual_x - bounds.left();
+                    state.layout_x = layout_x;
+                    state.from_offset_x = previous_visual_x - layout_x;
                     state.started_at = now;
                     state.from_offset_x
                 } else {
@@ -1006,9 +1051,6 @@ impl Render for RepoTabsBarView {
         let theme = self.theme;
         let drag_direction_reversal = px(REPO_TAB_DIRECTION_REVERSAL_PX);
         let active = self.active_repo_id();
-        let spinner = |id: (&'static str, u64), color: gpui::Rgba| {
-            svg_spinner(id, color, px(REPO_TAB_STATUS_SIZE_PX))
-        };
         // Tabs are transparent, so a label fading out has to land on whatever
         // is actually behind it: the bar for an idle tab, the content strip
         // for the active one.
@@ -1158,100 +1200,131 @@ impl Render for RepoTabsBarView {
             } else {
                 status_color
             };
-            let tab_label = div()
-                .relative()
-                .flex()
-                .flex_1()
-                .items_center()
-                .h(px(REPO_TAB_CONTENT_HEIGHT_PX))
-                .gap(px(REPO_TAB_LABEL_GAP_PX))
-                .min_w(px(0.0))
-                // Idle tabs highlight only their compact content box. The
-                // plate overhang adds breathing room around the initials and
-                // label without changing tab measurement or hit geometry.
-                .child(
-                    div()
-                        .debug_selector(move || format!("repo_tab_hover_box_{}", repo_id.0))
-                        .absolute()
-                        .top(px(-REPO_TAB_HOVER_BOX_Y_OVERHANG_PX))
-                        .bottom(px(-REPO_TAB_HOVER_BOX_Y_OVERHANG_PX))
-                        .left(px(-REPO_TAB_HOVER_BOX_X_OVERHANG_PX))
-                        .right(px(-REPO_TAB_HOVER_BOX_X_OVERHANG_PX))
-                        .rounded(px(REPO_TAB_HOVER_BOX_RADIUS_PX))
-                        .bg(label_bg),
-                )
-                .child(
-                    div()
-                        .flex_none()
-                        .h(px(REPO_TAB_STATUS_SIZE_PX))
-                        .w(status_width)
-                        .flex()
-                        .items_center()
-                        .justify_center()
-                        .when(show_spinner, |d| {
-                            d.debug_selector(move || format!("repo_tab_busy_spinner_{}", repo_id.0))
+            let has_terminal = self.open_terminal_repo_ids.contains(&repo_id);
+            let incoming_stale = repo.incoming_is_stale();
+            let force_visuals = is_hovered || context_menu_active || drag_left.is_some();
+            #[cfg(test)]
+            let visual_builds = self.presentation.visual_builds.clone();
+            let build_tab_label = move || {
+                #[cfg(test)]
+                visual_builds.set(visual_builds.get() + 1);
+                div()
+                    .relative()
+                    .flex()
+                    .flex_1()
+                    .items_center()
+                    .h(px(REPO_TAB_CONTENT_HEIGHT_PX))
+                    .gap(px(REPO_TAB_LABEL_GAP_PX))
+                    .min_w(px(0.0))
+                    // Idle tabs highlight only their compact content box. The
+                    // plate overhang adds breathing room around the initials and
+                    // label without changing tab measurement or hit geometry.
+                    .child(
+                        div()
+                            .debug_selector(move || format!("repo_tab_hover_box_{}", repo_id.0))
+                            .absolute()
+                            .top(px(-REPO_TAB_HOVER_BOX_Y_OVERHANG_PX))
+                            .bottom(px(-REPO_TAB_HOVER_BOX_Y_OVERHANG_PX))
+                            .left(px(-REPO_TAB_HOVER_BOX_X_OVERHANG_PX))
+                            .right(px(-REPO_TAB_HOVER_BOX_X_OVERHANG_PX))
+                            .rounded(px(REPO_TAB_HOVER_BOX_RADIUS_PX))
+                            .bg(label_bg),
+                    )
+                    .child(
+                        div()
+                            .flex_none()
+                            .h(px(REPO_TAB_STATUS_SIZE_PX))
+                            .w(status_width)
+                            .flex()
+                            .items_center()
+                            .justify_center()
+                            .when(show_spinner, |d| {
+                                d.debug_selector(move || {
+                                    format!("repo_tab_busy_spinner_{}", repo_id.0)
+                                })
                                 .child(
-                                    spinner(("repo_tab_busy_spinner", repo_id.0), badge_color)
-                                        .into_any_element(),
+                                    svg_spinner(
+                                        ("repo_tab_busy_spinner", repo_id.0),
+                                        badge_color,
+                                        px(REPO_TAB_STATUS_SIZE_PX),
+                                    )
+                                    .into_any_element(),
                                 )
-                        })
-                        .when(show_missing_warning, |d| {
-                            d.child(svg_icon(
-                                "icons/warning.svg",
-                                theme.colors.status.warning.foreground,
-                                px(12.0),
-                            ))
-                        })
-                        .when_some(incoming_label, |d, incoming| {
-                            d.child(
-                                components::repository_behind_box(
-                                    theme,
-                                    crate::view::chrome::chrome_scale(),
-                                    incoming,
-                                    status_width,
-                                    repo.incoming_is_stale(),
+                            })
+                            .when(show_missing_warning, |d| {
+                                d.child(svg_icon(
+                                    "icons/warning.svg",
+                                    theme.colors.status.warning.foreground,
+                                    px(12.0),
+                                ))
+                            })
+                            .when_some(incoming_label, |d, incoming| {
+                                d.child(
+                                    components::repository_behind_box(
+                                        theme,
+                                        crate::view::chrome::chrome_scale(),
+                                        incoming,
+                                        status_width,
+                                        incoming_stale,
+                                    )
+                                    .debug_selector(
+                                        move || format!("repo_tab_incoming_{}", repo_id.0),
+                                    ),
                                 )
-                                .debug_selector(move || format!("repo_tab_incoming_{}", repo_id.0)),
-                            )
-                        })
-                        .when(show_initials, |d| {
-                            d.child(
-                                components::repository_initials_box(
-                                    theme,
-                                    crate::view::chrome::chrome_scale(),
-                                    initials.clone(),
-                                    is_active,
+                            })
+                            .when(show_initials, |d| {
+                                d.child(
+                                    components::repository_initials_box(
+                                        theme,
+                                        crate::view::chrome::chrome_scale(),
+                                        initials.clone(),
+                                        is_active,
+                                    )
+                                    .debug_selector(
+                                        move || format!("repo_tab_initials_{}", repo_id.0),
+                                    ),
                                 )
-                                .debug_selector(move || format!("repo_tab_initials_{}", repo_id.0)),
-                            )
-                        }),
-                )
-                .child(
-                    // A name too long for the tab fades into the tab's own
-                    // background rather than being cut mid-glyph.
-                    components::FadingText::new(
-                        div()
-                            .debug_selector(move || format!("repo_tab_label_text_{}", repo_id.0))
-                            .text_size(px(REPO_TAB_FONT_SIZE_PX))
-                            .line_height(px(REPO_TAB_CONTENT_HEIGHT_PX))
-                            .child(label),
-                        label_bg,
+                            }),
                     )
-                    .render(crate::view::chrome::chrome_scale())
-                    .debug_selector(move || format!("repo_tab_label_{}", repo_id.0))
-                    .flex_1(),
-                )
-                .when(self.open_terminal_repo_ids.contains(&repo_id), |d| {
-                    d.child(
-                        div()
-                            .debug_selector(move || format!("repo_tab_terminal_{}", repo_id.0))
-                            .child(svg_icon(
-                                "icons/terminal.svg",
-                                theme.colors.accent.foreground,
-                                px(REPO_TAB_STATUS_SIZE_PX),
-                            )),
+                    .child(
+                        // A name too long for the tab fades into the tab's own
+                        // background rather than being cut mid-glyph.
+                        components::FadingText::new(
+                            div()
+                                .debug_selector(move || {
+                                    format!("repo_tab_label_text_{}", repo_id.0)
+                                })
+                                .text_size(px(REPO_TAB_FONT_SIZE_PX))
+                                .line_height(px(REPO_TAB_CONTENT_HEIGHT_PX))
+                                .child(label),
+                            label_bg,
+                        )
+                        .render(crate::view::chrome::chrome_scale())
+                        .debug_selector(move || format!("repo_tab_label_{}", repo_id.0))
+                        .flex_1(),
                     )
-                });
+                    .when(has_terminal, |d| {
+                        d.child(
+                            div()
+                                .debug_selector(move || format!("repo_tab_terminal_{}", repo_id.0))
+                                .child(svg_icon(
+                                    "icons/terminal.svg",
+                                    theme.colors.accent.foreground,
+                                    px(REPO_TAB_STATUS_SIZE_PX),
+                                )),
+                        )
+                    })
+            };
+            // The test baseline keeps the original normal child layout, so it
+            // checks geometry and AX as well as the number of factories built.
+            #[cfg(test)]
+            let tab_label = if self.presentation.force_visuals {
+                build_tab_label().into_any_element()
+            } else {
+                repo_tab_visuals(force_visuals, build_tab_label).into_any_element()
+            };
+            #[cfg(not(test))]
+            let tab_label = repo_tab_visuals(force_visuals, build_tab_label);
 
             let tab = tab
                 .child(tab_label)
