@@ -121,6 +121,7 @@ fn forced_accessibility_history_frames_reuse_264_tab_presentations(cx: &mut Test
             let _ = window.draw(app);
         });
         let before = counters(&bar, cx);
+        let close_before = cx.update(|_, app| bar.read(app).presentation.close_builds);
         let visuals_before = cx.update(|_, app| bar.read(app).presentation.visual_builds.get());
         assert_eq!(before.0, TAB_COUNT);
         assert_eq!(before.1, TAB_COUNT);
@@ -159,6 +160,11 @@ fn forced_accessibility_history_frames_reuse_264_tab_presentations(cx: &mut Test
             });
         }
         let after = counters(&bar, cx);
+        assert_eq!(
+            cx.update(|_, app| bar.read(app).presentation.close_builds),
+            close_before,
+            "history redraws must not construct unused close controls for 264 idle tabs"
+        );
         assert_eq!((after.0, after.1), (before.0, before.1));
         assert!(
             after.2 >= before.2 + 10,
@@ -502,5 +508,316 @@ fn lazy_tab_visuals_follow_horizontal_wheels_elasticity_and_pending_reveal(
             assert_eq!(bar.tab_scroll.scrolled(), bar.tab_scroll.max_scroll());
             assert!(bar.pending_reveal.is_none());
         });
+    });
+}
+
+fn tab_frame(cx: &mut VisualTestContext, delay_ms: u64) {
+    cx.executor().advance_clock(Duration::from_millis(delay_ms));
+    cx.update(|window, app| {
+        window.simulate_next_frame(app);
+        window.refresh();
+        let _ = window.draw(app);
+    });
+    cx.run_until_parked();
+}
+
+#[gpui::test]
+fn forced_accessibility_close_controls_are_lazy_and_keep_their_pointer_action(
+    cx: &mut TestAppContext,
+) {
+    let (view, cx, _) = mount(cx);
+    let bar = bar(&view, cx);
+    let before = cx.update(|_, app| {
+        let bar = bar.read(app);
+        (
+            bar.presentation.close_builds,
+            (0..TAB_COUNT)
+                .map(|ix| bar.tab_scroll.tab_bounds(ix).unwrap())
+                .collect::<Vec<_>>(),
+        )
+    });
+    for _ in 0..3 {
+        test_support::redraw(cx);
+    }
+    assert_eq!(
+        cx.update(|_, app| bar.read(app).presentation.close_builds),
+        before.0
+    );
+    assert!(cx.debug_bounds("repo_tab_close_1").is_none());
+    cx.simulate_mouse_move(before.1[0].center(), None, gpui::Modifiers::default());
+    test_support::redraw(cx);
+    let close = cx
+        .debug_bounds("repo_tab_close_1")
+        .expect("hover must build the real close action");
+    cx.update(|window, app| {
+        assert!(window.is_a11y_active());
+        assert!(!window.a11y_tree().unwrap().nodes.is_empty());
+        let bar = bar.read(app);
+        assert!(bar.presentation.close_builds > before.0);
+        assert_eq!(
+            (0..TAB_COUNT)
+                .map(|ix| bar.tab_scroll.tab_bounds(ix).unwrap())
+                .collect::<Vec<_>>(),
+            before.1
+        );
+    });
+    cx.simulate_click(close.center(), gpui::Modifiers::default());
+    test_support::drain_store_worker(&view, cx);
+    cx.update(|_, app| {
+        assert!(
+            !view
+                .read(app)
+                .store
+                .snapshot()
+                .repos
+                .iter()
+                .any(|repo| repo.id == RepoId(1)),
+            "the lazily built close button must keep its existing nested action"
+        );
+    });
+}
+
+#[gpui::test]
+fn tab_slide_owners_survive_refresh_reorder_and_parent_scroll_but_leave_with_closed_tabs(
+    cx: &mut TestAppContext,
+) {
+    let (view, cx, mut state) = mount(cx);
+    let bar = bar(&view, cx);
+    crate::ui_runtime::with_override(crate::ui_runtime::UiRuntime::live(), || {
+        tab_frame(cx, 150);
+        let first = cx.debug_bounds("repo_tab_1").unwrap();
+        let (slide, drag_state, closed, closed_drag) = cx.update(|_, app| {
+            let tabs = &bar.read(app).presentation.tabs;
+            (
+                tabs[0].slide.clone(),
+                tabs[0].drag.state.clone(),
+                Rc::downgrade(&tabs[TAB_COUNT - 1].slide),
+                Rc::downgrade(&tabs[TAB_COUNT - 1].drag.state),
+            )
+        });
+        state.repos.swap(0, 1);
+        cx.update(|_, app| {
+            view.update(app, |view, cx| {
+                test_support::push_test_state(view, Arc::new(state.clone()), cx)
+            })
+        });
+        cx.run_until_parked();
+        tab_frame(cx, 0);
+        let reordered = cx.debug_bounds("repo_tab_1").unwrap();
+        assert_eq!(
+            reordered.left(),
+            first.left(),
+            "reorder starts at the previous visual position"
+        );
+        let target = cx.update(|_, app| {
+            let bar = bar.read(app);
+            assert!(Rc::ptr_eq(&slide, &bar.presentation.tabs[1].slide));
+            let target = bar.tab_scroll.tab_bounds(1).unwrap();
+            assert_ne!(target.left(), first.left());
+            target
+        });
+        tab_frame(cx, 50);
+        let halfway = cx.debug_bounds("repo_tab_1").unwrap();
+        assert!(halfway.left() > first.left() && halfway.left() < target.left());
+        state.repos[1].spec.workdir = "/tmp/tab-cache/renamed-while-sliding".into();
+        cx.update(|_, app| {
+            view.update(app, |view, cx| {
+                test_support::push_test_state(view, Arc::new(state.clone()), cx)
+            })
+        });
+        cx.run_until_parked();
+        tab_frame(cx, 0);
+        cx.update(|_, app| {
+            let tab = &bar.read(app).presentation.tabs[1];
+            assert!(Rc::ptr_eq(&slide, &tab.slide));
+            assert!(Rc::ptr_eq(&drag_state, &tab.drag.state));
+        });
+        assert_eq!(
+            cx.debug_bounds("repo_tab_1").unwrap().left(),
+            halfway.left(),
+            "presentation refresh must not restart or lose motion"
+        );
+        tab_frame(cx, 150);
+        assert_eq!(cx.debug_bounds("repo_tab_1").unwrap().left(), target.left());
+        for scale in [1.0, 1.25, 2.0] {
+            cx.update(|window, _| window.set_scale_factor(scale));
+            tab_frame(cx, 150);
+            tab_frame(cx, 150);
+            let logical_x = slide.borrow().as_ref().unwrap().layout_x;
+            let painted = cx.debug_bounds("repo_tab_1").unwrap();
+            cx.update(|_, app| {
+                bar.update(app, |bar, cx| {
+                    assert!(bar.tab_scroll.scroll_by(px(33.25)));
+                    cx.notify();
+                })
+            });
+            tab_frame(cx, 0);
+            assert_eq!(
+                slide.borrow().as_ref().unwrap().layout_x,
+                logical_x,
+                "fractional parent scroll must not be mistaken for a reorder at scale {scale}"
+            );
+            assert!(cx.debug_bounds("repo_tab_1").unwrap().left() < painted.left());
+        }
+        let removed = state.repos.pop().unwrap();
+        cx.update(|_, app| {
+            view.update(app, |view, cx| {
+                test_support::push_test_state(view, Arc::new(state.clone()), cx)
+            })
+        });
+        cx.run_until_parked();
+        tab_frame(cx, 150);
+        tab_frame(cx, 0);
+        assert!(
+            closed.upgrade().is_none(),
+            "closed tabs must release their retained animation owner"
+        );
+        assert!(
+            closed_drag.upgrade().is_none(),
+            "closed tabs release idle drag state"
+        );
+        state.repos.push(removed);
+        cx.update(|_, app| {
+            view.update(app, |view, cx| {
+                test_support::push_test_state(view, Arc::new(state.clone()), cx)
+            })
+        });
+        cx.run_until_parked();
+        tab_frame(cx, 0);
+        cx.update(|window, app| {
+            assert!(window.is_a11y_active());
+            let bar = bar.read(app);
+            let reopened = &bar.presentation.tabs[TAB_COUNT - 1].slide;
+            assert!(!std::rc::Weak::ptr_eq(&closed, &Rc::downgrade(reopened)));
+            assert_eq!(reopened.borrow().as_ref().unwrap().from_offset_x, px(0.0));
+            assert!((0..TAB_COUNT).all(|ix| bar.tab_scroll.tab_bounds(ix).is_some()));
+        });
+    });
+}
+
+#[test]
+fn cloned_tab_drag_state_is_shared_and_a_new_gesture_resets_previous_direction() {
+    let drag = RepoTabDrag::new(RepoId(1));
+    let clone = drag.clone();
+    drag.begin(px(20.0), px(100.0));
+    clone.state.tab_width.set(px(126.0));
+    assert_eq!(drag.center_x(px(120.0)), px(163.0));
+    assert_eq!(clone.update_direction(px(140.0), px(12.0)), 1);
+    assert_eq!(drag.update_direction(px(135.0), px(12.0)), 1);
+    assert_eq!(clone.update_direction(px(120.0), px(12.0)), -1);
+    drag.begin(px(8.0), px(200.0));
+    assert_eq!(clone.state.direction.get(), 0);
+    assert_eq!(clone.state.tab_width.get(), px(0.0));
+    assert_eq!(clone.center_x(px(200.0)), px(200.0));
+    assert_eq!(clone.update_direction(px(210.0), px(12.0)), 1);
+    assert_eq!(drag.state.cursor_offset_x.get(), px(8.0));
+}
+
+#[gpui::test]
+fn forced_accessibility_tab_drag_reorders_and_releases_the_retained_slide(cx: &mut TestAppContext) {
+    let (view, cx, _) = mount(cx);
+    let bar = bar(&view, cx);
+    // Tab dragging and its slide clock are independent of UiRuntime. Keep
+    // unrelated history cache rebuilds on the deterministic test executor.
+    crate::ui_runtime::with_override(crate::ui_runtime::UiRuntime::deterministic(), || {
+        tab_frame(cx, 150);
+        let first = cx.debug_bounds("repo_tab_1").unwrap();
+        let second = cx.debug_bounds("repo_tab_2").unwrap();
+        let start = first.center();
+        cx.simulate_mouse_move(start, None, gpui::Modifiers::default());
+        cx.simulate_mouse_down(start, gpui::MouseButton::Left, gpui::Modifiers::default());
+        cx.simulate_mouse_move(
+            start + point(px(20.0), px(0.0)),
+            Some(gpui::MouseButton::Left),
+            gpui::Modifiers::default(),
+        );
+        let drag = cx.update(|_, app| {
+            app.active_drag()
+                .expect("pointer movement starts the actual tab drag")
+                .value
+                .downcast_ref::<RepoTabDrag>()
+                .unwrap()
+                .clone()
+        });
+        // GPUI captures the offset at the threshold-crossing mouse move.
+        assert_eq!(
+            drag.state.cursor_offset_x.get(),
+            start.x + px(20.0) - first.left()
+        );
+        let destination = point(second.right() - px(10.0), start.y);
+        cx.simulate_mouse_move(
+            destination,
+            Some(gpui::MouseButton::Left),
+            gpui::Modifiers::default(),
+        );
+        test_support::drain_store_worker(&view, cx);
+        let reordered = cx.update(|_, app| view.read(app).store.snapshot());
+        assert_eq!(
+            (reordered.repos[0].id, reordered.repos[1].id),
+            (RepoId(2), RepoId(1)),
+            "drag must still use its shared width/anchor and dispatch a real reorder"
+        );
+        cx.update(|_, app| {
+            view.update(app, |view, cx| {
+                test_support::push_test_state(view, reordered.clone(), cx)
+            })
+        });
+        cx.run_until_parked();
+        tab_frame(cx, 0);
+        assert!(drag.state.tab_width.get() > px(0.0));
+        let held = cx.debug_bounds("repo_tab_1").unwrap();
+        assert!(
+            (held.left() - (destination.x - drag.state.cursor_offset_x.get())).abs() <= px(1.0)
+        );
+        cx.simulate_mouse_up(
+            destination,
+            gpui::MouseButton::Left,
+            gpui::Modifiers::default(),
+        );
+        tab_frame(cx, 0);
+        let released = cx.debug_bounds("repo_tab_1").unwrap();
+        assert!(
+            (released.left() - held.left()).abs() <= px(1.0),
+            "release starts from the held visual position"
+        );
+        tab_frame(cx, 150);
+        let settled = cx.debug_bounds("repo_tab_1").unwrap();
+        cx.update(|window, app| {
+            assert!(window.is_a11y_active());
+            assert!(!app.has_active_drag());
+            let bar = bar.read(app);
+            assert!(bar.repo_tab_drag_visual.is_none());
+            let target = bar.tab_scroll.tab_bounds(1).unwrap();
+            assert!((settled.left() - target.left()).abs() <= px(1.0));
+        });
+        // A later gesture reuses the owner's allocation and must initialize
+        // its cursor offset again, rather than retaining the previous grab.
+        let next_start = point(settled.left() + px(25.0), settled.center().y);
+        cx.simulate_mouse_down(
+            next_start,
+            gpui::MouseButton::Left,
+            gpui::Modifiers::default(),
+        );
+        cx.simulate_mouse_move(
+            next_start + point(px(20.0), px(0.0)),
+            Some(gpui::MouseButton::Left),
+            gpui::Modifiers::default(),
+        );
+        cx.update(|_, app| {
+            let again = app
+                .active_drag()
+                .unwrap()
+                .value
+                .downcast_ref::<RepoTabDrag>()
+                .unwrap();
+            assert!(Rc::ptr_eq(&drag.state, &again.state));
+            assert_eq!(again.state.cursor_offset_x.get(), px(45.0));
+        });
+        cx.simulate_mouse_up(
+            next_start + point(px(20.0), px(0.0)),
+            gpui::MouseButton::Left,
+            gpui::Modifiers::default(),
+        );
+        tab_frame(cx, 150);
     });
 }

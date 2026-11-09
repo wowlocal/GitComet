@@ -5,7 +5,7 @@ use crate::kit::interaction::{self as controls, ControlInteractionExt as _};
 use gitcomet_core::domain::HeadTracking;
 use gitcomet_state::model::RepoIncomingState;
 use rustc_hash::FxHasher;
-use std::cell::Cell;
+use std::cell::{Cell, RefCell};
 use std::hash::{Hash, Hasher};
 use std::path::PathBuf;
 use std::rc::Rc;
@@ -54,6 +54,8 @@ struct RepoTabPresentations {
     renders: usize,
     #[cfg(test)]
     visual_builds: Rc<Cell<usize>>,
+    #[cfg(test)]
+    close_builds: usize,
     #[cfg(test)]
     force_visuals: bool,
 }
@@ -108,6 +110,10 @@ struct RepoTabPresentation {
     label_width: Pixels,
     status_width: Pixels,
     measured: bool,
+    /// This belongs to the open tab, so cached frame replay need not retain
+    /// and rehash a separate GPUI element state for every offscreen tab.
+    slide: Rc<RefCell<Option<RepoTabSlideState>>>,
+    drag: RepoTabDrag,
 }
 
 impl RepoTabPresentation {
@@ -127,6 +133,8 @@ impl RepoTabPresentation {
             label_width: px(0.0),
             status_width: px(REPO_TAB_STATUS_SIZE_PX),
             measured: false,
+            slide: Default::default(),
+            drag: RepoTabDrag::new(repo.id),
         }
     }
 
@@ -213,7 +221,11 @@ impl RepoTabPresentations {
         for (tab, repo) in self.tabs.iter_mut().zip(repos) {
             let changed = !tab.is_current(repo);
             if changed {
+                let slide = tab.slide.clone();
+                let drag = tab.drag.clone();
                 *tab = RepoTabPresentation::new(repo);
+                tab.slide = slide;
+                tab.drag = drag;
                 #[cfg(test)]
                 {
                     self.rebuilds += 1;
@@ -233,31 +245,50 @@ impl RepoTabPresentations {
 #[derive(Clone, Debug)]
 struct RepoTabDrag {
     repo_id: RepoId,
-    cursor_offset_x: Rc<Cell<Pixels>>,
-    tab_width: Rc<Cell<Pixels>>,
-    direction_anchor_x: Rc<Cell<Pixels>>,
-    direction: Rc<Cell<i8>>,
+    state: Rc<RepoTabDragState>,
+}
+
+#[derive(Debug, Default)]
+struct RepoTabDragState {
+    cursor_offset_x: Cell<Pixels>,
+    tab_width: Cell<Pixels>,
+    direction_anchor_x: Cell<Pixels>,
+    direction: Cell<i8>,
 }
 
 impl RepoTabDrag {
+    fn new(repo_id: RepoId) -> Self {
+        Self {
+            repo_id,
+            state: Default::default(),
+        }
+    }
+
+    fn begin(&self, offset: Pixels, cursor_x: Pixels) {
+        self.state.cursor_offset_x.set(offset);
+        self.state.tab_width.set(px(0.0));
+        self.state.direction_anchor_x.set(cursor_x);
+        self.state.direction.set(0);
+    }
+
     fn center_x(&self, cursor_x: Pixels) -> Pixels {
-        let width = self.tab_width.get();
+        let width = self.state.tab_width.get();
         if width == px(0.0) {
             cursor_x
         } else {
-            cursor_x - self.cursor_offset_x.get() + width / 2.0
+            cursor_x - self.state.cursor_offset_x.get() + width / 2.0
         }
     }
 
     fn update_direction(&self, cursor_x: Pixels, reversal_threshold: Pixels) -> i8 {
         let (direction, anchor_x) = repo_tab_drag_direction(
-            self.direction.get(),
-            self.direction_anchor_x.get(),
+            self.state.direction.get(),
+            self.state.direction_anchor_x.get(),
             cursor_x,
             reversal_threshold,
         );
-        self.direction.set(direction);
-        self.direction_anchor_x.set(anchor_x);
+        self.state.direction.set(direction);
+        self.state.direction_anchor_x.set(anchor_x);
         direction
     }
 }
@@ -375,14 +406,21 @@ struct RepoTabSlide {
     id: ElementId,
     child: Option<AnyElement>,
     drag_left: Option<Pixels>,
+    state: Rc<RefCell<Option<RepoTabSlideState>>>,
 }
 
 impl RepoTabSlide {
-    fn new(id: impl Into<ElementId>, child: impl IntoElement, drag_left: Option<Pixels>) -> Self {
+    fn new(
+        id: impl Into<ElementId>,
+        child: impl IntoElement,
+        drag_left: Option<Pixels>,
+        state: Rc<RefCell<Option<RepoTabSlideState>>>,
+    ) -> Self {
         Self {
             id: id.into(),
             child: Some(child.into_any_element()),
             drag_left,
+            state,
         }
     }
 }
@@ -436,52 +474,50 @@ impl Element for RepoTabSlide {
 
     fn prepaint(
         &mut self,
-        global_id: Option<&GlobalElementId>,
+        _global_id: Option<&GlobalElementId>,
         _inspector_id: Option<&InspectorElementId>,
         bounds: Bounds<Pixels>,
         child: &mut Self::RequestLayoutState,
         window: &mut Window,
         cx: &mut App,
     ) -> Self::PrepaintState {
-        let now = Instant::now();
+        let now = cx.background_executor().now();
         // Only animate reordering within the strip. Parent scroll and elastic
         // translation must move content and hitboxes immediately. layout_bounds
         // adds this snapped offset, so subtract the same value, not its fraction.
         let layout_x =
             window.pixel_snap(bounds.left() - window.pixel_snap_point(window.element_offset()).x);
-        let offset_x = window.with_element_state(
-            global_id.expect("repo tab slide requires a stable element id"),
-            |state: Option<RepoTabSlideState>, window| {
-                let mut state = state.unwrap_or(RepoTabSlideState {
-                    layout_x,
-                    from_offset_x: px(0.0),
-                    started_at: now - REPO_TAB_SLIDE_DURATION,
-                });
+        let offset_x = {
+            let mut slot = self.state.borrow_mut();
+            let state = slot.get_or_insert_with(|| RepoTabSlideState {
+                layout_x,
+                from_offset_x: px(0.0),
+                started_at: now - REPO_TAB_SLIDE_DURATION,
+            });
 
-                let offset_x = if let Some(drag_left) = self.drag_left {
-                    let offset_x = drag_left - bounds.left();
-                    state.layout_x = layout_x;
-                    state.from_offset_x = offset_x;
-                    state.started_at = now;
-                    offset_x
-                } else if state.layout_x != layout_x {
-                    let current_offset_x = state.offset_at(now);
-                    let previous_visual_x = state.layout_x + current_offset_x;
-                    state.layout_x = layout_x;
-                    state.from_offset_x = previous_visual_x - layout_x;
-                    state.started_at = now;
-                    state.from_offset_x
-                } else {
-                    state.offset_at(now)
-                };
+            let offset_x = if let Some(drag_left) = self.drag_left {
+                let offset_x = drag_left - bounds.left();
+                state.layout_x = layout_x;
+                state.from_offset_x = offset_x;
+                state.started_at = now;
+                offset_x
+            } else if state.layout_x != layout_x {
+                let current_offset_x = state.offset_at(now);
+                let previous_visual_x = state.layout_x + current_offset_x;
+                state.layout_x = layout_x;
+                state.from_offset_x = previous_visual_x - layout_x;
+                state.started_at = now;
+                state.from_offset_x
+            } else {
+                state.offset_at(now)
+            };
 
-                if self.drag_left.is_none() && offset_x != px(0.0) {
-                    window.request_animation_frame();
-                }
+            if self.drag_left.is_none() && offset_x != px(0.0) {
+                window.request_animation_frame();
+            }
 
-                (offset_x, state)
-            },
-        );
+            offset_x
+        };
 
         window.with_element_offset(point(offset_x, px(0.0)), |window| {
             child.prepaint(window, cx);
@@ -1138,51 +1174,55 @@ impl Render for RepoTabsBarView {
                 .map(|drag| drag.left);
 
             let tooltip = presentation.tooltip.clone();
-            let close_tooltip: SharedString = "Close repository".into();
-
-            let close_button = div()
-                .id(("repo_tab_close", repo_id.0))
-                .debug_selector(move || format!("repo_tab_close_{}", repo_id.0))
-                .flex()
-                .items_center()
-                .justify_center()
-                .size(px(components::REMOVE_BUTTON_SIZE_PX))
-                .rounded(px(theme.radii.row))
-                // Fully cover any label ink beneath the button; the sibling
-                // ramp transitions into this exact background.
-                .bg(label_bg)
-                .control_interaction(
-                    controls::InteractionStyle::destructive(theme).on_surface(label_bg),
-                    controls::InteractionState::default(),
-                )
-                .child(svg_icon(
-                    components::REMOVE_BUTTON_ICON,
-                    theme.colors.status.danger.foreground,
-                    px(components::REMOVE_BUTTON_ICON_SIZE_PX),
-                ))
-                .on_activate(
-                    false,
-                    controls::ControlActivation::Nested,
-                    cx.listener(move |this, _e: &ClickEvent, _w, cx| {
-                        this.close_repo_tab(repo_id, cx);
-                    }),
-                )
-                .gitcomet_tooltip(theme, close_tooltip.clone());
-            let close_overlay = div()
-                .flex()
-                .items_center()
-                .h(px(components::REMOVE_BUTTON_SIZE_PX))
-                .child(
-                    components::trailing_fade(label_bg, px(REPO_TAB_CLOSE_FADE_WIDTH_PX))
-                        .debug_selector(move || format!("repo_tab_close_fade_{}", repo_id.0)),
-                )
-                .child(close_button);
 
             let mut tab = components::Tab::new(("repo_tab", repo_id.0))
                 .selected(is_active || context_menu_active)
                 .horizontal_padding(tab_horizontal_padding)
                 .responsive_width(natural_width);
             if is_hovered {
+                #[cfg(test)]
+                {
+                    self.presentation.close_builds += 1;
+                }
+                let close_tooltip: SharedString = "Close repository".into();
+
+                let close_button = div()
+                    .id(("repo_tab_close", repo_id.0))
+                    .debug_selector(move || format!("repo_tab_close_{}", repo_id.0))
+                    .flex()
+                    .items_center()
+                    .justify_center()
+                    .size(px(components::REMOVE_BUTTON_SIZE_PX))
+                    .rounded(px(theme.radii.row))
+                    // Fully cover any label ink beneath the button; the sibling
+                    // ramp transitions into this exact background.
+                    .bg(label_bg)
+                    .control_interaction(
+                        controls::InteractionStyle::destructive(theme).on_surface(label_bg),
+                        controls::InteractionState::default(),
+                    )
+                    .child(svg_icon(
+                        components::REMOVE_BUTTON_ICON,
+                        theme.colors.status.danger.foreground,
+                        px(components::REMOVE_BUTTON_ICON_SIZE_PX),
+                    ))
+                    .on_activate(
+                        false,
+                        controls::ControlActivation::Nested,
+                        cx.listener(move |this, _e: &ClickEvent, _w, cx| {
+                            this.close_repo_tab(repo_id, cx);
+                        }),
+                    )
+                    .gitcomet_tooltip(theme, close_tooltip.clone());
+                let close_overlay = div()
+                    .flex()
+                    .items_center()
+                    .h(px(components::REMOVE_BUTTON_SIZE_PX))
+                    .child(
+                        components::trailing_fade(label_bg, px(REPO_TAB_CLOSE_FADE_WIDTH_PX))
+                            .debug_selector(move || format!("repo_tab_close_fade_{}", repo_id.0)),
+                    )
+                    .child(close_button);
                 tab = tab.end_slot(close_overlay);
             }
 
@@ -1352,16 +1392,9 @@ impl Render for RepoTabsBarView {
                 })
                 .debug_selector(move || format!("repo_tab_{}", repo_id.0))
                 .on_drag(
-                    RepoTabDrag {
-                        repo_id,
-                        cursor_offset_x: Rc::new(Cell::new(px(0.0))),
-                        tab_width: Rc::new(Cell::new(px(0.0))),
-                        direction_anchor_x: Rc::new(Cell::new(px(0.0))),
-                        direction: Rc::new(Cell::new(0)),
-                    },
+                    presentation.drag.clone(),
                     move |drag, offset, window, cx| {
-                        drag.cursor_offset_x.set(offset.x);
-                        drag.direction_anchor_x.set(window.mouse_position().x);
+                        drag.begin(offset.x, window.mouse_position().x);
                         cx.new(|_cx| RepoTabDragCarrier)
                     },
                 )
@@ -1373,7 +1406,7 @@ impl Render for RepoTabsBarView {
                         let drag = e.drag(cx);
                         let dragged_repo_id = drag.repo_id;
                         if dragged_repo_id == repo_id {
-                            drag.tab_width.set(e.bounds.size.width);
+                            drag.state.tab_width.set(e.bounds.size.width);
                             return;
                         }
 
@@ -1470,7 +1503,12 @@ impl Render for RepoTabsBarView {
                     this.close_repo_tab(repo_id, cx);
                 }));
 
-            let sliding_tab = RepoTabSlide::new(("repo_tab_slide", repo_id.0), tab, drag_left);
+            let sliding_tab = RepoTabSlide::new(
+                ("repo_tab_slide", repo_id.0),
+                tab,
+                drag_left,
+                presentation.slide.clone(),
+            );
             if drag_left.is_some() {
                 bar = bar.tab(gpui::deferred(sliding_tab).priority(1));
             } else {
@@ -1532,9 +1570,9 @@ impl Render for RepoTabsBarView {
                     drag.update_direction(e.event.position.x, drag_direction_reversal);
                     (
                         drag.repo_id,
-                        drag.cursor_offset_x.get(),
+                        drag.state.cursor_offset_x.get(),
                         drag_center_x,
-                        drag.tab_width.get(),
+                        drag.state.tab_width.get(),
                     )
                 };
                 let visual = RepoTabDragVisual {
