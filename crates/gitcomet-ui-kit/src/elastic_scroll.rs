@@ -461,7 +461,10 @@ impl Element for ElasticScroll {
                     || resized
                     || (offset > 0.0 && metrics.0 < -0.5)
                     || (offset < 0.0 && metrics.0 > -metrics.1 + 0.5));
-            if local_geometry_changed || !motion_enabled(cx) || !window.is_window_active() {
+            if local_geometry_changed
+                || (offset != 0.0 && !motion_enabled(cx))
+                || !window.is_window_active()
+            {
                 state.motion.reset();
             }
             local.expected_metrics = Some(metrics);
@@ -565,10 +568,11 @@ impl Element for ElasticScroll {
                 if phase != DispatchPhase::Capture {
                     return;
                 }
-                if matches!(
-                    native::read(event).phase,
-                    TouchPhase::Ended | TouchPhase::Cancelled
-                ) && state.0.borrow().motion.touching()
+                if state.0.borrow().motion.touching()
+                    && matches!(
+                        native::read(event).phase,
+                        TouchPhase::Ended | TouchPhase::Cancelled
+                    )
                 {
                     state
                         .0

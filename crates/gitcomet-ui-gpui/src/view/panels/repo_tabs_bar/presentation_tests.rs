@@ -1,0 +1,313 @@
+use super::*;
+use crate::view::test_support;
+use gitcomet_core::domain::{
+    Commit, CommitId, LogPage, RepoSpec, RepositoryMode, Upstream, UpstreamDivergence,
+};
+use gitcomet_state::model::RepoIncomingSnapshot;
+#[cfg(target_os = "macos")]
+use gpui::{ScrollDelta, ScrollWheelEvent, TouchPhase};
+use gpui::{TestAppContext, VisualTestContext};
+use std::time::UNIX_EPOCH;
+
+const TAB_COUNT: usize = 264;
+
+fn mount(cx: &mut TestAppContext) -> (Entity<GitCometView>, &mut VisualTestContext, AppState) {
+    let (store, events) = AppStore::new_test(Arc::new(test_support::TestBackend));
+    store.disable_repo_monitors_for_test();
+    let fixture_store = store.clone();
+    let (view, cx) = cx.add_window_view(|window, cx| {
+        window.activate();
+        GitCometView::new(store, events, None, window, cx)
+    });
+    cx.simulate_resize(gpui::size(px(1400.0), px(900.0)));
+    let mut state = AppState {
+        repos: (0..TAB_COUNT)
+            .map(|ix| {
+                let mut repo = RepoState::new_opening(
+                    RepoId(ix as u64 + 1),
+                    RepoSpec {
+                        workdir: PathBuf::from(format!("/tmp/tab-cache/repository-{ix:03}")),
+                    },
+                );
+                repo.open = Loadable::Ready(());
+                repo.repository_mode = Some(RepositoryMode::WorkingTree);
+                repo.head_branch = Loadable::Ready("main".into());
+                repo.status = Loadable::Ready(Default::default());
+                repo
+            })
+            .collect(),
+        active_repo: Some(RepoId(1)),
+        ..AppState::test_default()
+    };
+    let page = Arc::new(LogPage {
+        commits: (0..100)
+            .map(|ix| Commit {
+                id: CommitId(format!("commit-{ix}").into()),
+                parent_ids: Default::default(),
+                summary: format!("Commit {ix}").into(),
+                author: "Author".into(),
+                time: UNIX_EPOCH,
+            })
+            .collect(),
+        next_cursor: None,
+    });
+    state.repos[0].log = Loadable::Ready(page.clone());
+    state.repos[0].history_state.log = Loadable::Ready(page);
+    state.repos[0].log_rev = 1;
+    fixture_store.replace_snapshot_for_test(Arc::new(state.clone()));
+    cx.update(|window, app| {
+        view.update(app, |view, cx| {
+            test_support::push_test_state(view, Arc::new(state.clone()), cx);
+        });
+        window.set_a11y_forced(true);
+    });
+    cx.run_until_parked();
+    let history = cx.update(|_, app| view.read(app).main_pane.read(app).history_view.clone());
+    cx.update(|_, app| {
+        history.update(app, |history, cx| {
+            history.history_relative_dates = false;
+            history.ensure_history_cache(cx);
+        })
+    });
+    for _ in 0..4 {
+        cx.run_until_parked();
+        test_support::redraw(cx);
+    }
+    cx.update(|_, app| {
+        assert!(history.read(app).history_cache.is_some());
+        test_support::dismiss_error_toasts(&view, app);
+    });
+    test_support::redraw(cx);
+    (view, cx, state)
+}
+
+fn bar(view: &Entity<GitCometView>, cx: &mut VisualTestContext) -> Entity<RepoTabsBarView> {
+    cx.update(|_, app| view.read(app).repo_tabs_bar.clone())
+}
+
+fn counters(bar: &Entity<RepoTabsBarView>, cx: &mut VisualTestContext) -> (usize, usize, usize) {
+    cx.update(|_, app| {
+        let cache = &bar.read(app).presentation;
+        (cache.rebuilds, cache.measurements, cache.renders)
+    })
+}
+
+#[cfg(target_os = "macos")]
+fn wheel(cx: &mut VisualTestContext, position: gpui::Point<Pixels>, y: f32, phase: TouchPhase) {
+    cx.update(|window, app| {
+        window.dispatch_event(
+            gpui::PlatformInput::ScrollWheel(ScrollWheelEvent {
+                position,
+                delta: ScrollDelta::Pixels(point(px(0.0), px(y))),
+                touch_phase: phase,
+                modifiers: Default::default(),
+            }),
+            app,
+        );
+        let _ = window.draw(app);
+    });
+}
+
+#[cfg(target_os = "macos")]
+#[gpui::test]
+fn forced_accessibility_history_frames_reuse_264_tab_presentations(cx: &mut TestAppContext) {
+    let (view, cx, _) = mount(cx);
+    let bar = bar(&view, cx);
+    crate::ui_runtime::with_override(crate::ui_runtime::UiRuntime::live(), || {
+        // Install live handlers before the first packet, and retain that policy
+        // through programmatic repositioning and all scheduled release frames.
+        cx.update(|window, app| {
+            window.refresh();
+            let _ = window.draw(app);
+        });
+        let before = counters(&bar, cx);
+        assert_eq!(before.0, TAB_COUNT);
+        assert_eq!(before.1, TAB_COUNT);
+        let history = cx.update(|_, app| view.read(app).main_pane.read(app).history_view.clone());
+        let scroll = cx.update(|_, app| history.read(app).history_scroll.clone());
+        let position = scroll.0.borrow().base_handle.bounds().center();
+        for ix in 0..8 {
+            wheel(
+                cx,
+                position,
+                -20.0,
+                if ix == 0 {
+                    TouchPhase::Started
+                } else {
+                    TouchPhase::Moved
+                },
+            );
+        }
+        assert!(scroll.0.borrow().base_handle.offset().y < px(-100.0));
+        scroll
+            .0
+            .borrow()
+            .base_handle
+            .set_offset(point(px(0.0), px(0.0)));
+        cx.update(|_, app| history.update(app, |_, cx| cx.notify()));
+        test_support::redraw(cx);
+        let row = cx.debug_bounds("history_row_0").expect("first history row");
+        wheel(cx, position, 100.0, TouchPhase::Started);
+        assert!(cx.debug_bounds("history_row_0").unwrap().top() > row.top() + px(20.0));
+        wheel(cx, position, 0.0, TouchPhase::Ended);
+        for delay in [40, 800] {
+            cx.executor().advance_clock(Duration::from_millis(delay));
+            cx.update(|window, app| {
+                window.simulate_next_frame(app);
+                let _ = window.draw(app);
+            });
+        }
+        let after = counters(&bar, cx);
+        assert_eq!((after.0, after.1), (before.0, before.1));
+        assert!(
+            after.2 >= before.2 + 10,
+            "AX redraws must actually render the tab strip"
+        );
+        cx.update(|window, app| {
+            assert!(window.is_a11y_active());
+            assert!(window.a11y_tree().is_some());
+            let bar = bar.read(app);
+            assert_eq!(bar.presentation.tabs.len(), TAB_COUNT);
+            assert!((0..TAB_COUNT).all(|ix| bar.tab_scroll.tab_bounds(ix).is_some()));
+        });
+    });
+
+    // Reveal and activate a previously offscreen tab through its existing
+    // pointer handler; memoization must preserve the full strip and its input.
+    cx.update(|_, app| {
+        bar.update(app, |bar, cx| {
+            bar.tab_scroll.scroll_to_tab(TAB_COUNT - 1);
+            cx.notify();
+        })
+    });
+    for _ in 0..2 {
+        cx.update(|window, app| {
+            window.simulate_next_frame(app);
+            let _ = window.draw(app);
+        });
+    }
+    let last = cx.update(|_, app| {
+        let bar = bar.read(app);
+        let viewport = bar.tab_scroll.viewport();
+        let last = bar.tab_scroll.tab_bounds(TAB_COUNT - 1).unwrap();
+        assert_eq!(bar.tab_scroll.scrolled(), bar.tab_scroll.max_scroll());
+        assert!(viewport.contains(&last.center()));
+        // GPUI's existing extent excludes the leading tab margin. Preserve
+        // that geometry here while checking the far tab is usable at the end.
+        assert!(
+            last.right() <= viewport.right() + px(components::Tab::HORIZONTAL_MARGIN_PX) + px(0.5),
+            "far tab: scrolled={:?} max={:?} viewport={:?} last={:?} pending={:?}",
+            bar.tab_scroll.scrolled(),
+            bar.tab_scroll.max_scroll(),
+            viewport,
+            last,
+            bar.pending_reveal,
+        );
+        last
+    });
+    cx.simulate_click(last.center(), gpui::Modifiers::default());
+    test_support::drain_store_worker(&view, cx);
+    cx.update(|_, app| {
+        assert_eq!(
+            view.read(app).store.snapshot().active_repo,
+            Some(RepoId(TAB_COUNT as u64))
+        )
+    });
+}
+
+#[gpui::test]
+fn tab_presentations_refresh_changed_fields_fonts_and_closed_tabs(cx: &mut TestAppContext) {
+    let (view, cx, mut state) = mount(cx);
+    let bar = bar(&view, cx);
+    let before = counters(&bar, cx);
+    state.repos[1].spec.workdir = "/tmp/tab-cache/a-renamed-repository".into();
+    state.repos[1].incoming = RepoIncomingState::Current(RepoIncomingSnapshot {
+        tracking: HeadTracking::Tracking {
+            branch: "main".into(),
+            upstream: Upstream {
+                remote: "origin".into(),
+                branch: "main".into(),
+            },
+            divergence: Some(UpstreamDivergence {
+                ahead: 0,
+                behind: 12,
+            }),
+        },
+        checked_at: UNIX_EPOCH,
+    });
+    cx.update(|_, app| {
+        view.update(app, |view, cx| {
+            test_support::push_test_state(view, Arc::new(state.clone()), cx);
+        })
+    });
+    cx.run_until_parked();
+    test_support::redraw(cx);
+    let changed = counters(&bar, cx);
+    assert_eq!(changed.0, before.0 + 1);
+    assert_eq!(changed.1, before.1 + 2);
+    cx.update(|_, app| {
+        let tab = &bar.read(app).presentation.tabs[1];
+        assert_eq!(tab.label.as_ref(), "a-renamed-repository");
+        assert_eq!(tab.incoming_label.as_deref(), Some("↓12"));
+        assert!(tab.tooltip.contains("12 commits behind origin/main"));
+    });
+    cx.update(|window, app| {
+        // Change the real inherited font, rather than clearing the cache.
+        crate::font_preferences::set_current(
+            app,
+            crate::font_preferences::EDITOR_MONOSPACE_FONT_FAMILY.into(),
+            crate::font_preferences::EDITOR_MONOSPACE_FONT_FAMILY.into(),
+            true,
+        );
+        window.refresh();
+    });
+    test_support::redraw(cx);
+    let fonts = counters(&bar, cx);
+    assert_eq!(fonts.0, changed.0);
+    assert_eq!(fonts.1, changed.1 + TAB_COUNT + 1);
+    test_support::redraw(cx);
+    assert_eq!(counters(&bar, cx).1, fonts.1);
+
+    // A theme changes foreground paint while shaping stays the same. With
+    // forced AX every draw renders the bar, including after the first change.
+    for theme in [AppTheme::gitcomet_light(), AppTheme::gitcomet_dark()] {
+        cx.update(|_, app| view.update(app, |view, cx| view.set_theme(theme, cx)));
+        let renders = counters(&bar, cx).2;
+        for _ in 0..3 {
+            test_support::redraw(cx);
+            let after_theme = counters(&bar, cx);
+            assert_eq!(
+                after_theme.1, fonts.1,
+                "theme paint must not invalidate widths"
+            );
+            assert_eq!(after_theme.0, fonts.0);
+        }
+        assert!(counters(&bar, cx).2 >= renders + 3);
+    }
+
+    state.repos.swap(0, 1);
+    state.repos.pop();
+    cx.update(|_, app| {
+        view.update(app, |view, cx| {
+            test_support::push_test_state(view, Arc::new(state.clone()), cx);
+        })
+    });
+    cx.run_until_parked();
+    test_support::redraw(cx);
+    assert_eq!(
+        counters(&bar, cx).0,
+        fonts.0,
+        "reorder reuses entries and close drops them"
+    );
+    cx.update(|_, app| {
+        let cache = &bar.read(app).presentation;
+        assert_eq!(cache.tabs.len(), TAB_COUNT - 1);
+        assert_eq!(cache.tabs[0].id, RepoId(2));
+        assert!(
+            !cache
+                .tabs
+                .iter()
+                .any(|tab| tab.id == RepoId(TAB_COUNT as u64))
+        );
+    });
+}
