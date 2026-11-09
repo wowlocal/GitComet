@@ -1,0 +1,43 @@
+--- analyze-before-endpoint-unknown.py
++++ analyze.py
+@@ -108,6 +108,17 @@
+         rows=[w['source_curve_residual_by_fixed_shift_ms'][shift]for w in windows];num=sum(r['sum_absolute_delta_error_px']for r in rows);den=sum(r['sum_absolute_reference_travel_px']for r in rows)
+         result['source_curve_residual_by_fixed_shift_ms'][shift]={'sum_absolute_delta_error_px':num,'sum_absolute_reference_travel_px':den,'travel_normalized_absolute_delta_error':num/den if den else None}
+     return result
++
++def endpoint_assessment(displays,expected,last_nonzero,tolerance=.01):
++    """Classify the final actual display, never silently backfill its pose."""
++    displays=sorted(displays,key=lambda r:r['t'])
++    last=displays[-1]if displays else None
++    known=[r for r in displays if r['position']is not None]
++    reached=[r for r in known if r['t']>=last_nonzero and abs(r['position']-expected)<=tolerance]
++    status=('no_actual_display'if last is None else'ambiguous'if last['ambiguous']else'unknown'if last['position']is None else'known')
++    final_position=last['position']if last else None
++    error=final_position-expected if final_position is not None else None
++    return {'last_displayed_at_s':last['t']if last else None,'last_displayed_pose':final_position,'last_displayed_pose_status':status,'endpoint_error_px':error,'endpoint_within_tolerance':abs(error)<=tolerance if error is not None else None,'first_endpoint_after_final_nonzero_dispatch_ms':(reached[0]['t']-last_nonzero)*1000 if reached else None,'last_known_displayed_pose_supplement':known[-1]['position']if known else None,'last_known_displayed_at_s_supplement':known[-1]['t']if known else None,'displayed_pose_count':len(known),'actual_display_count':len(displays),'unknown_display_pose_count':sum(r['position']is None for r in displays),'ambiguous_display_pose_count':sum(r['ambiguous']for r in displays)}
+ 
+ def telemetry(m,lo,hi):
+     ids=[i for i,r in enumerate(m['samples'])if lo<=r['unix_ms']<=hi]
+@@ -179,11 +190,9 @@
+             if not low-.01<=pos<=high+.01:bounds.append({'marker':marker['seq'],'pose':pos,'bounds':[low,high]})
+             if direction*(pos-previous)<-.01:reversals.append({'marker':marker['seq'],'pose':pos,'previous':previous})
+             previous=pos
+-        displayed=[r for r in samples if group[0]['at_s']<=r['t']<cutoff and r['position']is not None]
++        displayed=[r for r in samples if group[0]['at_s']<=r['t']<cutoff]
+         last_nonzero=next(r['at_s']for r in reversed(group)if r['dy'])
+-        reached=[r for r in displayed if r['t']>=last_nonzero and abs(r['position']-expected)<=.01]
+-        last=displayed[-1]if displayed else None
+-        cycle_checks.append({'cycle':c,'measured':measured,'start_expected':start,'end_expected':expected,'last_displayed_pose':last['position']if last else None,'endpoint_error_px':last['position']-expected if last else None,'endpoint_within_tolerance':bool(last and abs(last['position']-expected)<=.01),'first_endpoint_after_final_nonzero_dispatch_ms':(reached[0]['t']-last_nonzero)*1000 if reached else None,'received_path_bound_violations':bounds,'marker_direction_reversals':reversals,'marker_count':len(relevant),'displayed_pose_count':len(displayed)})
++        cycle_checks.append({'cycle':c,'measured':measured,'start_expected':start,'end_expected':expected,**endpoint_assessment(displayed,expected,last_nonzero),'received_path_bound_violations':bounds,'marker_direction_reversals':reversals,'marker_count':len(relevant)})
+     assert len(cores)==len(momentums)==len(tails)==8
+     combined=combine_windows(cores)
+     assert math.isclose(combined['exposure_s'],plan['core_exposure_s_per_run'],abs_tol=1e-8)
+@@ -205,7 +214,7 @@
+     input_stages=[r['at_ms']-r['a']/1e6 for r in stage_rows[482:]]
+     submit=stats(r['duration_ms']for r in f if r['event']=='submit'and first['at_ms']+300<=r['start_ms']<=last['at_ms']-300)
+     wakes={phase_name:sum(r['event']=='wake'and bounds[0]<=r['at_s']<=bounds[1]for r in n)for phase_name,bounds in {'full_scrolling':(lo/1000+clock_unix,hi/1000+clock_unix),'idle_after':(last['unix_ms']/1000+clock_unix+2.5,last['unix_ms']/1000+clock_unix+12.5)}.items()}
+-    return {'ordinal':entry['ordinal'],'condition':entry['condition'],'path':str(run),'binary_sha256':m['build_binary_sha256'],'scenario_sha256':sha(run/'scenario.json'),'core':combined,'cores':cores,'full_momentum':combine_windows(momentums),'full_momentum_windows':momentums,'fixed_tails':combine_windows(tails),'fixed_tail_windows':tails,'full_phase_descriptive':{'presentation_rate_hz':len(full_selected)/((hi-lo)/1000),'presentations':len(full_selected),'gap_ms':stats(full_gaps)},'submission_outcomes_full_phase':dict(outcomes),'submit_elapsed_including_drawable_acquisition_ms':submit,'wake_request_counts':wakes,'wake_request_scope':'Requests only, not executions/frames/CPU cost.','source_timestamp_lateness_ms':stats(lateness),'effective_source_age_ms':stats(effective_ages),'effective_age_over_100ms_packets':sum(v>100 for v in effective_ages),'measured_input_stages':len(input_stages),'traced_input_lateness_ms':stats(input_stages),'clock_mapping':{'ca_minus_trace_s':ca_to_trace,'ca_minus_unix_s':clock_unix,'trace_residual_ms':stats(residual),'max_abs_trace_residual_ms':max(map(abs,residual))},'correctness':{'all_cycle_endpoints':all(r['endpoint_within_tolerance']for r in cycle_checks),'no_received_path_bound_violation':all(not r['received_path_bound_violations']for r in cycle_checks),'no_marker_direction_reversal':all(not r['marker_direction_reversals']for r in cycle_checks)},'cycles':cycle_checks,'engagement':{'between_discrete_source_endpoint_presentations':engagement,'known_core_poses':engagement_known,'tolerance_px':.001,'scope':'Witness of interpolation, not physical effectiveness/new information.'},'telemetry':t,'observer_parent_cpu_percent_one_core':observer,'capture_records':footer['records'],'capture_capacity':n[0]['max_records'],'capture_coverage':capture_coverage,'environment':m['environment'],'verification':m['verification']}
++    return {'ordinal':entry['ordinal'],'condition':entry['condition'],'path':str(run),'binary_sha256':m['build_binary_sha256'],'scenario_sha256':sha(run/'scenario.json'),'core':combined,'cores':cores,'full_momentum':combine_windows(momentums),'full_momentum_windows':momentums,'fixed_tails':combine_windows(tails),'fixed_tail_windows':tails,'full_phase_descriptive':{'presentation_rate_hz':len(full_selected)/((hi-lo)/1000),'presentations':len(full_selected),'gap_ms':stats(full_gaps)},'submission_outcomes_full_phase':dict(outcomes),'submit_elapsed_including_drawable_acquisition_ms':submit,'wake_request_counts':wakes,'wake_request_scope':'Requests only, not executions/frames/CPU cost.','source_timestamp_lateness_ms':stats(lateness),'effective_source_age_ms':stats(effective_ages),'effective_age_over_100ms_packets':sum(v>100 for v in effective_ages),'measured_input_stages':len(input_stages),'traced_input_lateness_ms':stats(input_stages),'clock_mapping':{'ca_minus_trace_s':ca_to_trace,'ca_minus_unix_s':clock_unix,'trace_residual_ms':stats(residual),'max_abs_trace_residual_ms':max(map(abs,residual))},'correctness':{'all_cycle_endpoints':all(r['endpoint_within_tolerance']is True for r in cycle_checks),'unknown_final_endpoint_cycles':sum(r['endpoint_within_tolerance']is None for r in cycle_checks),'failed_final_endpoint_cycles':sum(r['endpoint_within_tolerance']is False for r in cycle_checks),'no_received_path_bound_violation':all(not r['received_path_bound_violations']for r in cycle_checks),'no_marker_direction_reversal':all(not r['marker_direction_reversals']for r in cycle_checks)},'cycles':cycle_checks,'engagement':{'between_discrete_source_endpoint_presentations':engagement,'known_core_poses':engagement_known,'tolerance_px':.001,'scope':'Witness of interpolation, not physical effectiveness/new information.'},'telemetry':t,'observer_parent_cpu_percent_one_core':observer,'capture_records':footer['records'],'capture_capacity':n[0]['max_records'],'capture_coverage':capture_coverage,'environment':m['environment'],'verification':m['verification']}
+ 
+ def get(r,path):
+     for k in path:

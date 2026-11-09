@@ -1,0 +1,1 @@
+{"event":"capture_status","version":2,"status":"immediate_arm","pid":9167,"duration_s":60,"max_records":32768,"max_marker_windows":16,"record_size_bytes":88,"clock":"CACurrentMediaTime_seconds","native_event_clock":"system_uptime_seconds","native_origin":"AppKit_packets_not_verified_hardware","requested_frame_rate_mode":"default","requested_latency":null}

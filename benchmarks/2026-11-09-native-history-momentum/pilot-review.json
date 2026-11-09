@@ -1,0 +1,229 @@
+{
+  "verdict": "No acquisition/arithmetic blocker to balanced main series. Successful pilots are excluded from comparison.",
+  "independent_checks": [
+    "Per-phase contiguous interval sums/energy/CPU/app and WindowServer GPU/residency",
+    "Unique actual cadence p95/p99/counts and duration-weighted held logical poses",
+    "Cross-pilot binary/profile/scenario and ready/after display/power/reduce-motion/thermal/window/foreground controls"
+  ],
+  "main_setup_change": "Normal open-a activation added after ready before12s idle for both main conditions, disclosed after pilots; metric definitions remain unchanged.",
+  "failed_pilot_attempts": [
+    {
+      "condition": "on",
+      "ordinal": 1,
+      "path": "/path/to/workspace/GitComet/target/app-scroll-validation/pilot-on-20261109-213034/01-on",
+      "valid": false,
+      "failures": [
+        "missing environment snapshots",
+        "native foreground mismatch",
+        "scenario failed",
+        "focus/readiness contamination",
+        "incomplete/dropped timing capture",
+        "packet capture mismatch"
+      ]
+    }
+  ],
+  "successful_pilots": [
+    {
+      "name": "pilot-off-20261109-212904",
+      "condition": "off",
+      "binary_sha256": "f3172102f1b0b9722424ea991ee229a51396ee43a87cffaabcd4adc36b9455c3",
+      "profile_sha256": "a62d1ab2dc4ccce427f5c7d15125ae30b51ee2eec316375bc53199691bb16ad6",
+      "scenario_sha256": "afb3bd0f375cb165e7316dbf95b29833afecd51bd4e5c38be1a69ea4e0155d27",
+      "independent_cadence_and_held_time_match": true,
+      "independent_3_phase_counters_match": true,
+      "core_hz": 77.14546718696177,
+      "held_pairs": [
+        26,
+        320
+      ],
+      "held_time_fraction": 0.052313799079935955,
+      "observer_cpu_percent_one_core": 1.2621957431822846,
+      "correctness": {
+        "all_cycle_endpoints": true,
+        "no_received_path_bound_violation": true,
+        "no_marker_direction_reversal": true
+      },
+      "engagement": {
+        "between_discrete_source_endpoint_presentations": 0,
+        "known_core_poses": 328,
+        "tolerance_px": 0.001,
+        "scope": "Witness of interpolation, not physical effectiveness/new information."
+      },
+      "max_abs_clock_residual_ms": 0.007313501555472612,
+      "capture_records": 20775,
+      "telemetry": {
+        "idle_before": {
+          "available": true,
+          "samples": 9,
+          "raw_sample_indices": [
+            3,
+            11
+          ],
+          "elapsed_s": 8.037564250000287,
+          "whole_gpu_modeled_j": 0.993193533,
+          "whole_gpu_modeled_w": 0.1235689696663967,
+          "app_cpu_percent_one_core": 0.7873285948123453,
+          "app_gpu_ms_per_wall_second": 0.0,
+          "windowserver_gpu_ms_per_wall_second": 99.03033857551704,
+          "gpu_state_percent": {
+            "OFF": 87.84199865754194,
+            "P1": 12.158001342458066
+          },
+          "gpu_residency_vs_wall_ratio": 0.9999913842056956,
+          "cpu_counter_reset": false,
+          "gpu_counter_reset": false
+        },
+        "scrolling": {
+          "available": true,
+          "samples": 12,
+          "raw_sample_indices": [
+            21,
+            32
+          ],
+          "elapsed_s": 11.040979959012475,
+          "whole_gpu_modeled_j": 10.92291833,
+          "whole_gpu_modeled_w": 0.9893069610260361,
+          "app_cpu_percent_one_core": 26.087641698104203,
+          "app_gpu_ms_per_wall_second": 45.43370858947441,
+          "windowserver_gpu_ms_per_wall_second": 407.77353773973215,
+          "gpu_state_percent": {
+            "OFF": 45.75937598708631,
+            "P1": 50.00348638964391,
+            "P2": 1.2511563135712547,
+            "P3": 1.1638224133761614,
+            "P4": 1.8221588963223647
+          },
+          "gpu_residency_vs_wall_ratio": 1.0000153744795741,
+          "cpu_counter_reset": false,
+          "gpu_counter_reset": false
+        },
+        "idle_after": {
+          "available": true,
+          "samples": 10,
+          "raw_sample_indices": [
+            36,
+            45
+          ],
+          "elapsed_s": 9.05872787500266,
+          "whole_gpu_modeled_j": 4.59934964,
+          "whole_gpu_modeled_w": 0.5077257760100945,
+          "app_cpu_percent_one_core": 3.0659129202868574,
+          "app_gpu_ms_per_wall_second": 1.0722394064627037,
+          "windowserver_gpu_ms_per_wall_second": 296.0353949256051,
+          "gpu_state_percent": {
+            "OFF": 66.54471135659048,
+            "P1": 33.18949489154259,
+            "P2": 0.2210390735390575,
+            "P3": 0.012213808863022554,
+            "P4": 0.03254086946485452
+          },
+          "gpu_residency_vs_wall_ratio": 0.9998878889674128,
+          "cpu_counter_reset": false,
+          "gpu_counter_reset": false
+        }
+      }
+    },
+    {
+      "name": "pilot-on-20261109-213235",
+      "condition": "on",
+      "binary_sha256": "f3172102f1b0b9722424ea991ee229a51396ee43a87cffaabcd4adc36b9455c3",
+      "profile_sha256": "a62d1ab2dc4ccce427f5c7d15125ae30b51ee2eec316375bc53199691bb16ad6",
+      "scenario_sha256": "afb3bd0f375cb165e7316dbf95b29833afecd51bd4e5c38be1a69ea4e0155d27",
+      "independent_cadence_and_held_time_match": true,
+      "independent_3_phase_counters_match": true,
+      "core_hz": 115.95340037552485,
+      "held_pairs": [
+        0,
+        485
+      ],
+      "held_time_fraction": 0.0,
+      "observer_cpu_percent_one_core": 1.2719151343948836,
+      "correctness": {
+        "all_cycle_endpoints": true,
+        "no_received_path_bound_violation": true,
+        "no_marker_direction_reversal": true
+      },
+      "engagement": {
+        "between_discrete_source_endpoint_presentations": 493,
+        "known_core_poses": 493,
+        "tolerance_px": 0.001,
+        "scope": "Witness of interpolation, not physical effectiveness/new information."
+      },
+      "max_abs_clock_residual_ms": 0.010666961316019297,
+      "capture_records": 29187,
+      "telemetry": {
+        "idle_before": {
+          "available": true,
+          "samples": 9,
+          "raw_sample_indices": [
+            3,
+            11
+          ],
+          "elapsed_s": 8.02910983300535,
+          "whole_gpu_modeled_j": 0.93861543,
+          "whole_gpu_modeled_w": 0.11690155565460361,
+          "app_cpu_percent_one_core": 0.7749089620234773,
+          "app_gpu_ms_per_wall_second": 0.0,
+          "windowserver_gpu_ms_per_wall_second": 98.97841734997604,
+          "gpu_state_percent": {
+            "OFF": 88.10804395242023,
+            "P1": 11.891956047579766
+          },
+          "gpu_residency_vs_wall_ratio": 0.9999991230237436,
+          "cpu_counter_reset": false,
+          "gpu_counter_reset": false
+        },
+        "scrolling": {
+          "available": true,
+          "samples": 12,
+          "raw_sample_indices": [
+            21,
+            32
+          ],
+          "elapsed_s": 11.049873167008627,
+          "whole_gpu_modeled_j": 10.963900924,
+          "whole_gpu_modeled_w": 0.9922196172110543,
+          "app_cpu_percent_one_core": 30.40990146112546,
+          "app_gpu_ms_per_wall_second": 54.830904558157904,
+          "windowserver_gpu_ms_per_wall_second": 430.16094801808225,
+          "gpu_state_percent": {
+            "OFF": 42.21463841781308,
+            "P1": 54.77953905394166,
+            "P2": 0.7978685987559903,
+            "P3": 0.6658768021184932,
+            "P4": 1.542077127370781
+          },
+          "gpu_residency_vs_wall_ratio": 1.0000079223827625,
+          "cpu_counter_reset": false,
+          "gpu_counter_reset": false
+        },
+        "idle_after": {
+          "available": true,
+          "samples": 10,
+          "raw_sample_indices": [
+            36,
+            45
+          ],
+          "elapsed_s": 9.051419625000563,
+          "whole_gpu_modeled_j": 1.126719422,
+          "whole_gpu_modeled_w": 0.12447985715831068,
+          "app_cpu_percent_one_core": 0.7728419360146803,
+          "app_gpu_ms_per_wall_second": 0.0,
+          "windowserver_gpu_ms_per_wall_second": 105.07485260909456,
+          "gpu_state_percent": {
+            "OFF": 87.83932291619314,
+            "P1": 12.160677083806853
+          },
+          "gpu_residency_vs_wall_ratio": 0.9999995120470144,
+          "cpu_counter_reset": false,
+          "gpu_counter_reset": false
+        }
+      }
+    }
+  ],
+  "limits": [
+    "Off pilot idle-after includes substantially more desktop/compositor activity, retained as confounded; no app-watts subtraction.",
+    "On record count29187/32768 leaves finite capacity margin; capture overflow remains an explicit acquisition failure.",
+    "Synthetic metadata replay and logical poses are not physical-input or raster smoothness evidence."
+  ]
+}

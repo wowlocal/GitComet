@@ -1,0 +1,35 @@
+{
+  "series": "pilot-on-20261109-213034",
+  "pilot": true,
+  "order": [
+    "on"
+  ],
+  "real_session_sha256": "19b35414d4758014a5090635b9879d97e94c70cd82a0a34e6bbb04bc14e13ab0",
+  "input_profile_sha256": "a62d1ab2dc4ccce427f5c7d15125ae30b51ee2eec316375bc53199691bb16ad6",
+  "input_plan_sha256": "a115e1bb5b0ffd0873d7c3533cb05fcc37a443d6ddf39f0a6b5ca8b65634a8a5",
+  "runs": [
+    {
+      "condition": "on",
+      "ordinal": 1,
+      "path": "pilots/pilot-on-20261109-213034/01-on",
+      "valid": false,
+      "failures": [
+        "missing environment snapshots",
+        "native foreground mismatch",
+        "scenario failed",
+        "focus/readiness contamination",
+        "incomplete/dropped timing capture",
+        "packet capture mismatch"
+      ]
+    }
+  ],
+  "started_unix_s": 1794249034.5530722,
+  "expected_viewport": [
+    243.0,
+    117.0,
+    1095.0,
+    882.0
+  ],
+  "repository_identity_sha256": "d1a197a359cfb0069a86a9968926672590775df6573571c106b4a8994d87d348",
+  "redactions": "Private session files, repository identity/content, stdout/stderr and unrelated app events omitted. Window repository names replaced; power source reduced to AC/Battery; foreign foreground bundle replaced. Numeric analysis inputs unchanged."
+}

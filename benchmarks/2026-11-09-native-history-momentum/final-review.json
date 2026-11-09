@@ -1,0 +1,2267 @@
+{
+  "verdict": "Recorded arithmetic and controls pass; supports logical pose retiming with a latency/CPU tradeoff, not a higher-frame-rate or physical-user-feel claim.",
+  "series": "/path/to/workspace/GitComet/target/app-scroll-validation/balanced-20261109-213514",
+  "analysis_sha256": "530cbd01b3dbf2a68e08e71f50cc42d60d948cef2583f7c7a7f76af49c51d986",
+  "reviewer_script_sha256": "81f808fcd9c8f9b7b0b9f430667615079c67219830344eabb3deb9f3703ff067",
+  "binary_sha256": "f3172102f1b0b9722424ea991ee229a51396ee43a87cffaabcd4adc36b9455c3",
+  "scenario_sha256": "afb3bd0f375cb165e7316dbf95b29833afecd51bd4e5c38be1a69ea4e0155d27",
+  "checks": {
+    "valid_balanced_runs": 8,
+    "pilot_runs_in_comparison": 0,
+    "main_failed_attempts": 0,
+    "paired_input_and_native_markers_per_run": 1442,
+    "measured_stages_per_run": 960,
+    "core_exposure_s_per_run": 4.251708,
+    "unique_cadence_held_duration_and_source_inverse_recomputed": true,
+    "both_fixed_shift_curve_residuals_recomputed": true,
+    "all24phase_integrals_and_monotonic_counters_recomputed": true,
+    "final_actual_display_endpoint_status_verified": true,
+    "cross_run_environment_binary_profile_scenario_control_matches": true,
+    "all_paired_contrasts_reproduced": true
+  },
+  "summary": {
+    "off": {
+      "core_hz": {
+        "n": 4,
+        "median": 117.95259693372356,
+        "p95": 118.74051557724891,
+        "p99": 118.76873952865878,
+        "max": 118.77579551651125,
+        "min": 115.24780159027824
+      },
+      "core_gap_p95_ms": {
+        "n": 4,
+        "median": 8.333437494002283,
+        "p95": 8.333493705140427,
+        "p99": 8.333498748252168,
+        "max": 8.333500009030104,
+        "min": 8.333417004905641
+      },
+      "core_gap_p99_ms": {
+        "n": 4,
+        "median": 16.66660483344458,
+        "p95": 16.666673621279188,
+        "p99": 16.666674562566914,
+        "max": 16.666674797888845,
+        "min": 8.750152110587806
+      },
+      "core_max_gap_ms": {
+        "n": 4,
+        "median": 16.666749987052754,
+        "p95": 16.670723288552836,
+        "p99": 16.67127829627134,
+        "max": 16.671417048200965,
+        "min": 16.666666022501886
+      },
+      "held_known_pair_fraction": {
+        "n": 4,
+        "median": 0.007079134685915903,
+        "p95": 0.01884209823254882,
+        "p99": 0.020365930019953748,
+        "max": 0.02074688796680498,
+        "min": 0.0020161290322580645
+      },
+      "held_known_time_fraction": {
+        "n": 4,
+        "median": 0.006952309679330011,
+        "p95": 0.01809050970870203,
+        "p99": 0.01952179432429293,
+        "max": 0.019879615478190657,
+        "min": 0.0019959996646578587
+      },
+      "source_equivalent_pose_lag_median_ms": {
+        "n": 4,
+        "median": 51.13738574436866,
+        "p95": 51.399840507656336,
+        "p99": 51.401668041944504,
+        "max": 51.402124925516546,
+        "min": 47.795270453207195
+      },
+      "source_equivalent_pose_lag_p95_ms": {
+        "n": 4,
+        "median": 51.48701553262072,
+        "p95": 51.50580953035387,
+        "p99": 51.50722884046263,
+        "max": 51.50758366798982,
+        "min": 50.463703426066786
+      },
+      "curve_delta_error_shift0": {
+        "n": 4,
+        "median": 0.25340115846678535,
+        "p95": 0.2660757485502494,
+        "p99": 0.2662673458570384,
+        "max": 0.2663152451837356,
+        "min": 0.22145526716550004
+      },
+      "curve_delta_error_shift12_5": {
+        "n": 4,
+        "median": 0.18451059785343918,
+        "p95": 0.19781762665801633,
+        "p99": 0.19827887970285438,
+        "max": 0.1983941929640639,
+        "min": 0.1624490973376082
+      },
+      "app_cpu_percent_one_core": {
+        "n": 4,
+        "median": 29.1484830757299,
+        "p95": 29.237588164758268,
+        "p99": 29.246522919958753,
+        "max": 29.24875660875887,
+        "min": 29.061800687140828
+      },
+      "app_gpu_ms_per_wall_second": {
+        "n": 4,
+        "median": 56.288116446610466,
+        "p95": 58.03205139549078,
+        "p99": 58.07611871598618,
+        "max": 58.08713554611004,
+        "min": 54.751109117572064
+      },
+      "whole_gpu_modeled_w": {
+        "n": 4,
+        "median": 1.2481495018099502,
+        "p95": 1.2824264586094,
+        "p99": 1.2871245598293783,
+        "max": 1.288299085134373,
+        "min": 1.1765916138327666
+      },
+      "observer_parent_cpu_percent_one_core": {
+        "n": 4,
+        "median": 1.3044320332756807,
+        "p95": 1.319425739968489,
+        "p99": 1.3212217058698497,
+        "max": 1.32167069734519,
+        "min": 1.2519515569805086
+      },
+      "idle_before_whole_gpu_modeled_w": {
+        "n": 4,
+        "median": 0.12029517214382807,
+        "p95": 0.14623839128083485,
+        "p99": 0.1495209965128458,
+        "max": 0.15034164782084855,
+        "min": 0.11463424702769062
+      },
+      "idle_before_app_cpu_percent_one_core": {
+        "n": 4,
+        "median": 0.7503618973036141,
+        "p95": 0.7541768282880547,
+        "p99": 0.7546320340735155,
+        "max": 0.7547458355198807,
+        "min": 0.7315762661761195
+      },
+      "idle_before_app_gpu_ms_per_wall_second": {
+        "n": 4,
+        "median": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "min": 0.0
+      },
+      "idle_before_windowserver_gpu_ms_per_wall_second": {
+        "n": 4,
+        "median": 100.30547819458246,
+        "p95": 107.30912367651658,
+        "p99": 108.18556020452759,
+        "max": 108.40466933653033,
+        "min": 99.10831688403287
+      },
+      "scrolling_whole_gpu_modeled_w": {
+        "n": 4,
+        "median": 1.2481495018099502,
+        "p95": 1.2824264586094,
+        "p99": 1.2871245598293783,
+        "max": 1.288299085134373,
+        "min": 1.1765916138327666
+      },
+      "scrolling_app_cpu_percent_one_core": {
+        "n": 4,
+        "median": 29.1484830757299,
+        "p95": 29.237588164758268,
+        "p99": 29.246522919958753,
+        "max": 29.24875660875887,
+        "min": 29.061800687140828
+      },
+      "scrolling_app_gpu_ms_per_wall_second": {
+        "n": 4,
+        "median": 56.288116446610466,
+        "p95": 58.03205139549078,
+        "p99": 58.07611871598618,
+        "max": 58.08713554611004,
+        "min": 54.751109117572064
+      },
+      "scrolling_windowserver_gpu_ms_per_wall_second": {
+        "n": 4,
+        "median": 581.5389759554632,
+        "p95": 591.1263271360029,
+        "p99": 591.3163813302519,
+        "max": 591.3638948788142,
+        "min": 566.1098076668954
+      },
+      "idle_after_whole_gpu_modeled_w": {
+        "n": 4,
+        "median": 0.1235569597454208,
+        "p95": 0.13873414488728256,
+        "p99": 0.1403327743687473,
+        "max": 0.1407324317391135,
+        "min": 0.11673940065954903
+      },
+      "idle_after_app_cpu_percent_one_core": {
+        "n": 4,
+        "median": 0.72746730872114,
+        "p95": 0.7442987987151858,
+        "p99": 0.7466248111904957,
+        "max": 0.7472063143093233,
+        "min": 0.7067130686279528
+      },
+      "idle_after_app_gpu_ms_per_wall_second": {
+        "n": 4,
+        "median": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "min": 0.0
+      },
+      "idle_after_windowserver_gpu_ms_per_wall_second": {
+        "n": 4,
+        "median": 99.29576077433526,
+        "p95": 105.07649625119191,
+        "p99": 105.80868476359151,
+        "max": 105.99173189169142,
+        "min": 97.79328469972297
+      }
+    },
+    "on": {
+      "core_hz": {
+        "n": 4,
+        "median": 116.18859997060704,
+        "p95": 118.56411588093728,
+        "p99": 118.73345958939646,
+        "max": 118.77579551651125,
+        "min": 114.77740240011384
+      },
+      "core_gap_p95_ms": {
+        "n": 4,
+        "median": 8.333458477864042,
+        "p95": 8.333493853569962,
+        "p99": 8.333498777938075,
+        "max": 8.333500009030104,
+        "min": 8.333457983098924
+      },
+      "core_gap_p99_ms": {
+        "n": 4,
+        "median": 16.66664805088658,
+        "p95": 16.666701843496412,
+        "p99": 16.666706760879606,
+        "max": 16.666707990225405,
+        "min": 8.333500009030104
+      },
+      "core_max_gap_ms": {
+        "n": 4,
+        "median": 16.666791489114985,
+        "p95": 16.66796691424679,
+        "p99": 16.668127001612447,
+        "max": 16.66816702345386,
+        "min": 16.66666701203212
+      },
+      "held_known_pair_fraction": {
+        "n": 4,
+        "median": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "min": 0.0
+      },
+      "held_known_time_fraction": {
+        "n": 4,
+        "median": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "min": 0.0
+      },
+      "source_equivalent_pose_lag_median_ms": {
+        "n": 4,
+        "median": 54.099897053674795,
+        "p95": 54.10067735501798,
+        "p99": 54.100737484695856,
+        "max": 54.100752517115325,
+        "min": 54.0983768296428
+      },
+      "source_equivalent_pose_lag_p95_ms": {
+        "n": 4,
+        "median": 54.1172143566655,
+        "p95": 54.11837290361291,
+        "p99": 54.11841944482876,
+        "max": 54.11843108013272,
+        "min": 54.11530790152028
+      },
+      "curve_delta_error_shift0": {
+        "n": 4,
+        "median": 0.24450909931945158,
+        "p95": 0.24611334987026381,
+        "p99": 0.2462090717169621,
+        "max": 0.2462330021786367,
+        "min": 0.24061273592306623
+      },
+      "curve_delta_error_shift12_5": {
+        "n": 4,
+        "median": 0.18063818078627422,
+        "p95": 0.185370619898982,
+        "p99": 0.18594136493464458,
+        "max": 0.1860840511935602,
+        "min": 0.17854995730453646
+      },
+      "app_cpu_percent_one_core": {
+        "n": 4,
+        "median": 30.546236990218915,
+        "p95": 30.83607995117245,
+        "p99": 30.861365733655123,
+        "max": 30.86768717927579,
+        "min": 30.430903460287915
+      },
+      "app_gpu_ms_per_wall_second": {
+        "n": 4,
+        "median": 53.87349372555994,
+        "p95": 55.9174649164944,
+        "p99": 56.054583117634564,
+        "max": 56.08886266791961,
+        "min": 52.68941951965085
+      },
+      "whole_gpu_modeled_w": {
+        "n": 4,
+        "median": 0.9759722562015712,
+        "p95": 1.0677125781573602,
+        "p99": 1.0805567664411104,
+        "max": 1.0837678135120479,
+        "min": 0.8858371997191992
+      },
+      "observer_parent_cpu_percent_one_core": {
+        "n": 4,
+        "median": 1.3008216471566802,
+        "p95": 1.3163063185311208,
+        "p99": 1.3181524504554583,
+        "max": 1.3186139834365425,
+        "min": 1.277011128393622
+      },
+      "idle_before_whole_gpu_modeled_w": {
+        "n": 4,
+        "median": 0.11961488103259098,
+        "p95": 0.13051471067224843,
+        "p99": 0.13205266531553253,
+        "max": 0.13243715397635356,
+        "min": 0.11469484193959198
+      },
+      "idle_before_app_cpu_percent_one_core": {
+        "n": 4,
+        "median": 0.7189260118011285,
+        "p95": 0.7385116636715722,
+        "p99": 0.7402426581742296,
+        "max": 0.740675406799894,
+        "min": 0.7087906914475844
+      },
+      "idle_before_app_gpu_ms_per_wall_second": {
+        "n": 4,
+        "median": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "min": 0.0
+      },
+      "idle_before_windowserver_gpu_ms_per_wall_second": {
+        "n": 4,
+        "median": 98.34583662837827,
+        "p95": 108.0621187439416,
+        "p99": 109.36463023745398,
+        "max": 109.69025811083206,
+        "min": 97.26312959434755
+      },
+      "scrolling_whole_gpu_modeled_w": {
+        "n": 4,
+        "median": 0.9759722562015712,
+        "p95": 1.0677125781573602,
+        "p99": 1.0805567664411104,
+        "max": 1.0837678135120479,
+        "min": 0.8858371997191992
+      },
+      "scrolling_app_cpu_percent_one_core": {
+        "n": 4,
+        "median": 30.546236990218915,
+        "p95": 30.83607995117245,
+        "p99": 30.861365733655123,
+        "max": 30.86768717927579,
+        "min": 30.430903460287915
+      },
+      "scrolling_app_gpu_ms_per_wall_second": {
+        "n": 4,
+        "median": 53.87349372555994,
+        "p95": 55.9174649164944,
+        "p99": 56.054583117634564,
+        "max": 56.08886266791961,
+        "min": 52.68941951965085
+      },
+      "scrolling_windowserver_gpu_ms_per_wall_second": {
+        "n": 4,
+        "median": 434.92724557239467,
+        "p95": 439.4488034332753,
+        "p99": 440.04521538513137,
+        "max": 440.19431837309537,
+        "min": 428.02214079214883
+      },
+      "idle_after_whole_gpu_modeled_w": {
+        "n": 4,
+        "median": 0.11909875186950217,
+        "p95": 0.13020552106414032,
+        "p99": 0.13131721026337187,
+        "max": 0.13159513256317976,
+        "min": 0.1065289184255059
+      },
+      "idle_after_app_cpu_percent_one_core": {
+        "n": 4,
+        "median": 0.7131189078754532,
+        "p95": 0.7141339086117472,
+        "p99": 0.714209566971266,
+        "max": 0.7142284815611457,
+        "min": 0.6917389175077565
+      },
+      "idle_after_app_gpu_ms_per_wall_second": {
+        "n": 4,
+        "median": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "min": 0.0
+      },
+      "idle_after_windowserver_gpu_ms_per_wall_second": {
+        "n": 4,
+        "median": 98.67569327569042,
+        "p95": 100.0711959040552,
+        "p99": 100.25927729419254,
+        "max": 100.30629764172689,
+        "min": 98.56952084559245
+      }
+    }
+  },
+  "paired_contrasts": [
+    {
+      "ordinals_off_on": [
+        1,
+        2
+      ],
+      "on_minus_off": {
+        "core_hz": -3.527993926233009,
+        "core_gap_p95_ms": 4.196772351861e-05,
+        "core_gap_p99_ms": 7.916514901444316,
+        "core_max_gap_ms": 0.001501000951975584,
+        "held_known_pair_fraction": -0.0020161290322580645,
+        "held_known_time_fraction": -0.0019959996646578587,
+        "source_equivalent_pose_lag_median_ms": 6.3042722176760435,
+        "source_equivalent_pose_lag_p95_ms": 3.654727654065937,
+        "curve_delta_error_shift0": 0.023980052957317366,
+        "curve_delta_error_shift12_5": 0.02363495385595199,
+        "app_cpu_percent_one_core": 1.6933868638542897,
+        "app_gpu_ms_per_wall_second": -5.397716026459193,
+        "whole_gpu_modeled_w": -0.20138001257708726,
+        "observer_parent_cpu_percent_one_core": 0.025059571413113435
+      }
+    },
+    {
+      "ordinals_off_on": [
+        4,
+        3
+      ],
+      "on_minus_off": {
+        "core_hz": -0.47039919016440024,
+        "core_gap_p95_ms": 0.0,
+        "core_gap_p99_ms": 3.3192336559295654e-05,
+        "core_max_gap_ms": -0.004667032044380903,
+        "held_known_pair_fraction": -0.02074688796680498,
+        "held_known_time_fraction": -0.019879615478190657,
+        "source_equivalent_pose_lag_median_ms": 2.713355963351205,
+        "source_equivalent_pose_lag_p95_ms": 2.6222871529171243,
+        "curve_delta_error_shift0": -0.022732366667649856,
+        "curve_delta_error_shift12_5": -0.01984423565952745,
+        "app_cpu_percent_one_core": 1.182146851529044,
+        "app_gpu_ms_per_wall_second": 1.3377535503475428,
+        "whole_gpu_modeled_w": -0.36331104191535357,
+        "observer_parent_cpu_percent_one_core": -0.0037460081378832832
+      }
+    },
+    {
+      "ordinals_off_on": [
+        6,
+        5
+      ],
+      "on_minus_off": {
+        "core_hz": 0.0,
+        "core_gap_p95_ms": 4.0978193283081055e-05,
+        "core_gap_p99_ms": -3.786408342421055e-05,
+        "core_max_gap_ms": 0.00012497184798121452,
+        "held_known_pair_fraction": -0.006109979633401222,
+        "held_known_time_fraction": -0.0059523756770602215,
+        "source_equivalent_pose_lag_median_ms": 2.698627591598779,
+        "source_equivalent_pose_lag_p95_ms": 2.607724233530462,
+        "curve_delta_error_shift0": -0.01848559878185746,
+        "curve_delta_error_shift12_5": -0.013222575027374617,
+        "app_cpu_percent_one_core": 1.3737009680434724,
+        "app_gpu_ms_per_wall_second": 0.08988597384566788,
+        "whole_gpu_modeled_w": -0.2704178508378845,
+        "observer_parent_cpu_percent_one_core": -0.003474764100118044
+      }
+    },
+    {
+      "ordinals_off_on": [
+        7,
+        8
+      ],
+      "on_minus_off": {
+        "core_hz": 0.0,
+        "core_gap_p95_ms": 0.0,
+        "core_gap_p99_ms": -8.333042704034597,
+        "core_max_gap_ms": -0.00012497184798121452,
+        "held_known_pair_fraction": -0.008048289738430584,
+        "held_known_time_fraction": -0.0079522436815998,
+        "source_equivalent_pose_lag_median_ms": 3.2105008140206337,
+        "source_equivalent_pose_lag_p95_ms": 2.638110495172441,
+        "curve_delta_error_shift0": -0.0014709800500103676,
+        "curve_delta_error_shift12_5": 0.0054777408930447025,
+        "app_cpu_percent_one_core": 1.5343064892152327,
+        "app_gpu_ms_per_wall_second": -4.919131415946715,
+        "whole_gpu_modeled_w": -0.2045312716223251,
+        "observer_parent_cpu_percent_one_core": -0.0030567139086474793
+      }
+    }
+  ],
+  "runs": [
+    {
+      "ordinal": 1,
+      "condition": "off",
+      "core_presentations": 504,
+      "core_known_pairs": 496,
+      "core_held_pairs": 1,
+      "core_held_fraction": 0.0020161290322580645,
+      "core_held_time_fraction": 0.0019959996646578587,
+      "core_hz": 118.54059592142904,
+      "core_gap_ms": {
+        "n": 496,
+        "median": 8.333333011250943,
+        "p95": 8.333417004905641,
+        "p99": 8.750152110587806,
+        "max": 16.666666022501886,
+        "min": 8.333124977070838
+      },
+      "core_long_gap_counts": [
+        0,
+        0,
+        0
+      ],
+      "source_equivalent_pose_lag_ms": {
+        "n": 504,
+        "median": 47.795270453207195,
+        "p95": 50.463703426066786,
+        "p99": 50.52606546145398,
+        "max": 54.959458007942885,
+        "min": 44.33412494836375
+      },
+      "curve_residuals": {
+        "0": 0.22145526716550004,
+        "12.5": 0.1624490973376082
+      },
+      "max_source_age_ms": 27.813998924102634,
+      "max_abs_clock_residual_ms": 0.005124951712787151,
+      "max_abs_endpoint_error_px": 0.0,
+      "gesture_endpoints_supplement": [
+        {
+          "cycle": 0,
+          "measured": false,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 45.77024996979162
+        },
+        {
+          "cycle": 0,
+          "measured": false,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 56.770750030409545
+        },
+        {
+          "cycle": 1,
+          "measured": false,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 49.422333016991615
+        },
+        {
+          "cycle": 1,
+          "measured": false,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 49.43420802010223
+        },
+        {
+          "cycle": 2,
+          "measured": true,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 44.584665971342474
+        },
+        {
+          "cycle": 2,
+          "measured": true,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 43.26991701964289
+        },
+        {
+          "cycle": 3,
+          "measured": true,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 45.76250002719462
+        },
+        {
+          "cycle": 3,
+          "measured": true,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 45.74450000654906
+        },
+        {
+          "cycle": 4,
+          "measured": true,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 45.74541701003909
+        },
+        {
+          "cycle": 4,
+          "measured": true,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 45.75350001687184
+        },
+        {
+          "cycle": 5,
+          "measured": true,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 45.75933300657198
+        },
+        {
+          "cycle": 5,
+          "measured": true,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 48.446500033605844
+        }
+      ],
+      "unknown_or_ambiguous_final_endpoints": 0,
+      "capture_records": 21541,
+      "capture_capacity_margin": 11227,
+      "submission_outcomes_full_phase": {
+        "submissions": 1412,
+        "missing_present_callback": 0,
+        "zero_or_not_presented": 0,
+        "missing_gpu_callback": 0,
+        "gpu_errors": 0
+      },
+      "telemetry": {
+        "idle_before": {
+          "available": true,
+          "samples": 9,
+          "raw_sample_indices": [
+            3,
+            11
+          ],
+          "elapsed_s": 8.048973416967783,
+          "whole_gpu_modeled_j": 0.922688007,
+          "whole_gpu_modeled_w": 0.11463424702769062,
+          "app_cpu_percent_one_core": 0.7547458355198807,
+          "app_gpu_ms_per_wall_second": 0.0,
+          "windowserver_gpu_ms_per_wall_second": 99.10831688403287,
+          "gpu_state_percent": {
+            "OFF": 88.19003772798213,
+            "P1": 11.809962272017875
+          },
+          "gpu_residency_vs_wall_ratio": 1.0000004658605128,
+          "cpu_counter_reset": false,
+          "gpu_counter_reset": false
+        },
+        "scrolling": {
+          "available": true,
+          "samples": 12,
+          "raw_sample_indices": [
+            21,
+            32
+          ],
+          "elapsed_s": 11.048032166960184,
+          "whole_gpu_modeled_j": 12.999021997,
+          "whole_gpu_modeled_w": 1.1765916138327666,
+          "app_cpu_percent_one_core": 29.1743003154215,
+          "app_gpu_ms_per_wall_second": 58.08713554611004,
+          "windowserver_gpu_ms_per_wall_second": 591.3638948788142,
+          "gpu_state_percent": {
+            "OFF": 25.441069981029738,
+            "P1": 69.50536135789957,
+            "P2": 2.939699428027362,
+            "P3": 0.6461505747433312,
+            "P4": 1.4677186582999948
+          },
+          "gpu_residency_vs_wall_ratio": 0.999990567675286,
+          "cpu_counter_reset": false,
+          "gpu_counter_reset": false
+        },
+        "idle_after": {
+          "available": true,
+          "samples": 10,
+          "raw_sample_indices": [
+            36,
+            45
+          ],
+          "elapsed_s": 9.048131290997844,
+          "whole_gpu_modeled_j": 1.056273424,
+          "whole_gpu_modeled_w": 0.11673940065954903,
+          "app_cpu_percent_one_core": 0.7472063143093233,
+          "app_gpu_ms_per_wall_second": 0.0,
+          "windowserver_gpu_ms_per_wall_second": 99.89016095502801,
+          "gpu_state_percent": {
+            "OFF": 88.15312188161761,
+            "P1": 11.846878118382387
+          },
+          "gpu_residency_vs_wall_ratio": 0.9999986369931962,
+          "cpu_counter_reset": false,
+          "gpu_counter_reset": false
+        }
+      },
+      "observer_parent_cpu_percent_one_core": 1.2519515569805086
+    },
+    {
+      "ordinal": 2,
+      "condition": "on",
+      "core_presentations": 489,
+      "core_known_pairs": 481,
+      "core_held_pairs": 0,
+      "core_held_fraction": 0.0,
+      "core_held_time_fraction": 0.0,
+      "core_hz": 115.01260199519604,
+      "core_gap_ms": {
+        "n": 481,
+        "median": 8.333333011250943,
+        "p95": 8.33345897262916,
+        "p99": 16.66666701203212,
+        "max": 16.66816702345386,
+        "min": 8.331790973898023
+      },
+      "core_long_gap_counts": [
+        0,
+        0,
+        0
+      ],
+      "source_equivalent_pose_lag_ms": {
+        "n": 489,
+        "median": 54.09954267088324,
+        "p95": 54.11843108013272,
+        "p99": 54.12300595548004,
+        "max": 54.12961292313412,
+        "min": 52.93007945874706
+      },
+      "curve_residuals": {
+        "0": 0.2454353201228174,
+        "12.5": 0.1860840511935602
+      },
+      "max_source_age_ms": 25.53749899379909,
+      "max_abs_clock_residual_ms": 0.010499963536858559,
+      "max_abs_endpoint_error_px": 1.9685000097524608e-05,
+      "gesture_endpoints_supplement": [
+        {
+          "cycle": 0,
+          "measured": false,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 7.1380000008502975e-06,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 54.053874977398664
+        },
+        {
+          "cycle": 0,
+          "measured": false,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 1.5879995771683753e-06,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 62.39891599398106
+        },
+        {
+          "cycle": 1,
+          "measured": false,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 5.239000074652722e-06,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 56.74170900601894
+        },
+        {
+          "cycle": 1,
+          "measured": false,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 6.098000085330568e-06,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 56.77120800828561
+        },
+        {
+          "cycle": 2,
+          "measured": true,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 5.6170001698774286e-06,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 65.10333402547985
+        },
+        {
+          "cycle": 2,
+          "measured": true,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 1.3064000086160377e-05,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 57.1871250285767
+        },
+        {
+          "cycle": 3,
+          "measured": true,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 1.1954000001423992e-05,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 56.761625048238784
+        },
+        {
+          "cycle": 3,
+          "measured": true,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 1.9685000097524608e-05,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 65.1051250169985
+        },
+        {
+          "cycle": 4,
+          "measured": true,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 1.6418000086559914e-05,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 65.52087498130277
+        },
+        {
+          "cycle": 4,
+          "measured": true,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 1.3423999916994944e-05,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 57.201792020350695
+        },
+        {
+          "cycle": 5,
+          "measured": true,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 1.2953999885212397e-05,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 56.77487497450784
+        },
+        {
+          "cycle": 5,
+          "measured": true,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 8.125000022118911e-06,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 56.77620798815042
+        }
+      ],
+      "unknown_or_ambiguous_final_endpoints": 0,
+      "capture_records": 29198,
+      "capture_capacity_margin": 3570,
+      "submission_outcomes_full_phase": {
+        "submissions": 1017,
+        "missing_present_callback": 0,
+        "zero_or_not_presented": 41,
+        "missing_gpu_callback": 0,
+        "gpu_errors": 0
+      },
+      "telemetry": {
+        "idle_before": {
+          "available": true,
+          "samples": 9,
+          "raw_sample_indices": [
+            3,
+            11
+          ],
+          "elapsed_s": 8.057827208016533,
+          "whole_gpu_modeled_j": 0.924191218,
+          "whole_gpu_modeled_w": 0.11469484193959198,
+          "app_cpu_percent_one_core": 0.7116015709911753,
+          "app_gpu_ms_per_wall_second": 0.0,
+          "windowserver_gpu_ms_per_wall_second": 98.8359956648956,
+          "gpu_state_percent": {
+            "OFF": 87.97403191374696,
+            "P1": 12.025968086253044
+          },
+          "gpu_residency_vs_wall_ratio": 1.0001177944077186,
+          "cpu_counter_reset": false,
+          "gpu_counter_reset": false
+        },
+        "scrolling": {
+          "available": true,
+          "samples": 12,
+          "raw_sample_indices": [
+            21,
+            32
+          ],
+          "elapsed_s": 11.096372333006002,
+          "whole_gpu_modeled_j": 10.821311031,
+          "whole_gpu_modeled_w": 0.9752116012556793,
+          "app_cpu_percent_one_core": 30.86768717927579,
+          "app_gpu_ms_per_wall_second": 52.68941951965085,
+          "windowserver_gpu_ms_per_wall_second": 428.02214079214883,
+          "gpu_state_percent": {
+            "OFF": 44.50689213366691,
+            "P1": 51.7250511550261,
+            "P2": 1.3386829025977438,
+            "P3": 0.8647819447662775,
+            "P4": 1.5645918639429697
+          },
+          "gpu_residency_vs_wall_ratio": 1.0000003529977077,
+          "cpu_counter_reset": false,
+          "gpu_counter_reset": false
+        },
+        "idle_after": {
+          "available": true,
+          "samples": 10,
+          "raw_sample_indices": [
+            35,
+            44
+          ],
+          "elapsed_s": 9.086659249966033,
+          "whole_gpu_modeled_j": 0.967991982,
+          "whole_gpu_modeled_w": 0.1065289184255059,
+          "app_cpu_percent_one_core": 0.6917389175077565,
+          "app_gpu_ms_per_wall_second": 0.0,
+          "windowserver_gpu_ms_per_wall_second": 98.61243382746521,
+          "gpu_state_percent": {
+            "OFF": 88.62117311138725,
+            "P1": 11.37882688861275
+          },
+          "gpu_residency_vs_wall_ratio": 1.0000002246921094,
+          "cpu_counter_reset": false,
+          "gpu_counter_reset": false
+        }
+      },
+      "observer_parent_cpu_percent_one_core": 1.277011128393622
+    },
+    {
+      "ordinal": 3,
+      "condition": "on",
+      "core_presentations": 488,
+      "core_known_pairs": 480,
+      "core_held_pairs": 0,
+      "core_held_fraction": 0.0,
+      "core_held_time_fraction": 0.0,
+      "core_hz": 114.77740240011384,
+      "core_gap_ms": {
+        "n": 480,
+        "median": 8.333333011250943,
+        "p95": 8.333500009030104,
+        "p99": 16.666707990225405,
+        "max": 16.666750016156584,
+        "min": 8.333166013471782
+      },
+      "core_long_gap_counts": [
+        0,
+        0,
+        0
+      ],
+      "source_equivalent_pose_lag_ms": {
+        "n": 488,
+        "median": 54.10025143646635,
+        "p95": 54.11804323666729,
+        "p99": 54.1249564482132,
+        "max": 54.12899825023487,
+        "min": 52.91087331715971
+      },
+      "curve_residuals": {
+        "0": 0.24358287851608576,
+        "12.5": 0.17854995730453646
+      },
+      "max_source_age_ms": 25.527123943902552,
+      "max_abs_clock_residual_ms": 0.005623965989798307,
+      "max_abs_endpoint_error_px": 1.0775999726320151e-05,
+      "gesture_endpoints_supplement": [
+        {
+          "cycle": 0,
+          "measured": false,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": -1.4450001799559686e-06,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 54.077040986157954
+        },
+        {
+          "cycle": 0,
+          "measured": false,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": -4.948999958287459e-06,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 54.07895799726248
+        },
+        {
+          "cycle": 1,
+          "measured": false,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": -6.305000169959385e-06,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 56.76516704261303
+        },
+        {
+          "cycle": 1,
+          "measured": false,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": -1.0224000106973108e-05,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 56.768708978779614
+        },
+        {
+          "cycle": 2,
+          "measured": true,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": -6.059000043023843e-06,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 56.75470898859203
+        },
+        {
+          "cycle": 2,
+          "measured": true,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": -1.0775999726320151e-05,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 56.77845794707537
+        },
+        {
+          "cycle": 3,
+          "measured": true,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 1.097000222216593e-06,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 57.20233399188146
+        },
+        {
+          "cycle": 3,
+          "measured": true,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 8.639999578008428e-07,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 56.748875009361655
+        },
+        {
+          "cycle": 4,
+          "measured": true,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 2.913000116677722e-06,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 65.10937499115244
+        },
+        {
+          "cycle": 4,
+          "measured": true,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 2.9900002118665725e-07,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 56.771582982037216
+        },
+        {
+          "cycle": 5,
+          "measured": true,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 1.6069998309831135e-06,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 56.75966595299542
+        },
+        {
+          "cycle": 5,
+          "measured": true,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": -6.52099993203592e-06,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 56.7477919976227
+        }
+      ],
+      "unknown_or_ambiguous_final_endpoints": 0,
+      "capture_records": 29191,
+      "capture_capacity_margin": 3577,
+      "submission_outcomes_full_phase": {
+        "submissions": 1017,
+        "missing_present_callback": 0,
+        "zero_or_not_presented": 46,
+        "missing_gpu_callback": 0,
+        "gpu_errors": 0
+      },
+      "telemetry": {
+        "idle_before": {
+          "available": true,
+          "samples": 9,
+          "raw_sample_indices": [
+            3,
+            11
+          ],
+          "elapsed_s": 8.058315125002991,
+          "whole_gpu_modeled_j": 1.067220321,
+          "whole_gpu_modeled_w": 0.13243715397635356,
+          "app_cpu_percent_one_core": 0.740675406799894,
+          "app_gpu_ms_per_wall_second": 0.0,
+          "windowserver_gpu_ms_per_wall_second": 109.69025811083206,
+          "gpu_state_percent": {
+            "OFF": 86.18533114201207,
+            "P1": 13.814668857987932
+          },
+          "gpu_residency_vs_wall_ratio": 1.0000017890419337,
+          "cpu_counter_reset": false,
+          "gpu_counter_reset": false
+        },
+        "scrolling": {
+          "available": true,
+          "samples": 12,
+          "raw_sample_indices": [
+            21,
+            32
+          ],
+          "elapsed_s": 11.074677083001006,
+          "whole_gpu_modeled_j": 9.810360935,
+          "whole_gpu_modeled_w": 0.8858371997191992,
+          "app_cpu_percent_one_core": 30.430903460287915,
+          "app_gpu_ms_per_wall_second": 56.08886266791961,
+          "windowserver_gpu_ms_per_wall_second": 434.6302723704945,
+          "gpu_state_percent": {
+            "OFF": 42.747673999402764,
+            "P1": 54.312177996410306,
+            "P2": 0.9564096192917294,
+            "P3": 0.5965494844018623,
+            "P4": 1.3871889004933415
+          },
+          "gpu_residency_vs_wall_ratio": 1.0000445912473979,
+          "cpu_counter_reset": false,
+          "gpu_counter_reset": false
+        },
+        "idle_after": {
+          "available": true,
+          "samples": 9,
+          "raw_sample_indices": [
+            36,
+            44
+          ],
+          "elapsed_s": 8.05089729098836,
+          "whole_gpu_modeled_j": 0.932828871,
+          "whole_gpu_modeled_w": 0.11586644783608739,
+          "app_cpu_percent_one_core": 0.7135979952318224,
+          "app_gpu_ms_per_wall_second": 0.0,
+          "windowserver_gpu_ms_per_wall_second": 98.73895272391563,
+          "gpu_state_percent": {
+            "OFF": 88.17030721055869,
+            "P1": 11.829692789441314
+          },
+          "gpu_residency_vs_wall_ratio": 1.0000019253354933,
+          "cpu_counter_reset": false,
+          "gpu_counter_reset": false
+        }
+      },
+      "observer_parent_cpu_percent_one_core": 1.2984137435796286
+    },
+    {
+      "ordinal": 4,
+      "condition": "off",
+      "core_presentations": 490,
+      "core_known_pairs": 482,
+      "core_held_pairs": 10,
+      "core_held_fraction": 0.02074688796680498,
+      "core_held_time_fraction": 0.019879615478190657,
+      "core_hz": 115.24780159027824,
+      "core_gap_ms": {
+        "n": 482,
+        "median": 8.333333011250943,
+        "p95": 8.333500009030104,
+        "p99": 16.666674797888845,
+        "max": 16.671417048200965,
+        "min": 8.328625001013279
+      },
+      "core_long_gap_counts": [
+        0,
+        0,
+        0
+      ],
+      "source_equivalent_pose_lag_ms": {
+        "n": 490,
+        "median": 51.386895473115146,
+        "p95": 51.495756083750166,
+        "p99": 51.525392691837624,
+        "max": 51.85883300146088,
+        "min": 41.76541697233915
+      },
+      "curve_residuals": {
+        "0": 0.2663152451837356,
+        "12.5": 0.1983941929640639
+      },
+      "max_source_age_ms": 25.555416999850422,
+      "max_abs_clock_residual_ms": 0.002249958924949169,
+      "max_abs_endpoint_error_px": 0.0,
+      "gesture_endpoints_supplement": [
+        {
+          "cycle": 0,
+          "measured": false,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 56.67462502606213
+        },
+        {
+          "cycle": 0,
+          "measured": false,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 56.775499950163066
+        },
+        {
+          "cycle": 1,
+          "measured": false,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 48.442833009175956
+        },
+        {
+          "cycle": 1,
+          "measured": false,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 48.88925002887845
+        },
+        {
+          "cycle": 2,
+          "measured": true,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 48.88041701633483
+        },
+        {
+          "cycle": 2,
+          "measured": true,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 48.43045800225809
+        },
+        {
+          "cycle": 3,
+          "measured": true,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 48.43608301598579
+        },
+        {
+          "cycle": 3,
+          "measured": true,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 48.44545800006017
+        },
+        {
+          "cycle": 4,
+          "measured": true,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 48.450208036229014
+        },
+        {
+          "cycle": 4,
+          "measured": true,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 48.43829199671745
+        },
+        {
+          "cycle": 5,
+          "measured": true,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 48.91287500504404
+        },
+        {
+          "cycle": 5,
+          "measured": true,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 48.46195800928399
+        }
+      ],
+      "unknown_or_ambiguous_final_endpoints": 0,
+      "capture_records": 21356,
+      "capture_capacity_margin": 11412,
+      "submission_outcomes_full_phase": {
+        "submissions": 1413,
+        "missing_present_callback": 0,
+        "zero_or_not_presented": 92,
+        "missing_gpu_callback": 0,
+        "gpu_errors": 0
+      },
+      "telemetry": {
+        "idle_before": {
+          "available": true,
+          "samples": 9,
+          "raw_sample_indices": [
+            3,
+            11
+          ],
+          "elapsed_s": 8.056141417007893,
+          "whole_gpu_modeled_j": 0.990797476,
+          "whole_gpu_modeled_w": 0.12298660422075722,
+          "app_cpu_percent_one_core": 0.750952453974374,
+          "app_gpu_ms_per_wall_second": 0.0,
+          "windowserver_gpu_ms_per_wall_second": 101.10103160310523,
+          "gpu_state_percent": {
+            "OFF": 87.54760058738621,
+            "P1": 12.452399412613785
+          },
+          "gpu_residency_vs_wall_ratio": 1.0000000516780203,
+          "cpu_counter_reset": false,
+          "gpu_counter_reset": false
+        },
+        "scrolling": {
+          "available": true,
+          "samples": 12,
+          "raw_sample_indices": [
+            21,
+            32
+          ],
+          "elapsed_s": 11.099641209002584,
+          "whole_gpu_modeled_j": 13.865097299,
+          "whole_gpu_modeled_w": 1.2491482416345527,
+          "app_cpu_percent_one_core": 29.24875660875887,
+          "app_gpu_ms_per_wall_second": 54.751109117572064,
+          "windowserver_gpu_ms_per_wall_second": 566.1098076668954,
+          "gpu_state_percent": {
+            "OFF": 25.355690337417517,
+            "P1": 70.46677596053937,
+            "P2": 1.4909595310008434,
+            "P3": 0.8240743086218577,
+            "P4": 1.8624998624204154
+          },
+          "gpu_residency_vs_wall_ratio": 0.9999995457208191,
+          "cpu_counter_reset": false,
+          "gpu_counter_reset": false
+        },
+        "idle_after": {
+          "available": true,
+          "samples": 9,
+          "raw_sample_indices": [
+            36,
+            44
+          ],
+          "elapsed_s": 8.05439591704635,
+          "whole_gpu_modeled_j": 0.964138577,
+          "whole_gpu_modeled_w": 0.11970340009726789,
+          "app_cpu_percent_one_core": 0.7271117404272065,
+          "app_gpu_ms_per_wall_second": 0.0,
+          "windowserver_gpu_ms_per_wall_second": 97.79328469972297,
+          "gpu_state_percent": {
+            "OFF": 87.79006584537117,
+            "P1": 12.209934154628822
+          },
+          "gpu_residency_vs_wall_ratio": 0.9999668037947929,
+          "cpu_counter_reset": false,
+          "gpu_counter_reset": false
+        }
+      },
+      "observer_parent_cpu_percent_one_core": 1.3021597517175119
+    },
+    {
+      "ordinal": 5,
+      "condition": "on",
+      "core_presentations": 499,
+      "core_known_pairs": 491,
+      "core_held_pairs": 0,
+      "core_held_fraction": 0.0,
+      "core_held_time_fraction": 0.0,
+      "core_hz": 117.36459794601805,
+      "core_gap_ms": {
+        "n": 491,
+        "median": 8.333333011250943,
+        "p95": 8.333457983098924,
+        "p99": 16.666629089741036,
+        "max": 16.666832962073386,
+        "min": 8.33308300934732
+      },
+      "core_long_gap_counts": [
+        0,
+        0,
+        0
+      ],
+      "source_equivalent_pose_lag_ms": {
+        "n": 499,
+        "median": 54.100752517115325,
+        "p95": 54.11530790152028,
+        "p99": 54.12137657753192,
+        "max": 54.12383546354249,
+        "min": 52.96737386379391
+      },
+      "curve_residuals": {
+        "0": 0.2462330021786367,
+        "12.5": 0.18132784256303883
+      },
+      "max_source_age_ms": 25.532458035741,
+      "max_abs_clock_residual_ms": 0.008458038792014122,
+      "max_abs_endpoint_error_px": 9.94099991658004e-06,
+      "gesture_endpoints_supplement": [
+        {
+          "cycle": 0,
+          "measured": false,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": -5.238000085228123e-06,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 56.76762497751042
+        },
+        {
+          "cycle": 0,
+          "measured": false,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": -9.94099991658004e-06,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 56.792208983097225
+        },
+        {
+          "cycle": 1,
+          "measured": false,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 1.9900016923202202e-07,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 57.19433299964294
+        },
+        {
+          "cycle": 1,
+          "measured": false,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 5.093000027045491e-06,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 56.77737499354407
+        },
+        {
+          "cycle": 2,
+          "measured": true,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 9.374000001116656e-06,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 65.52612502127886
+        },
+        {
+          "cycle": 2,
+          "measured": true,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 4.051000360050239e-06,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 56.772915995679796
+        },
+        {
+          "cycle": 3,
+          "measured": true,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": -1.0710000424296595e-06,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 56.7554589943029
+        },
+        {
+          "cycle": 3,
+          "measured": true,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": -1.9809999685094226e-06,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 56.75941600929946
+        },
+        {
+          "cycle": 4,
+          "measured": true,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 1.5619998521287926e-06,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 65.10608398821205
+        },
+        {
+          "cycle": 4,
+          "measured": true,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": -2.0170000425423495e-06,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 57.1977500221692
+        },
+        {
+          "cycle": 5,
+          "measured": true,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 7.58299984227051e-06,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 56.760833016596735
+        },
+        {
+          "cycle": 5,
+          "measured": true,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 3.068000069106347e-06,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 65.08999998914078
+        }
+      ],
+      "unknown_or_ambiguous_final_endpoints": 0,
+      "capture_records": 29192,
+      "capture_capacity_margin": 3576,
+      "submission_outcomes_full_phase": {
+        "submissions": 1017,
+        "missing_present_callback": 0,
+        "zero_or_not_presented": 35,
+        "missing_gpu_callback": 0,
+        "gpu_errors": 0
+      },
+      "telemetry": {
+        "idle_before": {
+          "available": true,
+          "samples": 9,
+          "raw_sample_indices": [
+            3,
+            11
+          ],
+          "elapsed_s": 8.061538292036857,
+          "whole_gpu_modeled_j": 0.964328186,
+          "whole_gpu_modeled_w": 0.11962086528231938,
+          "app_cpu_percent_one_core": 0.7262504526110817,
+          "app_gpu_ms_per_wall_second": 0.0,
+          "windowserver_gpu_ms_per_wall_second": 97.85567759186094,
+          "gpu_state_percent": {
+            "OFF": 87.4370792079369,
+            "P1": 12.562920792063089
+          },
+          "gpu_residency_vs_wall_ratio": 1.0000999291864603,
+          "cpu_counter_reset": false,
+          "gpu_counter_reset": false
+        },
+        "scrolling": {
+          "available": true,
+          "samples": 12,
+          "raw_sample_indices": [
+            21,
+            32
+          ],
+          "elapsed_s": 11.08680633304175,
+          "whole_gpu_modeled_j": 10.828848625,
+          "whole_gpu_modeled_w": 0.9767329111474632,
+          "app_cpu_percent_one_core": 30.4355016551843,
+          "app_gpu_ms_per_wall_second": 54.94621099175161,
+          "windowserver_gpu_ms_per_wall_second": 435.2242187742948,
+          "gpu_state_percent": {
+            "OFF": 42.58089441444497,
+            "P1": 55.55653284363734,
+            "P2": 0.5644456262932361,
+            "P3": 0.40309475433352154,
+            "P4": 0.8950323612909301
+          },
+          "gpu_residency_vs_wall_ratio": 1.0000167504166069,
+          "cpu_counter_reset": false,
+          "gpu_counter_reset": false
+        },
+        "idle_after": {
+          "available": true,
+          "samples": 9,
+          "raw_sample_indices": [
+            36,
+            44
+          ],
+          "elapsed_s": 8.066472165985033,
+          "whole_gpu_modeled_j": 1.061508474,
+          "whole_gpu_modeled_w": 0.13159513256317976,
+          "app_cpu_percent_one_core": 0.7142284815611457,
+          "app_gpu_ms_per_wall_second": 0.0,
+          "windowserver_gpu_ms_per_wall_second": 100.30629764172689,
+          "gpu_state_percent": {
+            "OFF": 87.10493284868524,
+            "P1": 12.895067151314755
+          },
+          "gpu_residency_vs_wall_ratio": 0.9999999174378813,
+          "cpu_counter_reset": false,
+          "gpu_counter_reset": false
+        }
+      },
+      "observer_parent_cpu_percent_one_core": 1.3032295507337317
+    },
+    {
+      "ordinal": 6,
+      "condition": "off",
+      "core_presentations": 499,
+      "core_known_pairs": 491,
+      "core_held_pairs": 3,
+      "core_held_fraction": 0.006109979633401222,
+      "core_held_time_fraction": 0.0059523756770602215,
+      "core_hz": 117.36459794601805,
+      "core_gap_ms": {
+        "n": 491,
+        "median": 8.333333011250943,
+        "p95": 8.333417004905641,
+        "p99": 16.66666695382446,
+        "max": 16.666707990225405,
+        "min": 8.333124977070838
+      },
+      "core_long_gap_counts": [
+        0,
+        0,
+        0
+      ],
+      "source_equivalent_pose_lag_ms": {
+        "n": 499,
+        "median": 51.402124925516546,
+        "p95": 51.50758366798982,
+        "p99": 51.53105217847042,
+        "max": 51.86462594429031,
+        "min": 43.044958962127566
+      },
+      "curve_residuals": {
+        "0": 0.26471860096049415,
+        "12.5": 0.19455041759041344
+      },
+      "max_source_age_ms": 27.619166939985007,
+      "max_abs_clock_residual_ms": 0.005500973202288151,
+      "max_abs_endpoint_error_px": 0.0,
+      "gesture_endpoints_supplement": [
+        {
+          "cycle": 0,
+          "measured": false,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 48.44937496818602
+        },
+        {
+          "cycle": 0,
+          "measured": false,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 48.440709011629224
+        },
+        {
+          "cycle": 1,
+          "measured": false,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 48.39458299102262
+        },
+        {
+          "cycle": 1,
+          "measured": false,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 48.4595830203034
+        },
+        {
+          "cycle": 2,
+          "measured": true,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 48.44187502749264
+        },
+        {
+          "cycle": 2,
+          "measured": true,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 48.448292014654726
+        },
+        {
+          "cycle": 3,
+          "measured": true,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 48.87904098723084
+        },
+        {
+          "cycle": 3,
+          "measured": true,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 48.45887498231605
+        },
+        {
+          "cycle": 4,
+          "measured": true,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 48.44408301869407
+        },
+        {
+          "cycle": 4,
+          "measured": true,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 48.4416660037823
+        },
+        {
+          "cycle": 5,
+          "measured": true,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 48.44754096120596
+        },
+        {
+          "cycle": 5,
+          "measured": true,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 48.423208005260676
+        }
+      ],
+      "unknown_or_ambiguous_final_endpoints": 0,
+      "capture_records": 21343,
+      "capture_capacity_margin": 11425,
+      "submission_outcomes_full_phase": {
+        "submissions": 1413,
+        "missing_present_callback": 0,
+        "zero_or_not_presented": 23,
+        "missing_gpu_callback": 0,
+        "gpu_errors": 0
+      },
+      "telemetry": {
+        "idle_before": {
+          "available": true,
+          "samples": 9,
+          "raw_sample_indices": [
+            3,
+            11
+          ],
+          "elapsed_s": 8.059979541983921,
+          "whole_gpu_modeled_j": 0.947883739,
+          "whole_gpu_modeled_w": 0.11760374006689892,
+          "app_cpu_percent_one_core": 0.7497713406328542,
+          "app_gpu_ms_per_wall_second": 0.0,
+          "windowserver_gpu_ms_per_wall_second": 99.50992478605971,
+          "gpu_state_percent": {
+            "OFF": 87.857147428547,
+            "P1": 12.142852571453007
+          },
+          "gpu_residency_vs_wall_ratio": 0.9999949596252642,
+          "cpu_counter_reset": false,
+          "gpu_counter_reset": false
+        },
+        "scrolling": {
+          "available": true,
+          "samples": 12,
+          "raw_sample_indices": [
+            21,
+            32
+          ],
+          "elapsed_s": 11.09072350000497,
+          "whole_gpu_modeled_j": 13.831804264,
+          "whole_gpu_modeled_w": 1.2471507619853477,
+          "app_cpu_percent_one_core": 29.061800687140828,
+          "app_gpu_ms_per_wall_second": 54.856325017905945,
+          "windowserver_gpu_ms_per_wall_second": 589.7801099267392,
+          "gpu_state_percent": {
+            "OFF": 27.724841567373574,
+            "P1": 68.7124591496987,
+            "P2": 0.9331408844984186,
+            "P3": 0.8044174571160047,
+            "P4": 1.825140941313302
+          },
+          "gpu_residency_vs_wall_ratio": 1.0000769749898069,
+          "cpu_counter_reset": false,
+          "gpu_counter_reset": false
+        },
+        "idle_after": {
+          "available": true,
+          "samples": 10,
+          "raw_sample_indices": [
+            35,
+            44
+          ],
+          "elapsed_s": 9.053933792049065,
+          "whole_gpu_modeled_j": 1.153566407,
+          "whole_gpu_modeled_w": 0.12741051939357373,
+          "app_cpu_percent_one_core": 0.7067130686279528,
+          "app_gpu_ms_per_wall_second": 0.0,
+          "windowserver_gpu_ms_per_wall_second": 98.70136059364252,
+          "gpu_state_percent": {
+            "OFF": 87.02391155353334,
+            "P1": 12.976088446466665
+          },
+          "gpu_residency_vs_wall_ratio": 0.9999994339054695,
+          "cpu_counter_reset": false,
+          "gpu_counter_reset": false
+        }
+      },
+      "observer_parent_cpu_percent_one_core": 1.3067043148338497
+    },
+    {
+      "ordinal": 7,
+      "condition": "off",
+      "core_presentations": 505,
+      "core_known_pairs": 497,
+      "core_held_pairs": 4,
+      "core_held_fraction": 0.008048289738430584,
+      "core_held_time_fraction": 0.0079522436815998,
+      "core_hz": 118.77579551651125,
+      "core_gap_ms": {
+        "n": 497,
+        "median": 8.333333011250943,
+        "p95": 8.333457983098924,
+        "p99": 16.6665427130647,
+        "max": 16.666791983880103,
+        "min": 8.33308300934732
+      },
+      "core_long_gap_counts": [
+        0,
+        0,
+        0
+      ],
+      "source_equivalent_pose_lag_ms": {
+        "n": 505,
+        "median": 50.88787601562217,
+        "p95": 51.47827498149127,
+        "p99": 51.506377016194165,
+        "max": 51.84074997669086,
+        "min": 43.03337604505941
+      },
+      "curve_residuals": {
+        "0": 0.2420837159730766,
+        "12.5": 0.17447077811646491
+      },
+      "max_source_age_ms": 26.929624960757792,
+      "max_abs_clock_residual_ms": 0.005916983354836702,
+      "max_abs_endpoint_error_px": 0.0,
+      "gesture_endpoints_supplement": [
+        {
+          "cycle": 0,
+          "measured": false,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 45.764499984215945
+        },
+        {
+          "cycle": 0,
+          "measured": false,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 48.43204194912687
+        },
+        {
+          "cycle": 1,
+          "measured": false,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 48.88029198627919
+        },
+        {
+          "cycle": 1,
+          "measured": false,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 48.42416604515165
+        },
+        {
+          "cycle": 2,
+          "measured": true,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 46.724500018171966
+        },
+        {
+          "cycle": 2,
+          "measured": true,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 48.45537501387298
+        },
+        {
+          "cycle": 3,
+          "measured": true,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 48.43270796118304
+        },
+        {
+          "cycle": 3,
+          "measured": true,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 48.87662502005696
+        },
+        {
+          "cycle": 4,
+          "measured": true,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 48.45008300617337
+        },
+        {
+          "cycle": 4,
+          "measured": true,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 48.36854204768315
+        },
+        {
+          "cycle": 5,
+          "measured": true,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 46.61091597517952
+        },
+        {
+          "cycle": 5,
+          "measured": true,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 0.0,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 48.43899997649714
+        }
+      ],
+      "unknown_or_ambiguous_final_endpoints": 0,
+      "capture_records": 21504,
+      "capture_capacity_margin": 11264,
+      "submission_outcomes_full_phase": {
+        "submissions": 1413,
+        "missing_present_callback": 0,
+        "zero_or_not_presented": 43,
+        "missing_gpu_callback": 0,
+        "gpu_errors": 0
+      },
+      "telemetry": {
+        "idle_before": {
+          "available": true,
+          "samples": 9,
+          "raw_sample_indices": [
+            3,
+            11
+          ],
+          "elapsed_s": 8.063951916003134,
+          "whole_gpu_modeled_j": 1.212347819,
+          "whole_gpu_modeled_w": 0.15034164782084855,
+          "app_cpu_percent_one_core": 0.7315762661761195,
+          "app_gpu_ms_per_wall_second": 0.0,
+          "windowserver_gpu_ms_per_wall_second": 108.40466933653033,
+          "gpu_state_percent": {
+            "OFF": 85.54008720488405,
+            "P1": 14.459912795115956
+          },
+          "gpu_residency_vs_wall_ratio": 0.9999950345682178,
+          "cpu_counter_reset": false,
+          "gpu_counter_reset": false
+        },
+        "scrolling": {
+          "available": true,
+          "samples": 12,
+          "raw_sample_indices": [
+            21,
+            32
+          ],
+          "elapsed_s": 11.094727791030891,
+          "whole_gpu_modeled_j": 14.293327663,
+          "whole_gpu_modeled_w": 1.288299085134373,
+          "app_cpu_percent_one_core": 29.122665836038298,
+          "app_gpu_ms_per_wall_second": 57.71990787531499,
+          "windowserver_gpu_ms_per_wall_second": 573.2978419841874,
+          "gpu_state_percent": {
+            "OFF": 24.7264695981952,
+            "P1": 70.23312824153223,
+            "P2": 1.6546251005197523,
+            "P3": 0.9479880754401177,
+            "P4": 2.437788984312696
+          },
+          "gpu_residency_vs_wall_ratio": 1.0000749868752778,
+          "cpu_counter_reset": false,
+          "gpu_counter_reset": false
+        },
+        "idle_after": {
+          "available": true,
+          "samples": 9,
+          "raw_sample_indices": [
+            36,
+            44
+          ],
+          "elapsed_s": 8.073999667016324,
+          "whole_gpu_modeled_j": 1.136273607,
+          "whole_gpu_modeled_w": 0.1407324317391135,
+          "app_cpu_percent_one_core": 0.7278228770150734,
+          "app_gpu_ms_per_wall_second": 0.0,
+          "windowserver_gpu_ms_per_wall_second": 105.99173189169142,
+          "gpu_state_percent": {
+            "OFF": 86.68210542332115,
+            "P1": 13.317894576678851
+          },
+          "gpu_residency_vs_wall_ratio": 0.999999870941743,
+          "cpu_counter_reset": false,
+          "gpu_counter_reset": false
+        }
+      },
+      "observer_parent_cpu_percent_one_core": 1.32167069734519
+    },
+    {
+      "ordinal": 8,
+      "condition": "on",
+      "core_presentations": 505,
+      "core_known_pairs": 497,
+      "core_held_pairs": 0,
+      "core_held_fraction": 0.0,
+      "core_held_time_fraction": 0.0,
+      "core_hz": 118.77579551651125,
+      "core_gap_ms": {
+        "n": 497,
+        "median": 8.333333011250943,
+        "p95": 8.333457983098924,
+        "p99": 8.333500009030104,
+        "max": 16.66666701203212,
+        "min": 8.333042031154037
+      },
+      "core_long_gap_counts": [
+        0,
+        0,
+        0
+      ],
+      "source_equivalent_pose_lag_ms": {
+        "n": 505,
+        "median": 54.0983768296428,
+        "p95": 54.11638547666371,
+        "p99": 54.12171758944169,
+        "max": 54.130338423419744,
+        "min": 52.910331869497895
+      },
+      "curve_residuals": {
+        "0": 0.24061273592306623,
+        "12.5": 0.17994851900950962
+      },
+      "max_source_age_ms": 25.57566697942093,
+      "max_abs_clock_residual_ms": 0.0020840088836848736,
+      "max_abs_endpoint_error_px": 8.921000016925973e-06,
+      "gesture_endpoints_supplement": [
+        {
+          "cycle": 0,
+          "measured": false,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 2.29499983106507e-06,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 56.745249952655286
+        },
+        {
+          "cycle": 0,
+          "measured": false,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 5.836999662278686e-06,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 57.178416987881064
+        },
+        {
+          "cycle": 1,
+          "measured": false,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 3.671999820653582e-06,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 56.78670800989494
+        },
+        {
+          "cycle": 1,
+          "measured": false,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": -2.5179999738611514e-06,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 56.77083303453401
+        },
+        {
+          "cycle": 2,
+          "measured": true,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": -7.889999778853962e-06,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 56.77404202288017
+        },
+        {
+          "cycle": 2,
+          "measured": true,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": -8.813000022200868e-06,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 65.12291700346395
+        },
+        {
+          "cycle": 3,
+          "measured": true,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": -9.647999831940979e-06,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 57.174500019755214
+        },
+        {
+          "cycle": 3,
+          "measured": true,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": -8.921000016925973e-06,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 57.19516699900851
+        },
+        {
+          "cycle": 4,
+          "measured": true,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": -3.068999831157271e-06,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 56.77208298584446
+        },
+        {
+          "cycle": 4,
+          "measured": true,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": -5.634000444842968e-06,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 56.77091598045081
+        },
+        {
+          "cycle": 5,
+          "measured": true,
+          "gesture": 0,
+          "final_actual_display_known": true,
+          "endpoint_error_px": -4.080000053363619e-06,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 65.10812503984198
+        },
+        {
+          "cycle": 5,
+          "measured": true,
+          "gesture": 1,
+          "final_actual_display_known": true,
+          "endpoint_error_px": 8.115999889923842e-06,
+          "first_endpoint_after_last_nonzero_dispatch_ms": 56.74320901744068
+        }
+      ],
+      "unknown_or_ambiguous_final_endpoints": 0,
+      "capture_records": 29195,
+      "capture_capacity_margin": 3573,
+      "submission_outcomes_full_phase": {
+        "submissions": 1017,
+        "missing_present_callback": 0,
+        "zero_or_not_presented": 29,
+        "missing_gpu_callback": 0,
+        "gpu_errors": 0
+      },
+      "telemetry": {
+        "idle_before": {
+          "available": true,
+          "samples": 9,
+          "raw_sample_indices": [
+            3,
+            11
+          ],
+          "elapsed_s": 8.03890354197938,
+          "whole_gpu_modeled_j": 0.961524384,
+          "whole_gpu_modeled_w": 0.11960889678286257,
+          "app_cpu_percent_one_core": 0.7087906914475844,
+          "app_gpu_ms_per_wall_second": 0.0,
+          "windowserver_gpu_ms_per_wall_second": 97.26312959434755,
+          "gpu_state_percent": {
+            "OFF": 87.24298693040497,
+            "P1": 12.75701306959504
+          },
+          "gpu_residency_vs_wall_ratio": 0.9998857327194871,
+          "cpu_counter_reset": false,
+          "gpu_counter_reset": false
+        },
+        "scrolling": {
+          "available": true,
+          "samples": 12,
+          "raw_sample_indices": [
+            21,
+            32
+          ],
+          "elapsed_s": 11.094439917011186,
+          "whole_gpu_modeled_j": 12.023796891,
+          "whole_gpu_modeled_w": 1.0837678135120479,
+          "app_cpu_percent_one_core": 30.65697232525353,
+          "app_gpu_ms_per_wall_second": 52.80077645936827,
+          "windowserver_gpu_ms_per_wall_second": 440.19431837309537,
+          "gpu_state_percent": {
+            "OFF": 41.349884567168985,
+            "P1": 56.0522003340737,
+            "P2": 0.7866272300517726,
+            "P3": 0.4998850681788843,
+            "P4": 1.3114028005266567
+          },
+          "gpu_residency_vs_wall_ratio": 0.9999836479342317,
+          "cpu_counter_reset": false,
+          "gpu_counter_reset": false
+        },
+        "idle_after": {
+          "available": true,
+          "samples": 9,
+          "raw_sample_indices": [
+            36,
+            44
+          ],
+          "elapsed_s": 8.063248082995415,
+          "whole_gpu_modeled_j": 0.986385652,
+          "whole_gpu_modeled_w": 0.12233105590291694,
+          "app_cpu_percent_one_core": 0.7126398205190839,
+          "app_gpu_ms_per_wall_second": 0.0,
+          "windowserver_gpu_ms_per_wall_second": 98.56952084559245,
+          "gpu_state_percent": {
+            "OFF": 87.04373852736147,
+            "P1": 12.956261472638536
+          },
+          "gpu_residency_vs_wall_ratio": 1.0000004341101603,
+          "cpu_counter_reset": false,
+          "gpu_counter_reset": false
+        }
+      },
+      "observer_parent_cpu_percent_one_core": 1.3186139834365425
+    }
+  ],
+  "caveats": [
+    "Four serial runs per condition on one machine; per-frame observations are not independent experimental replicates.",
+    "Synthetic phase/timestamp metadata replay through GPUI; logical prepaint poses are not raster displacement or a physical trackpad/user-feel trial.",
+    "The algorithm deliberately uses12.5ms sample lookback. Source-equivalent displayed-pose lag is a compound modeled surrogate, not a physical end-to-end latency measurement.",
+    "Core frame cadence did not improve; sparse held logical pose pairs disappeared, a narrower objective finding.",
+    "The0/12.5ms source-normalized curve residuals are mixed across pairs; do not claim universal uneven-step improvement from held-pose counts.",
+    "Whole-GPU model watts include WindowServer/desktop work, are not app watts or total system/battery power, and use a broader window than primary motion cores.",
+    "CPU increases in all four adjacent pairs; app GPU execution-time contrasts are mixed; lower shared GPU modeled watts do not establish lower total energy or equal-output efficiency.",
+    "Successful pilots and retained failed On pilot are excluded. Normal activation after readiness was fixed identically for both main conditions before main acquisition.",
+    "Endpoint unknown-handling was corrected during acquisition without reading main results, preserving prior code/patch/test evidence; all actual final endpoints in this dataset are known."
+  ]
+}

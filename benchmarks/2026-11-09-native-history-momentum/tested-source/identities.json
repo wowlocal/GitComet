@@ -1,0 +1,20 @@
+{
+  "app": {
+    "base": "c985cfc997d5a1825ea82bf3386c9532708a4a25",
+    "head": "fe34d0636fe35af0ccbc693ce2b0861499a003c9",
+    "original_patch_sha256": "44c6c116bd14212f7c3b8a4df3841e610b5ffe12cad0a9f641fea7fc3c4fa514",
+    "public_redacted_patch_sha256": "cea169a47670818ed9e70a6e68c13b61ee40f422dc93dcb360ddac81c23193b9",
+    "redaction": "Local workspace prefixes are replaced with /path/to/workspace; one app test comment substitutes workload for its private repository name. No functional source changes. Framework includes its recorded working-tree observer/backport changes."
+  },
+  "framework": {
+    "base": "4b3b9c54191be9762095dcdf7656d0d3ca30cecf",
+    "head": "4b3b9c54191be9762095dcdf7656d0d3ca30cecf",
+    "original_patch_sha256": "fbe7eeb3e2f323bef18af27f4e31603e95f1b49e870cdbd6e6eb0baa9a0c177f",
+    "public_redacted_patch_sha256": "fbe7eeb3e2f323bef18af27f4e31603e95f1b49e870cdbd6e6eb0baa9a0c177f",
+    "redaction": "Local workspace prefixes are replaced with /path/to/workspace; one app test comment substitutes workload for its private repository name. No functional source changes. Framework includes its recorded working-tree observer/backport changes."
+  },
+  "installed_binary_sha256": "f3172102f1b0b9722424ea991ee229a51396ee43a87cffaabcd4adc36b9455c3",
+  "source_analyzer_sha256": "fd1113e088139e0ab41855f40e875e69723fd4666b6e0e47d9db0958ec470ca3",
+  "portable_analyzer_sha256": "32365c8a7c10dd3d43bac400c1f4f3ac496ff98feca37f07f7e3a0677056b310",
+  "analyzer_portability_changes": "Run paths resolved relative to dataset; report path labels relative; analysis.json written beside the resolved manifest, so the documented relative CLI command is unambiguous. No arithmetic changes."
+}

@@ -1,0 +1,115 @@
+{
+  "series": "balanced-20261109-213514",
+  "pilot": false,
+  "order": [
+    "off",
+    "on",
+    "on",
+    "off",
+    "on",
+    "off",
+    "off",
+    "on"
+  ],
+  "real_session_sha256": "19b35414d4758014a5090635b9879d97e94c70cd82a0a34e6bbb04bc14e13ab0",
+  "input_profile_sha256": "a62d1ab2dc4ccce427f5c7d15125ae30b51ee2eec316375bc53199691bb16ad6",
+  "input_plan_sha256": "a115e1bb5b0ffd0873d7c3533cb05fcc37a443d6ddf39f0a6b5ca8b65634a8a5",
+  "runs": [
+    {
+      "condition": "off",
+      "ordinal": 1,
+      "path": "01-off",
+      "valid": true,
+      "failures": []
+    },
+    {
+      "condition": "on",
+      "ordinal": 2,
+      "path": "02-on",
+      "valid": true,
+      "failures": []
+    },
+    {
+      "condition": "on",
+      "ordinal": 3,
+      "path": "03-on",
+      "valid": true,
+      "failures": []
+    },
+    {
+      "condition": "off",
+      "ordinal": 4,
+      "path": "04-off",
+      "valid": true,
+      "failures": []
+    },
+    {
+      "condition": "on",
+      "ordinal": 5,
+      "path": "05-on",
+      "valid": true,
+      "failures": []
+    },
+    {
+      "condition": "off",
+      "ordinal": 6,
+      "path": "06-off",
+      "valid": true,
+      "failures": []
+    },
+    {
+      "condition": "off",
+      "ordinal": 7,
+      "path": "07-off",
+      "valid": true,
+      "failures": []
+    },
+    {
+      "condition": "on",
+      "ordinal": 8,
+      "path": "08-on",
+      "valid": true,
+      "failures": []
+    }
+  ],
+  "started_unix_s": 1794249314.707808,
+  "expected_viewport": [
+    243.0,
+    117.0,
+    1095.0,
+    882.0
+  ],
+  "expected_environment": {
+    "screens": [
+      {
+        "built_in": 1,
+        "frame": [
+          0,
+          0,
+          1728,
+          1117
+        ],
+        "id": 1,
+        "maximum_fps": 120,
+        "mode_refresh_hz": 120,
+        "pixel_height": 2234,
+        "pixel_width": 3456,
+        "scale": 2
+      }
+    ],
+    "low_power_mode": false,
+    "reduce_motion": false,
+    "power_source": "AC",
+    "window_bounds": [
+      {
+        "Height": 1037,
+        "Width": 1714,
+        "X": 0,
+        "Y": 34
+      }
+    ]
+  },
+  "completed_unix_s": 1794249924.729459,
+  "repository_identity_sha256": "d1a197a359cfb0069a86a9968926672590775df6573571c106b4a8994d87d348",
+  "redactions": "Private session files, repository identity/content, stdout/stderr and unrelated app events omitted. Window repository names replaced; power source reduced to AC/Battery; foreign foreground bundle replaced. Numeric analysis inputs unchanged."
+}
