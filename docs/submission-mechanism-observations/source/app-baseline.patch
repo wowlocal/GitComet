@@ -1,0 +1,431 @@
+diff --git a/Cargo.lock b/Cargo.lock
+index 7c2dd920..556f4883 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -3804,7 +3804,6 @@ dependencies = [
+ [[package]]
+ name = "gpui-ce"
+ version = "0.2.2"
+-source = "git+https://github.com/Havunen/gpui-ce.git?rev=c55d73659dd6560d3e70281056f841e6d366c0e5#c55d73659dd6560d3e70281056f841e6d366c0e5"
+ dependencies = [
+  "accesskit",
+  "anyhow",
+@@ -3883,7 +3882,6 @@ dependencies = [
+ [[package]]
+ name = "gpui_ce_apple"
+ version = "0.1.0"
+-source = "git+https://github.com/Havunen/gpui-ce.git?rev=c55d73659dd6560d3e70281056f841e6d366c0e5#c55d73659dd6560d3e70281056f841e6d366c0e5"
+ dependencies = [
+  "anyhow",
+  "block",
+@@ -3900,6 +3898,7 @@ dependencies = [
+  "log",
+  "metal",
+  "objc2 0.6.5",
++ "objc2-foundation 0.3.2",
+  "objc2-quartz-core 0.3.2",
+  "parking_lot 0.13.0",
+  "smallvec",
+@@ -3909,7 +3908,6 @@ dependencies = [
+ [[package]]
+ name = "gpui_ce_collections"
+ version = "0.2.2"
+-source = "git+https://github.com/Havunen/gpui-ce.git?rev=c55d73659dd6560d3e70281056f841e6d366c0e5#c55d73659dd6560d3e70281056f841e6d366c0e5"
+ dependencies = [
+  "gpui_ce_util",
+  "indexmap",
+@@ -3919,7 +3917,6 @@ dependencies = [
+ [[package]]
+ name = "gpui_ce_derive_refineable"
+ version = "0.2.2"
+-source = "git+https://github.com/Havunen/gpui-ce.git?rev=c55d73659dd6560d3e70281056f841e6d366c0e5#c55d73659dd6560d3e70281056f841e6d366c0e5"
+ dependencies = [
+  "proc-macro2",
+  "quote",
+@@ -3929,7 +3926,6 @@ dependencies = [
+ [[package]]
+ name = "gpui_ce_linux"
+ version = "0.1.0"
+-source = "git+https://github.com/Havunen/gpui-ce.git?rev=c55d73659dd6560d3e70281056f841e6d366c0e5#c55d73659dd6560d3e70281056f841e6d366c0e5"
+ dependencies = [
+  "accesskit",
+  "accesskit_unix",
+@@ -3977,7 +3973,6 @@ dependencies = [
+ [[package]]
+ name = "gpui_ce_macos"
+ version = "0.1.0"
+-source = "git+https://github.com/Havunen/gpui-ce.git?rev=c55d73659dd6560d3e70281056f841e6d366c0e5#c55d73659dd6560d3e70281056f841e6d366c0e5"
+ dependencies = [
+  "accesskit",
+  "accesskit_macos",
+@@ -4026,7 +4021,6 @@ dependencies = [
+ [[package]]
+ name = "gpui_ce_macros"
+ version = "0.1.0"
+-source = "git+https://github.com/Havunen/gpui-ce.git?rev=c55d73659dd6560d3e70281056f841e6d366c0e5#c55d73659dd6560d3e70281056f841e6d366c0e5"
+ dependencies = [
+  "heck",
+  "proc-macro2",
+@@ -4037,7 +4031,6 @@ dependencies = [
+ [[package]]
+ name = "gpui_ce_media"
+ version = "0.2.2"
+-source = "git+https://github.com/Havunen/gpui-ce.git?rev=c55d73659dd6560d3e70281056f841e6d366c0e5#c55d73659dd6560d3e70281056f841e6d366c0e5"
+ dependencies = [
+  "anyhow",
+  "bindgen",
+@@ -4051,7 +4044,6 @@ dependencies = [
+ [[package]]
+ name = "gpui_ce_parley"
+ version = "0.1.0"
+-source = "git+https://github.com/Havunen/gpui-ce.git?rev=c55d73659dd6560d3e70281056f841e6d366c0e5#c55d73659dd6560d3e70281056f841e6d366c0e5"
+ dependencies = [
+  "anyhow",
+  "fontique",
+@@ -4066,7 +4058,6 @@ dependencies = [
+ [[package]]
+ name = "gpui_ce_platform"
+ version = "0.1.0"
+-source = "git+https://github.com/Havunen/gpui-ce.git?rev=c55d73659dd6560d3e70281056f841e6d366c0e5#c55d73659dd6560d3e70281056f841e6d366c0e5"
+ dependencies = [
+  "console_error_panic_hook",
+  "gpui-ce",
+@@ -4080,7 +4071,6 @@ dependencies = [
+ [[package]]
+ name = "gpui_ce_refineable"
+ version = "0.2.2"
+-source = "git+https://github.com/Havunen/gpui-ce.git?rev=c55d73659dd6560d3e70281056f841e6d366c0e5#c55d73659dd6560d3e70281056f841e6d366c0e5"
+ dependencies = [
+  "gpui_ce_derive_refineable",
+ ]
+@@ -4088,7 +4078,6 @@ dependencies = [
+ [[package]]
+ name = "gpui_ce_render"
+ version = "0.1.0"
+-source = "git+https://github.com/Havunen/gpui-ce.git?rev=c55d73659dd6560d3e70281056f841e6d366c0e5#c55d73659dd6560d3e70281056f841e6d366c0e5"
+ dependencies = [
+  "gpui-ce",
+  "naga 24.0.0",
+@@ -4102,7 +4091,6 @@ dependencies = [
+ [[package]]
+ name = "gpui_ce_scheduler"
+ version = "0.2.2"
+-source = "git+https://github.com/Havunen/gpui-ce.git?rev=c55d73659dd6560d3e70281056f841e6d366c0e5#c55d73659dd6560d3e70281056f841e6d366c0e5"
+ dependencies = [
+  "async-task",
+  "backtrace",
+@@ -4117,7 +4105,6 @@ dependencies = [
+ [[package]]
+ name = "gpui_ce_shared_string"
+ version = "0.1.0"
+-source = "git+https://github.com/Havunen/gpui-ce.git?rev=c55d73659dd6560d3e70281056f841e6d366c0e5#c55d73659dd6560d3e70281056f841e6d366c0e5"
+ dependencies = [
+  "schemars",
+  "serde",
+@@ -4127,7 +4114,6 @@ dependencies = [
+ [[package]]
+ name = "gpui_ce_sum_tree"
+ version = "0.2.2"
+-source = "git+https://github.com/Havunen/gpui-ce.git?rev=c55d73659dd6560d3e70281056f841e6d366c0e5#c55d73659dd6560d3e70281056f841e6d366c0e5"
+ dependencies = [
+  "heapless 0.9.3",
+  "log",
+@@ -4138,7 +4124,6 @@ dependencies = [
+ [[package]]
+ name = "gpui_ce_util"
+ version = "0.2.6"
+-source = "git+https://github.com/Havunen/gpui-ce.git?rev=c55d73659dd6560d3e70281056f841e6d366c0e5#c55d73659dd6560d3e70281056f841e6d366c0e5"
+ dependencies = [
+  "anyhow",
+  "log",
+@@ -4148,7 +4133,6 @@ dependencies = [
+ [[package]]
+ name = "gpui_ce_web"
+ version = "0.1.0"
+-source = "git+https://github.com/Havunen/gpui-ce.git?rev=c55d73659dd6560d3e70281056f841e6d366c0e5#c55d73659dd6560d3e70281056f841e6d366c0e5"
+ dependencies = [
+  "anyhow",
+  "console_error_panic_hook",
+@@ -4172,7 +4156,6 @@ dependencies = [
+ [[package]]
+ name = "gpui_ce_wgpu"
+ version = "0.1.0"
+-source = "git+https://github.com/Havunen/gpui-ce.git?rev=c55d73659dd6560d3e70281056f841e6d366c0e5#c55d73659dd6560d3e70281056f841e6d366c0e5"
+ dependencies = [
+  "anyhow",
+  "core-foundation",
+@@ -4204,7 +4187,6 @@ dependencies = [
+ [[package]]
+ name = "gpui_ce_windows"
+ version = "0.1.0"
+-source = "git+https://github.com/Havunen/gpui-ce.git?rev=c55d73659dd6560d3e70281056f841e6d366c0e5#c55d73659dd6560d3e70281056f841e6d366c0e5"
+ dependencies = [
+  "accesskit",
+  "accesskit_windows",
+@@ -4237,7 +4219,6 @@ dependencies = [
+ [[package]]
+ name = "gpui_xim"
+ version = "0.4.0-gpui"
+-source = "git+https://github.com/Havunen/gpui-ce.git?rev=c55d73659dd6560d3e70281056f841e6d366c0e5#c55d73659dd6560d3e70281056f841e6d366c0e5"
+ dependencies = [
+  "ahash",
+  "hashbrown 0.17.1",
+@@ -10087,7 +10068,6 @@ checksum = "163b33ed8786455e2fa5d72f554057ce3f3182425434f756cd39c99839d88e23"
+ [[package]]
+ name = "xim-ctext"
+ version = "0.3.0"
+-source = "git+https://github.com/Havunen/gpui-ce.git?rev=c55d73659dd6560d3e70281056f841e6d366c0e5#c55d73659dd6560d3e70281056f841e6d366c0e5"
+ dependencies = [
+  "encoding_rs",
+ ]
+@@ -10095,7 +10075,6 @@ dependencies = [
+ [[package]]
+ name = "xim-parser"
+ version = "0.2.1"
+-source = "git+https://github.com/Havunen/gpui-ce.git?rev=c55d73659dd6560d3e70281056f841e6d366c0e5#c55d73659dd6560d3e70281056f841e6d366c0e5"
+ dependencies = [
+  "bitflags 2.13.2",
+ ]
+diff --git a/Cargo.toml b/Cargo.toml
+index f495da6c..a41812ef 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -538,3 +538,28 @@ strip = "debuginfo"
+ inherits = "release"
+ debug = 2
+ strip = "none"
++
++# Common local benchmark dependency source.
++[patch."https://github.com/Havunen/gpui-ce.git"]
++gpui-ce = { path = "../gpui-ce-framework-ab/crates/gpui" }
++gpui_ce_apple = { path = "../gpui-ce-framework-ab/crates/gpui_apple" }
++gpui_ce_collections = { path = "../gpui-ce-framework-ab/crates/gpui_collections" }
++gpui_ce_derive_refineable = { path = "../gpui-ce-framework-ab/crates/gpui_derive_refineable" }
++gpui_ce_linux = { path = "../gpui-ce-framework-ab/crates/gpui_linux" }
++gpui_ce_macos = { path = "../gpui-ce-framework-ab/crates/gpui_macos" }
++gpui_ce_macros = { path = "../gpui-ce-framework-ab/crates/gpui_macros" }
++gpui_ce_media = { path = "../gpui-ce-framework-ab/crates/gpui_media" }
++gpui_ce_parley = { path = "../gpui-ce-framework-ab/crates/gpui_ce_parley" }
++gpui_ce_platform = { path = "../gpui-ce-framework-ab/crates/gpui_platform" }
++gpui_ce_refineable = { path = "../gpui-ce-framework-ab/crates/gpui_refineable" }
++gpui_ce_render = { path = "../gpui-ce-framework-ab/crates/gpui_render" }
++gpui_ce_scheduler = { path = "../gpui-ce-framework-ab/crates/gpui_scheduler" }
++gpui_ce_shared_string = { path = "../gpui-ce-framework-ab/crates/gpui_shared_string" }
++gpui_ce_sum_tree = { path = "../gpui-ce-framework-ab/crates/gpui_sum_tree" }
++gpui_ce_util = { path = "../gpui-ce-framework-ab/crates/gpui_ce_util" }
++gpui_ce_web = { path = "../gpui-ce-framework-ab/crates/gpui_web" }
++gpui_ce_wgpu = { path = "../gpui-ce-framework-ab/crates/gpui_wgpu" }
++gpui_ce_windows = { path = "../gpui-ce-framework-ab/crates/gpui_windows" }
++gpui_xim = { path = "../gpui-ce-framework-ab/crates/xim" }
++xim-ctext = { path = "../gpui-ce-framework-ab/crates/xim_ctext" }
++xim-parser = { path = "../gpui-ce-framework-ab/crates/xim_parser" }
+diff --git a/crates/gitcomet-ui-gpui/src/view/scenario_driver.rs b/crates/gitcomet-ui-gpui/src/view/scenario_driver.rs
+index 2197ade1..ad89f51f 100644
+--- a/crates/gitcomet-ui-gpui/src/view/scenario_driver.rs
++++ b/crates/gitcomet-ui-gpui/src/view/scenario_driver.rs
+@@ -45,6 +45,27 @@ struct Scenario {
+     steps: Vec<Step>,
+ }
+ 
++/// Programmatic replay of captured deltas, without claiming native event metadata.
++#[derive(Debug, Deserialize)]
++struct ScrollPacket {
++    at_us: u64,
++    delta_px: f32,
++}
++
++fn validate_scroll_packets(packets: &[ScrollPacket]) -> Result<(), String> {
++    if packets.is_empty()
++        || packets.len() > 10_000
++        || packets[0].at_us != 0
++        || packets
++            .iter()
++            .any(|p| p.at_us > 60_000_000 || !p.delta_px.is_finite())
++        || packets.windows(2).any(|pair| pair[1].at_us < pair[0].at_us)
++    {
++        return Err("scroll packet plan must start at zero, be finite and ordered, and fit 10,000 packets/60 seconds".into());
++    }
++    Ok(())
++}
++
+ fn default_true() -> bool {
+     true
+ }
+@@ -112,6 +133,11 @@ enum Step {
+         #[serde(default)]
+         witness: Option<WitnessKind>,
+     },
++    /// Absolute offsets avoid accumulating per-step dwell/dispatch overhead.
++    ScrollPackets {
++        target: ScrollTarget,
++        packets: Vec<ScrollPacket>,
++    },
+     /// Clicks a row of a list.
+     Click {
+         target: ClickTarget,
+@@ -684,6 +710,8 @@ impl Driver {
+                 flip_every,
+                 witness,
+             } => {
++                #[cfg(target_os = "macos")]
++                gpui_platform::native_timing::arm_scenario_capture();
+                 let position = self
+                     .scroll_position_for(*target, cx)
+                     .ok_or("no scroll target bounds")?;
+@@ -709,6 +737,50 @@ impl Driver {
+                 )
+                 .await
+             }
++            Step::ScrollPackets { target, packets } => {
++                validate_scroll_packets(packets)?;
++                record("benchmark_position", cx.update(|cx| {
++                    let history = self.view.read(cx).main_pane.read(cx).history_view.read(cx);
++                    json!({"state":"before", "offset":history.history_scroll_position(), "indexed":history.scenario_indexed_window()})
++                }));
++                #[cfg(target_os = "macos")]
++                gpui_platform::native_timing::arm_scenario_capture();
++                let position = self
++                    .scroll_position_for(*target, cx)
++                    .ok_or("no scroll target bounds")?;
++                let result = self
++                    .scheduled_offsets(
++                        packets
++                            .iter()
++                            .map(|packet| Duration::from_micros(packet.at_us)),
++                        None,
++                        cx,
++                        |ix, window, cx| {
++                            let delta = packets[ix].delta_px;
++                            #[cfg(target_os = "macos")]
++                            gpui_platform::native_timing::scenario_scroll(
++                                window.window_handle().window_id().as_u64(),
++                                0.0,
++                                f64::from(delta),
++                            );
++                            window.dispatch_event(
++                                PlatformInput::ScrollWheel(ScrollWheelEvent {
++                                    position,
++                                    delta: ScrollDelta::Pixels(point(px(0.0), px(delta))),
++                                    modifiers: Modifiers::default(),
++                                    touch_phase: TouchPhase::Moved,
++                                }),
++                                cx,
++                            );
++                        },
++                    )
++                    .await;
++                record("benchmark_position", cx.update(|cx| {
++                    let history = self.view.read(cx).main_pane.read(cx).history_view.read(cx);
++                    json!({"state":"after", "offset":history.history_scroll_position(), "indexed":history.scenario_indexed_window()})
++                }));
++                result
++            }
+             Step::Click { target, witness } => {
+                 let position = self
+                     .click_position_for(*target, cx)
+@@ -1311,13 +1383,29 @@ impl Driver {
+         interval_ms: u64,
+         witness: Option<WitnessKind>,
+         cx: &mut AsyncApp,
++        input: impl FnMut(usize, &mut Window, &mut App),
++    ) -> Result<(), String> {
++        let interval = Duration::from_millis(interval_ms);
++        self.scheduled_offsets(
++            (0..repeat).map(|ix| interval * u32::try_from(ix).unwrap_or(u32::MAX)),
++            witness,
++            cx,
++            input,
++        )
++        .await
++    }
++
++    async fn scheduled_offsets(
++        &mut self,
++        offsets: impl IntoIterator<Item = Duration>,
++        witness: Option<WitnessKind>,
++        cx: &mut AsyncApp,
+         mut input: impl FnMut(usize, &mut Window, &mut App),
+     ) -> Result<(), String> {
+         let started = Instant::now();
+-        let interval = Duration::from_millis(interval_ms);
+         let mut pending: Vec<Pending> = Vec::new();
+-        for ix in 0..repeat {
+-            let scheduled = started + interval * u32::try_from(ix).unwrap_or(u32::MAX);
++        for (ix, offset) in offsets.into_iter().enumerate() {
++            let scheduled = started + offset;
+             // Resolve witnesses until the next input is due.
+             loop {
+                 let _ = self.operation_status(cx);
+@@ -1698,6 +1786,72 @@ fn write_fixture_files(
+ mod tests {
+     use super::*;
+ 
++    #[test]
++    fn recorded_scroll_packet_schedule_preserves_bursts_and_rejects_invalid_plans() {
++        let step: Step = serde_json::from_value(json!({
++            "do": "scroll_packets", "target": "history", "packets": [
++                {"at_us": 0, "delta_px": -42.0},
++                {"at_us": 8333, "delta_px": -38.0},
++                {"at_us": 8333, "delta_px": 0.0},
++                {"at_us": 17019, "delta_px": -32.0}
++            ]
++        }))
++        .unwrap();
++        let Step::ScrollPackets { packets, .. } = step else {
++            panic!("packet replay")
++        };
++        assert!(validate_scroll_packets(&packets).is_ok());
++        assert_eq!(packets.iter().map(|p| p.delta_px).sum::<f32>(), -112.0);
++        assert!(validate_scroll_packets(&[]).is_err());
++        for bad in [
++            vec![ScrollPacket {
++                at_us: 1,
++                delta_px: 1.0,
++            }],
++            vec![ScrollPacket {
++                at_us: 0,
++                delta_px: f32::NAN,
++            }],
++            vec![ScrollPacket {
++                at_us: 0,
++                delta_px: f32::INFINITY,
++            }],
++            vec![
++                ScrollPacket {
++                    at_us: 0,
++                    delta_px: 0.0,
++                },
++                ScrollPacket {
++                    at_us: 60_000_001,
++                    delta_px: 1.0,
++                },
++            ],
++            vec![
++                ScrollPacket {
++                    at_us: 0,
++                    delta_px: 0.0,
++                },
++                ScrollPacket {
++                    at_us: 2,
++                    delta_px: 1.0,
++                },
++                ScrollPacket {
++                    at_us: 1,
++                    delta_px: 1.0,
++                },
++            ],
++        ] {
++            assert!(validate_scroll_packets(&bad).is_err());
++        }
++        let too_many: Vec<_> = (0..10_001)
++            .map(|at_us| ScrollPacket {
++                at_us,
++                delta_px: 1.0,
++            })
++            .collect();
++        assert!(validate_scroll_packets(&too_many).is_err());
++    }
++
+     #[cfg(windows)]
+     #[test]
+     fn repo_witness_paths_match_windows_canonical_disk_paths() {

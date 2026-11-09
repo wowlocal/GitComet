@@ -1,0 +1,52 @@
+{
+  "scope": "Frozen revision 2 source. The source record was prepared before the successful build; final results are in build-provenance.json.",
+  "target_dir_required": "../probe-target",
+  "roots": {
+    "framework": {
+      "path": "gpui-ce-submission-probe",
+      "head": "c55d73659dd6560d3e70281056f841e6d366c0e5",
+      "baseline_patch_sha256": "2a51e6403d87617b14ecc2af7a54c2b0a73688229eb0a66d31c1b356ef948377",
+      "delta_patch_sha256": "978cc6c4b6cb8452293a8a6a8b1ba540ea29cca936ba3aa524b68a64235aa3f4",
+      "full_patch_sha256": "81aaba48b1ae0aef5ff423ab1c0995878e979765561bff5327993b96c4ad9dc5",
+      "files": {
+        "CHANGELOG.md": "eee029200ad8f634f5de3e8e8f78e1d13f5ff6d514bc83751cfed8ca01cf551e",
+        "Cargo.lock": "65494ad6a6e0aaf8a649685e725eb44a724786efdd5738cbf855ae5d949b18a5",
+        "Cargo.toml": "eb0f329eb394a169a90f0cfc6be7e5a7bd76aba6e93808993961c8beb91ff43a",
+        "crates/gpui_apple/Cargo.toml": "2f1d2acf3bb40a24e7e985ec8f29c7b0384f19d641bc3611aed2b77c184fcab1",
+        "crates/gpui_apple/src/display_link.rs": "7b0cfc2144829ae0afa96f018a9f8eef145c5fa8233050cd25975bc3a96778e8",
+        "crates/gpui_apple/src/gpui_apple.rs": "7f974e8e57f2f88d9a7b467dc83bb99dfb87a62eeb624ecfbd42f8c6fa1ad7ce",
+        "crates/gpui_apple/src/metal_renderer.rs": "d2c3ede6e576505078d631ea370a73ddfb2f3c5dc5a663d4d2e5fd282c31a7fd",
+        "crates/gpui_apple/src/native_timing.rs": "87c7a95b5861ccaa90dac6f32d94de043aafd59585c3a837600119c96b86db1e",
+        "crates/gpui_macos/src/display_link.rs": "c4466a94af7bc690f3bc7ef58fbd5e5b56c9159a2da9daed81a4a8d527c064d0",
+        "crates/gpui_macos/src/gpui_macos.rs": "e4065a4dd4ab0291e3bdcc4ed7f95dece37d733f1888ffba7f75f37ed888e9b9",
+        "crates/gpui_macos/src/window.rs": "ac0f6b86448daf70d0b237dc23c7c7fe2597dcb0832d4e820d3cc481ebe2e5ae",
+        "crates/gpui_platform/src/gpui_platform.rs": "b9a2a289d8bf2c896681654ccf1c9c0f323742be4a3f2b226326ba3dc7bfd3c2"
+      }
+    },
+    "app": {
+      "path": "GitComet-submission-probe",
+      "head": "ad5df1d185c1a8805870bffcfde592d5e3ce355a",
+      "baseline_patch_sha256": "da76c22f4de9cc7ab5ea9734d50f05ab31068c65f8254185b102d47ef421a620",
+      "delta_patch_sha256": "e3f467cc1835de8bf47c70454d2cceac30b39d534c3c454f72ea4c5634f7c5ed",
+      "full_patch_sha256": "2e82d16ee5362ebd060b9bff5f4efe39c23b58e54693eb34965a86ee80f97d74",
+      "files": {
+        "Cargo.lock": "ab08b23f7dd71edc3c22d5c127903c5f0f1caae259f428d76d7364472eaf071f",
+        "Cargo.toml": "4538ffc7612fc503a573e8298fe9e98fecb3f39d9fa56d57edd7aa1a6b730568",
+        "crates/gitcomet-ui-gpui/src/view/panes/history/indexed.rs": "d51e73ee0112bd31d5098f54a0241994a0fc274427b5eefc15d3db58f08a3872",
+        "crates/gitcomet-ui-gpui/src/view/scenario_driver.rs": "8622c837aabf18e41b90bd13f16224ecf4de3d40cbd46db3010a04605cd152a4"
+      }
+    }
+  },
+  "frozen_benchmark_sources_unchanged": true,
+  "revision": 2,
+  "revision_1_archive": "withheld-local-revision-1-archive",
+  "revision_2_change": "Enable the objc2-quartz-core CAFrameRateRange binding feature in the probe gpui_apple dependency. No Rust, scheduling, or runtime-policy edits.",
+  "first_build_failure": {
+    "path": "withheld-first-release-build.log",
+    "sha256_at_revision_2": "1c9931db9add3bedc77f6440f6f01a1d267b4f00919ad250dd09b24c3bfdbddd",
+    "reason": "E0599 preferredFrameRateRange; generated objc2-quartz-core API gated by CAFrameRateRange feature",
+    "retained_unchanged": true
+  },
+  "original_private_manifest_sha256": "dfa29dfe3b37018d58bd4d7a08eea945dbee63f541d2d8ca73e03c11ac578c99",
+  "source_record_export_changes": "Checkout/build/log paths and pre-build scope wording only; source heads, file hashes and patch hashes are unchanged."
+}

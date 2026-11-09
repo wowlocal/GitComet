@@ -1,0 +1,153 @@
+{
+  "schema": "submission-mechanism-public-export-v1",
+  "scope": "Saved-data-only export of one confirmation and its excluded pilot.",
+  "publication_base": "14b3cba1a8fcd51ae6a32e8bbc385556625bf5b2",
+  "transformations": [
+    "Native JSONL, scenario and six source patches copied byte for byte.",
+    "Each app telemetry line is unchanged except 16 repository strings per capture become repository-under-test.",
+    "Measurement preserves every numeric leaf; only environment battery/status text becomes AC.",
+    "Source/build/test records replace private paths and signing identity with portable or withheld labels.",
+    "Registered analyzer, input plan, protocol and pre-pilot lock copied unchanged.",
+    "Analyzer rerun on exported saved data equals original report except relative capture path.",
+    "Independent audit portability-only adaptation reproduces all original numeric results."
+  ],
+  "runs": [
+    {
+      "label": "pilot-excluded",
+      "role": "excluded pilot",
+      "excluded_from_confirmation": true,
+      "acquisition_valid": true,
+      "started_unix_s": 1794253727.721418,
+      "completed_unix_s": 1794253805.388685,
+      "source_manifest_original_sha256": "dfa29dfe3b37018d58bd4d7a08eea945dbee63f541d2d8ca73e03c11ac578c99",
+      "input_plan_sha256": "b19637f263db4e9a6dae10ff1db3073cc669316a252f4dcae92101eeeae5cb55",
+      "expected_viewport": [
+        243.0,
+        117.0,
+        1095.0,
+        882.0
+      ],
+      "expected_environment": {
+        "screens": [
+          {
+            "built_in": 1,
+            "frame": [
+              0,
+              0,
+              1728,
+              1117
+            ],
+            "id": 1,
+            "maximum_fps": 120,
+            "mode_refresh_hz": 120,
+            "pixel_height": 2234,
+            "pixel_width": 3456,
+            "scale": 2
+          }
+        ],
+        "low_power_mode": false,
+        "reduce_motion": false,
+        "power_source": "AC",
+        "window_bounds": [
+          {
+            "Height": 1037,
+            "Width": 1714,
+            "X": 0,
+            "Y": 34
+          }
+        ],
+        "thermal_state": 0
+      },
+      "private_session_and_repository_identity_checks_passed": true,
+      "original_hashes": {
+        "native.jsonl": "1c2d2d3e0e5943769a1d9d8c932c83987763de144a2aa514056177e6c137f972",
+        "frames.jsonl": "b71a7241a4fe674ebb953a96f9de224e466766f07953c09c46332107e21e39ac",
+        "measurement.json": "ecdc8092a3ff402f3b7bfe5520ce422daca70404f74d834fc2e9e8d744749fbf",
+        "scenario.json": "c4ef8178a2188bd8751c964f5124917aa057051dd31f06c738ef5b28e2f8bf11",
+        "submission-mechanism-analysis.json": "d3449063d23114d848527d6c292f9dd9a822c3400966ee4087f26c1930864c8b"
+      },
+      "published_hashes": {
+        "native.jsonl": "1c2d2d3e0e5943769a1d9d8c932c83987763de144a2aa514056177e6c137f972",
+        "frames.jsonl": "c106fa24c4fc9af4c708b3bc88a8627a446230bb94a615e3e662878a6aeb3a87",
+        "measurement.json": "e00ea4727bd61d7101b93264d372edf4a00afafc3c15186814294c38a6ee4d2f",
+        "scenario.json": "c4ef8178a2188bd8751c964f5124917aa057051dd31f06c738ef5b28e2f8bf11"
+      },
+      "numeric_measurement_and_app_telemetry_unchanged": true,
+      "app_repository_string_replacements": 16,
+      "measurement_string_changes": "Each environment.power_source becomes AC; original battery ID/status omitted.",
+      "analysis_equivalence_except_capture_path": true
+    },
+    {
+      "label": "confirmation",
+      "role": "confirmation",
+      "excluded_from_confirmation": false,
+      "acquisition_valid": true,
+      "started_unix_s": 1794253819.846675,
+      "completed_unix_s": 1794253895.9939709,
+      "source_manifest_original_sha256": "dfa29dfe3b37018d58bd4d7a08eea945dbee63f541d2d8ca73e03c11ac578c99",
+      "input_plan_sha256": "b19637f263db4e9a6dae10ff1db3073cc669316a252f4dcae92101eeeae5cb55",
+      "expected_viewport": [
+        243.0,
+        117.0,
+        1095.0,
+        882.0
+      ],
+      "expected_environment": {
+        "screens": [
+          {
+            "built_in": 1,
+            "frame": [
+              0,
+              0,
+              1728,
+              1117
+            ],
+            "id": 1,
+            "maximum_fps": 120,
+            "mode_refresh_hz": 120,
+            "pixel_height": 2234,
+            "pixel_width": 3456,
+            "scale": 2
+          }
+        ],
+        "low_power_mode": false,
+        "reduce_motion": false,
+        "power_source": "AC",
+        "window_bounds": [
+          {
+            "Height": 1037,
+            "Width": 1714,
+            "X": 0,
+            "Y": 34
+          }
+        ],
+        "thermal_state": 0
+      },
+      "private_session_and_repository_identity_checks_passed": true,
+      "original_hashes": {
+        "native.jsonl": "8ca8ed2183b0adc514d9b70db8819c007a35172f41ca04b295fbfd129be30c64",
+        "frames.jsonl": "b5539df62aa19975fcda9e531d5c2f31f0acf15b72c922685c02bd8ebd6256fc",
+        "measurement.json": "d9190fc433ef69d3a39f9bf94167ae1cde16cb0343646cbf816a42f913fff573",
+        "scenario.json": "c4ef8178a2188bd8751c964f5124917aa057051dd31f06c738ef5b28e2f8bf11",
+        "submission-mechanism-analysis.json": "42d2bcc77632f9d7877154f778323dd5de803c4492501d64babc6d2421fafdb7"
+      },
+      "published_hashes": {
+        "native.jsonl": "8ca8ed2183b0adc514d9b70db8819c007a35172f41ca04b295fbfd129be30c64",
+        "frames.jsonl": "f31d703b6cd5739cbe4d1410a7d941e4743a0640a85c5ebe0f0da726a24677f6",
+        "measurement.json": "ba6ab888ee4b6846010830bc21ae84b68b392f80747cf2d058a3907f858017d2",
+        "scenario.json": "c4ef8178a2188bd8751c964f5124917aa057051dd31f06c738ef5b28e2f8bf11"
+      },
+      "numeric_measurement_and_app_telemetry_unchanged": true,
+      "app_repository_string_replacements": 16,
+      "measurement_string_changes": "Each environment.power_source becomes AC; original battery ID/status omitted.",
+      "analysis_equivalence_except_capture_path": true
+    }
+  ],
+  "independent_audit": {
+    "original_script_sha256": "f5b07a6c9f745e56473e2eaa72c1e6f4004bfd8445ca770682f837f125b2a6e3",
+    "exported_script_sha256": "9c98ca6b71d0d59c12819cc9949e4f51119d2edb6aec5b715589ba60befd3e25",
+    "original_report_sha256": "80dfa0c6e563d18b32a819952ff07acbf72fd10fb9acfb8b2cde385daa90f67c",
+    "changes": "Only portable dataset-relative paths, public run labels and optional output CLI; numeric audit logic unchanged.",
+    "all_numeric_results_equal_original_audit": true
+  }
+}

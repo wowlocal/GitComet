@@ -1,0 +1,262 @@
+diff --git a/crates/gpui_apple/Cargo.toml b/crates/gpui_apple/Cargo.toml
+index cc9530b6ec..4ed955e756 100644
+--- a/crates/gpui_apple/Cargo.toml
++++ b/crates/gpui_apple/Cargo.toml
+@@ -38,7 +38,7 @@ log.workspace = true
+ metal.workspace = true
+ objc2.workspace = true
+ objc2-foundation.workspace = true
+-objc2-quartz-core.workspace = true
++objc2-quartz-core = { workspace = true, features = ["CAFrameRateRange"] }
+ parking_lot.workspace = true
+ smallvec.workspace = true
+ 
+diff --git a/crates/gpui_apple/src/display_link.rs b/crates/gpui_apple/src/display_link.rs
+index 2bd630fd26..cc44b69629 100644
+--- a/crates/gpui_apple/src/display_link.rs
++++ b/crates/gpui_apple/src/display_link.rs
+@@ -36,6 +36,7 @@ fn layer_object(layer: &metal::MetalLayerRef) -> &CAMetalLayer {
+ }
+ 
+ struct MetalDisplayLinkDelegateIvars {
++    diagnostic_window: u64,
+     callback: Box<dyn Fn(metal::MetalDrawable)>,
+ }
+ 
+@@ -50,10 +51,25 @@ define_class!(
+ 
+     unsafe impl CAMetalDisplayLinkDelegate for MetalDisplayLinkDelegate {
+         #[unsafe(method(metalDisplayLink:needsUpdate:))]
+-        fn needs_update(&self, _link: &CAMetalDisplayLink, update: &CAMetalDisplayLinkUpdate) {
++        fn needs_update(&self, link: &CAMetalDisplayLink, update: &CAMetalDisplayLinkUpdate) {
+             // The callback may destroy its frame source, releasing our owner's retain.
+             let delegate = self.retain();
+             let drawable = retain_drawable(&update.drawable());
++            if crate::native_timing::enabled() {
++                let range = link.preferredFrameRateRange();
++                crate::native_timing::metal_update(
++                    delegate.ivars().diagnostic_window,
++                    drawable.drawable_id() as u64,
++                    update.targetTimestamp(),
++                    update.targetPresentationTimestamp(),
++                    f64::from(link.preferredFrameLatency()),
++                    [
++                        f64::from(range.minimum),
++                        f64::from(range.maximum),
++                        f64::from(range.preferred),
++                    ],
++                );
++            }
+             (delegate.ivars().callback)(drawable);
+         }
+     }
+@@ -62,9 +78,11 @@ define_class!(
+ impl MetalDisplayLinkDelegate {
+     fn new(
+         main_thread: MainThreadMarker,
++        diagnostic_window: u64,
+         callback: impl Fn(metal::MetalDrawable) + 'static,
+     ) -> Retained<Self> {
+         let this = Self::alloc(main_thread).set_ivars(MetalDisplayLinkDelegateIvars {
++            diagnostic_window,
+             callback: Box::new(callback),
+         });
+         // SAFETY: `NSObject`'s `init` is its designated initializer.
+@@ -95,12 +113,13 @@ impl MetalFrameSource {
+     pub fn new(
+         layer: &metal::MetalLayerRef,
+         main_thread: MainThreadMarker,
++        diagnostic_window: u64,
+         callback: impl Fn(metal::MetalDrawable) + 'static,
+     ) -> Option<Self> {
+         if !Self::is_available() {
+             return None;
+         }
+-        let delegate = MetalDisplayLinkDelegate::new(main_thread, callback);
++        let delegate = MetalDisplayLinkDelegate::new(main_thread, diagnostic_window, callback);
+         let layer = layer_object(layer);
+         let link = CAMetalDisplayLink::initWithMetalLayer(CAMetalDisplayLink::alloc(), layer);
+         link.setDelegate(Some(ProtocolObject::from_ref(&*delegate)));
+diff --git a/crates/gpui_apple/src/native_timing.rs b/crates/gpui_apple/src/native_timing.rs
+index 0d71b7f305..2b2248aef5 100644
+--- a/crates/gpui_apple/src/native_timing.rs
++++ b/crates/gpui_apple/src/native_timing.rs
+@@ -153,6 +153,7 @@ enum Event {
+     },
+     Decision {
+         window: u64,
++        drawable: u64,
+         used: bool,
+         paused: bool,
+     },
+@@ -576,10 +577,11 @@ pub fn wake(window: u64) {
+ }
+ 
+ #[doc(hidden)]
+-pub fn decision(window: u64, used: bool, paused: bool) {
++pub fn decision(window: u64, drawable: u64, used: bool, paused: bool) {
+     if let Some(capture) = active() {
+         capture.record(Event::Decision {
+             window,
++            drawable,
+             used,
+             paused,
+         });
+@@ -726,9 +728,12 @@ impl Record {
+             Event::Wake { window } => row!("wake", "window"=>window),
+             Event::Decision {
+                 window,
++                drawable,
+                 used,
+                 paused,
+-            } => row!("frame_decision", "window"=>window, "used_drawable"=>used, "paused"=>paused),
++            } => {
++                row!("frame_decision", "window"=>window, "drawable"=>drawable, "used_drawable"=>used, "paused"=>paused)
++            }
+             Event::HistoryOffset {
+                 window,
+                 top,
+@@ -1072,6 +1077,49 @@ mod tests {
+         assert!(output.contains("\"dy\":null"));
+         assert!(output.contains("\"phase\":8,\"momentum\":1,\"precise\":true"));
+     }
++
++    #[test]
++    fn frame_decision_retains_the_assigned_drawable_join_key() {
++        let record = Record {
++            seq: 5,
++            at_s: 2.0,
++            event: Event::Decision {
++                window: 7,
++                drawable: 43,
++                used: false,
++                paused: true,
++            },
++        };
++        let mut output = Vec::new();
++        record.write(&mut output).unwrap();
++        let output = String::from_utf8(output).unwrap();
++        assert!(output.contains("\"window\":7,\"drawable\":43"));
++        assert!(output.contains("\"used_drawable\":false,\"paused\":true"));
++    }
++
++    #[test]
++    fn metal_update_keeps_cpu_deadline_and_presentation_target_distinct() {
++        let record = Record {
++            seq: 1,
++            at_s: 1.0,
++            event: Event::MetalUpdate {
++                window: 7,
++                drawable: 43,
++                deadline_s: 1.25,
++                target_s: 1.5,
++                latency: 2.0,
++                minimum: 0.0,
++                maximum: 0.0,
++                preferred: 0.0,
++            },
++        };
++        let mut output = Vec::new();
++        record.write(&mut output).unwrap();
++        let output = String::from_utf8(output).unwrap();
++        assert!(output.contains("\"window\":7,\"drawable\":43"));
++        assert!(output.contains("\"deadline_s\":1.250000000"));
++        assert!(output.contains("\"target_presentation_s\":1.500000000"));
++    }
+ }
+ 
+ /// Explicit programmatic benchmark arming, separate from native AppKit input.
+diff --git a/crates/gpui_macos/src/display_link.rs b/crates/gpui_macos/src/display_link.rs
+index 687bbb8706..c715d47c75 100644
+--- a/crates/gpui_macos/src/display_link.rs
++++ b/crates/gpui_macos/src/display_link.rs
+@@ -236,9 +236,18 @@ fn unsubscribe(display_id: CGDirectDisplayID, subscriber_id: SubscriberId) {
+ pub struct MetalFrames {
+     source: RefCell<Option<MetalFrameSource>>,
+     woken: Cell<bool>,
++    diagnostic_window: u64,
+ }
+ 
+ impl MetalFrames {
++    #[cfg(not(feature = "wgpu"))]
++    pub fn for_window(diagnostic_window: u64) -> Self {
++        Self {
++            diagnostic_window,
++            ..Default::default()
++        }
++    }
++
+     #[cfg(not(feature = "wgpu"))]
+     pub fn replace(&self, source: Option<MetalFrameSource>) {
+         *self.source.borrow_mut() = source;
+@@ -250,6 +259,7 @@ impl MetalFrames {
+     }
+ 
+     pub fn wake(&self) {
++        gpui_apple::native_timing::wake(self.diagnostic_window);
+         self.woken.set(true);
+         // A source being replaced starts unpaused, so skipping it is safe.
+         if let Ok(source) = self.source.try_borrow()
+diff --git a/crates/gpui_macos/src/window.rs b/crates/gpui_macos/src/window.rs
+index abc66d287e..fbfe3dbe43 100644
+--- a/crates/gpui_macos/src/window.rs
++++ b/crates/gpui_macos/src/window.rs
+@@ -1040,11 +1040,16 @@ impl MacWindowState {
+                 let marker =
+                     MainThreadMarker::new().expect("macOS windows require the main thread");
+                 let state = Rc::downgrade(_window_state);
+-                let source = MetalFrameSource::new(layer, marker, move |drawable| {
+-                    if let Some(state) = state.upgrade() {
+-                        metal_frame(&state, drawable);
+-                    }
+-                });
++                let source = MetalFrameSource::new(
++                    layer,
++                    marker,
++                    self.handle.window_id().as_u64(),
++                    move |drawable| {
++                        if let Some(state) = state.upgrade() {
++                            metal_frame(&state, drawable);
++                        }
++                    },
++                );
+                 if let Some(source) = source {
+                     frames.replace(Some(source));
+                     self.renderer.set_display_link_attached(true);
+@@ -1316,8 +1321,8 @@ impl MacWindow {
+             assert!(!native_view.is_null());
+ 
+             #[cfg(not(feature = "wgpu"))]
+-            let metal_frames =
+-                MetalFrameSource::is_available().then(|| Rc::new(MetalFrames::default()));
++            let metal_frames = MetalFrameSource::is_available()
++                .then(|| Rc::new(MetalFrames::for_window(handle.window_id().as_u64())));
+             #[cfg(feature = "wgpu")]
+             let metal_frames: Option<Rc<MetalFrames>> = None;
+             #[cfg(not(feature = "wgpu"))]
+@@ -3537,6 +3542,8 @@ extern "C" fn step(view: *mut c_void) {
+ #[cfg(not(feature = "wgpu"))]
+ fn metal_frame(window_state: &Rc<Mutex<MacWindowState>>, drawable: metal::MetalDrawable) {
+     let mut state = window_state.lock();
++    let diagnostics = gpui_apple::native_timing::enabled();
++    let drawable_id = diagnostics.then(|| drawable.drawable_id() as u64);
+     let FrameSource::Metal(frames) = &state.frame_source else {
+         return;
+     };
+@@ -3552,7 +3559,15 @@ fn metal_frame(window_state: &Rc<Mutex<MacWindowState>>, drawable: metal::MetalD
+     let mut state = window_state.lock();
+     state.request_frame_callback = Some(callback);
+     let used_drawable = state.renderer.set_frame_drawable(None).is_none();
+-    frames.end_frame(used_drawable);
++    let paused = frames.end_frame(used_drawable);
++    if let Some(drawable_id) = drawable_id {
++        gpui_apple::native_timing::decision(
++            state.handle.window_id().as_u64(),
++            drawable_id,
++            used_drawable,
++            paused,
++        );
++    }
+ }
+ 
+ unsafe extern "C" fn valid_attributes_for_marked_text(_: &Objc2Object, _: Sel) -> ObjcId {

@@ -1,0 +1,54 @@
+{
+  "schema": "gpui-submission-mechanism-observations-v1",
+  "status": "Saved-data export; PR47 remains Draft",
+  "documentation_base": "14b3cba1a8fcd51ae6a32e8bbc385556625bf5b2",
+  "acquisition_date_local": "2026-11-09",
+  "condition": "one observer-instrumented CAMetalDisplayLink arm",
+  "confirmation": "runs/confirmation",
+  "excluded_pilot": "runs/pilot-excluded",
+  "excluded_pilot_is_acquisition_valid": true,
+  "no_additional_probe_attempts_in_this_series": true,
+  "production_framework_pr": {
+    "url": "https://github.com/Havunen/gpui-ce/pull/47",
+    "commit": "aad11809345380e3ae2d79f6cfcfc5aaf2af4edc",
+    "status": "Draft"
+  },
+  "sources": {
+    "app": {
+      "repository": "https://github.com/Auto-Explore/GitComet.git",
+      "base": "ad5df1d185c1a8805870bffcfde592d5e3ce355a",
+      "full_overlay": "source/app-full.patch"
+    },
+    "framework": {
+      "repository": "https://github.com/Havunen/gpui-ce.git",
+      "base": "c55d73659dd6560d3e70281056f841e6d366c0e5",
+      "full_overlay": "source/framework-full.patch"
+    },
+    "measurement_helper_at_app_base": {
+      "path": "scripts/profiling/perf_macos.py",
+      "sha256": "de2d007068a5270f22299474ad18089288697dd5dee720c3c074ecf184548725"
+    }
+  },
+  "signed_binary_sha256": "83e5d25409295fb1c8fe0042025adf621abf5ed6d7300355eacc768aa8bb153a",
+  "original_source_manifest_sha256": "dfa29dfe3b37018d58bd4d7a08eea945dbee63f541d2d8ca73e03c11ac578c99",
+  "analysis": {
+    "registered_analyzer": "analysis/analyze.py",
+    "sha256": "c3d838ba7da3250b19dc8f465de8ab3a82146e8ce80d63d140c8e95fa9c16478",
+    "plan": "analysis/input-plan.json",
+    "plan_sha256": "b19637f263db4e9a6dae10ff1db3073cc669316a252f4dcae92101eeeae5cb55",
+    "protocol": "analysis/PROTOCOL.md",
+    "prepilot_lock": "analysis/prepilot-lock.json",
+    "independent_audit": "analysis/audit.py",
+    "reproduce": "python3 analysis/verify.py"
+  },
+  "privacy": {
+    "raw_native_byte_identical": true,
+    "raw_scenario_byte_identical": true,
+    "app_only_repository_string_redaction": true,
+    "observer_all_numeric_leaves_unchanged": true,
+    "private_profiles_repository_and_session_identities_omitted": true,
+    "signing_identity_omitted": true
+  },
+  "interpretation": "Mechanism observation only; no matched efficacy, observer-neutrality, energy, physical-input or causal claim.",
+  "tool_disclosure": "Prepared with OpenAI Codex and published at the reporter\u2019s explicit request. The framework PR remains a draft pending maintainer review."
+}

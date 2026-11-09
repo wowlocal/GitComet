@@ -1,0 +1,52 @@
+{
+  "scope": "Native recorder source unit tests only; standalone rustc harness, not full framework workspace suite",
+  "source_sha256": "87c7a95b5861ccaa90dac6f32d94de043aafd59585c3a837600119c96b86db1e",
+  "started_unix_s": 1794253580.440642,
+  "prior_cargo_attempts": [
+    "external workspace package cannot test dev-dependencies",
+    "framework default toolchain1.97 too old",
+    "framework1.99 test workspace would rebuild separate dependency graph; interrupted before result"
+  ],
+  "objc2_foundation": {
+    "path": "probe-target/release/deps/libobjc2_foundation-2588f5022bf37e26.rlib",
+    "sha256": "3af3de7da76a9b5adb692cad9a85d68036527fbf710d4162f36e80f0573bbb6a"
+  },
+  "objc2_quartz_core": {
+    "path": "probe-target/release/deps/libobjc2_quartz_core-0a91b9da744fe41e.rlib",
+    "sha256": "b27532d86388c1d2f649bf22b6ff3672c088750d119ef22fff561925189a669d"
+  },
+  "command": [
+    "rustup",
+    "run",
+    "1.99",
+    "rustc",
+    "--edition=2024",
+    "--test",
+    "gpui-ce-submission-probe/crates/gpui_apple/src/native_timing.rs",
+    "-L",
+    "dependency=probe-target/release/deps",
+    "--extern",
+    "objc2_foundation=probe-target/release/deps/libobjc2_foundation-2588f5022bf37e26.rlib",
+    "--extern",
+    "objc2_quartz_core=probe-target/release/deps/libobjc2_quartz_core-0a91b9da744fe41e.rlib",
+    "--extern",
+    "log=probe-target/release/deps/liblog-6bee2bf31a96e80e.rlib",
+    "-o",
+    "probe-artifacts/probe-native-unit-harness",
+    "-C",
+    "lto=fat",
+    "-C",
+    "embed-bitcode=yes"
+  ],
+  "compile_exit_code": 0,
+  "finished_unix_s": 1794253653.728949,
+  "log": {
+    "path": "probe-target/release/deps/liblog-6bee2bf31a96e80e.rlib",
+    "sha256": "e0ec96d252832ef765141a873b3702c730dd717bdd86b17037162fb7bb5d442f"
+  },
+  "test_exit_code": 0,
+  "tests_passed": 16,
+  "tests_failed": 0,
+  "standalone_harness_warnings": "Four dead-code warnings from compiling recorder module alone; this is not a full framework Cargo/native lifecycle test.",
+  "original_private_record_sha256": "de25095d44aeee0c5c18b9b6037124312573c922effd71bc1da924f9f365c32e"
+}

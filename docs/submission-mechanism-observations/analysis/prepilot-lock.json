@@ -1,0 +1,27 @@
+{
+  "revision": 2,
+  "supersedes": "prepilot-lock-v1.json",
+  "registered_utc": "2026-11-09T19:21:14.513814+00:00",
+  "scope": "Frozen before any real probe pilot; only tiny synthetic captures analyzed. No acquisition/threshold/scheduling changes.",
+  "review_fixes": [
+    "Actual footer record-count and ordered unique contiguous sequence integrity is mandatory for complete capture.",
+    "Nonfinite/null presented timestamps remain unavailable; no crash or conversion to zero.",
+    "Null logical coordinates remain unknown."
+  ],
+  "source_manifest_sha256": "dfa29dfe3b37018d58bd4d7a08eea945dbee63f541d2d8ca73e03c11ac578c99",
+  "source_files_verified": 16,
+  "files": {
+    "PROTOCOL.md": "70d73c996a304251b46591136f089b0a3db64c30eafd6137cd54f59f3b7be8e7",
+    "input-plan.json": "b19637f263db4e9a6dae10ff1db3073cc669316a252f4dcae92101eeeae5cb55",
+    "analyze.py": "c3d838ba7da3250b19dc8f465de8ab3a82146e8ce80d63d140c8e95fa9c16478",
+    "check-synthetic.py": "5044844906550bcd83a968564ca31f8e6ec8ced44d3484c0dede8914166c8628"
+  },
+  "synthetic_checks_passed": 13,
+  "cli_cases_verified": {
+    "complete": true,
+    "missing": false,
+    "duplicate": false,
+    "null-time": true
+  },
+  "independent_source_review": "ordinary_scroll_surfaces re-read both fixes; no remaining blocking source issue; fixture execution performed by energy_efficiency."
+}

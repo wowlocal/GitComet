@@ -1,0 +1,84 @@
+diff --git a/Cargo.toml b/Cargo.toml
+index a41812ef..4ca8dba4 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -541,25 +541,25 @@ strip = "none"
+ 
+ # Common local benchmark dependency source.
+ [patch."https://github.com/Havunen/gpui-ce.git"]
+-gpui-ce = { path = "../gpui-ce-framework-ab/crates/gpui" }
+-gpui_ce_apple = { path = "../gpui-ce-framework-ab/crates/gpui_apple" }
+-gpui_ce_collections = { path = "../gpui-ce-framework-ab/crates/gpui_collections" }
+-gpui_ce_derive_refineable = { path = "../gpui-ce-framework-ab/crates/gpui_derive_refineable" }
+-gpui_ce_linux = { path = "../gpui-ce-framework-ab/crates/gpui_linux" }
+-gpui_ce_macos = { path = "../gpui-ce-framework-ab/crates/gpui_macos" }
+-gpui_ce_macros = { path = "../gpui-ce-framework-ab/crates/gpui_macros" }
+-gpui_ce_media = { path = "../gpui-ce-framework-ab/crates/gpui_media" }
+-gpui_ce_parley = { path = "../gpui-ce-framework-ab/crates/gpui_ce_parley" }
+-gpui_ce_platform = { path = "../gpui-ce-framework-ab/crates/gpui_platform" }
+-gpui_ce_refineable = { path = "../gpui-ce-framework-ab/crates/gpui_refineable" }
+-gpui_ce_render = { path = "../gpui-ce-framework-ab/crates/gpui_render" }
+-gpui_ce_scheduler = { path = "../gpui-ce-framework-ab/crates/gpui_scheduler" }
+-gpui_ce_shared_string = { path = "../gpui-ce-framework-ab/crates/gpui_shared_string" }
+-gpui_ce_sum_tree = { path = "../gpui-ce-framework-ab/crates/gpui_sum_tree" }
+-gpui_ce_util = { path = "../gpui-ce-framework-ab/crates/gpui_ce_util" }
+-gpui_ce_web = { path = "../gpui-ce-framework-ab/crates/gpui_web" }
+-gpui_ce_wgpu = { path = "../gpui-ce-framework-ab/crates/gpui_wgpu" }
+-gpui_ce_windows = { path = "../gpui-ce-framework-ab/crates/gpui_windows" }
+-gpui_xim = { path = "../gpui-ce-framework-ab/crates/xim" }
+-xim-ctext = { path = "../gpui-ce-framework-ab/crates/xim_ctext" }
+-xim-parser = { path = "../gpui-ce-framework-ab/crates/xim_parser" }
++gpui-ce = { path = "../gpui-ce-submission-probe/crates/gpui" }
++gpui_ce_apple = { path = "../gpui-ce-submission-probe/crates/gpui_apple" }
++gpui_ce_collections = { path = "../gpui-ce-submission-probe/crates/gpui_collections" }
++gpui_ce_derive_refineable = { path = "../gpui-ce-submission-probe/crates/gpui_derive_refineable" }
++gpui_ce_linux = { path = "../gpui-ce-submission-probe/crates/gpui_linux" }
++gpui_ce_macos = { path = "../gpui-ce-submission-probe/crates/gpui_macos" }
++gpui_ce_macros = { path = "../gpui-ce-submission-probe/crates/gpui_macros" }
++gpui_ce_media = { path = "../gpui-ce-submission-probe/crates/gpui_media" }
++gpui_ce_parley = { path = "../gpui-ce-submission-probe/crates/gpui_ce_parley" }
++gpui_ce_platform = { path = "../gpui-ce-submission-probe/crates/gpui_platform" }
++gpui_ce_refineable = { path = "../gpui-ce-submission-probe/crates/gpui_refineable" }
++gpui_ce_render = { path = "../gpui-ce-submission-probe/crates/gpui_render" }
++gpui_ce_scheduler = { path = "../gpui-ce-submission-probe/crates/gpui_scheduler" }
++gpui_ce_shared_string = { path = "../gpui-ce-submission-probe/crates/gpui_shared_string" }
++gpui_ce_sum_tree = { path = "../gpui-ce-submission-probe/crates/gpui_sum_tree" }
++gpui_ce_util = { path = "../gpui-ce-submission-probe/crates/gpui_ce_util" }
++gpui_ce_web = { path = "../gpui-ce-submission-probe/crates/gpui_web" }
++gpui_ce_wgpu = { path = "../gpui-ce-submission-probe/crates/gpui_wgpu" }
++gpui_ce_windows = { path = "../gpui-ce-submission-probe/crates/gpui_windows" }
++gpui_xim = { path = "../gpui-ce-submission-probe/crates/xim" }
++xim-ctext = { path = "../gpui-ce-submission-probe/crates/xim_ctext" }
++xim-parser = { path = "../gpui-ce-submission-probe/crates/xim_parser" }
+diff --git a/crates/gitcomet-ui-gpui/src/view/panes/history/indexed.rs b/crates/gitcomet-ui-gpui/src/view/panes/history/indexed.rs
+index 55d1cf5f..ba607240 100644
+--- a/crates/gitcomet-ui-gpui/src/view/panes/history/indexed.rs
++++ b/crates/gitcomet-ui-gpui/src/view/panes/history/indexed.rs
+@@ -1328,10 +1328,27 @@ impl HistoryView {
+             cx,
+         );
+         let interaction = self.scroll_interaction.clone();
++        // Private mechanism probe: associate submissions with the geometry
++        // captured by this render, before measure can update the next viewport.
++        #[cfg(target_os = "macos")]
++        let rendered_pose = (
++            logical.top as u64,
++            logical.within,
++            logical.height,
++            logical.viewport,
++        );
+         let shown_repo = self.indexed.presentation.as_ref().map(|p| p.key.repo_id);
+         let view = cx.entity().downgrade();
+         let measure = gpui::canvas(
+             move |bounds, window, _cx| {
++                #[cfg(target_os = "macos")]
++                gpui_platform::native_timing::history_offset(
++                    window.window_handle().window_id().as_u64(),
++                    rendered_pose.0,
++                    rendered_pose.1,
++                    rendered_pose.2,
++                    rendered_pose.3,
++                );
+                 let mut state = interaction.borrow_mut();
+                 state.viewport_bounds = shown_repo.map(|repo_id| (repo_id, bounds));
+                 // Rows step by the height layout gives them, or they drift 1px apart.
