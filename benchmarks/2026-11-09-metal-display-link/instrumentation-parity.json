@@ -1,0 +1,23 @@
+{
+  "stock_production_commit": "c55d73659dd6560d3e70281056f841e6d366c0e5",
+  "fixed_production_commit": "aad11809345380e3ae2d79f6cfcfc5aaf2af4edc",
+  "application_commit": "ad5df1d185c1a8805870bffcfde592d5e3ce355a",
+  "stock_framework_patch_sha256": "c44c7b985dfd5bff177814fee7d9b495714976360079c773acf3339c0c945b58",
+  "fixed_full_framework_patch_sha256": "2a51e6403d87617b14ecc2af7a54c2b0a73688229eb0a66d31c1b356ef948377",
+  "common_app_patch_sha256": "da76c22f4de9cc7ab5ea9734d50f05ab31068c65f8254185b102d47ef421a620",
+  "recorder_sha256": "06d8989ee36b78d1b57d0e2d9ade897699bbdae265422eaedb0d1ba5aee177d9",
+  "factory_sha256": "26945ac02f4077fd28113a76f11832ffcc468f008b68307787ee9b314f46c655",
+  "parity_checks": {
+    "recorder_source_identical": true,
+    "renderer_begin_and_presented_handler_identical": true,
+    "renderer_completion_handler_identical": true,
+    "native_scroll_observer_identical": true,
+    "common_app_files_identical": true
+  },
+  "production_reconstruction": {
+    "method": "Remove only identified numeric observer fields, hooks, module reexports and binding features in memory; compare remaining files byte-for-byte to git blobs. Saved stock files plus PR-file union:12paths per condition,24checks, all exact.",
+    "stock_matches_c55": true,
+    "fixed_matches_aad1180": true
+  },
+  "runtime_actions_performed": false
+}

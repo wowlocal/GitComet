@@ -1,0 +1,8 @@
+{
+  "mode": "stock",
+  "framework_production_commit": "c55d73659dd6560d3e70281056f841e6d366c0e5",
+  "application_commit": "ad5df1d185c1a8805870bffcfde592d5e3ce355a",
+  "framework_tracked_patch_sha256": "c44c7b985dfd5bff177814fee7d9b495714976360079c773acf3339c0c945b58",
+  "common_app_patch_sha256": "da76c22f4de9cc7ab5ea9734d50f05ab31068c65f8254185b102d47ef421a620",
+  "timing_recorder_sha256": "06d8989ee36b78d1b57d0e2d9ade897699bbdae265422eaedb0d1ba5aee177d9"
+}

@@ -1,0 +1,18 @@
+{
+  "reviewed_utc": "2026-11-09T17:18:47.756378+00:00",
+  "status": "No remaining blocking arithmetic finding for planned pilots; runtime validation pending.",
+  "files": {
+    "run.py": "eaf2e2dda2e1f931246d31f7c222b2a0ea076c3b2b4b5451b090827c0021e4af",
+    "analyze.py": "99e0cab68ec684a44dcd81c7e6ba5229e5bdb34ffa4be2aedaf4eec80d5fb0c1",
+    "PROTOCOL.md": "50d0707c7d2bc9f697296ec5faa836fae68880ca4d0d47aade1d4ee902b7d93a",
+    "input-plan.json": "3ab76a1962320ac20f7097dcb91d85c0b8e35ee4764ef06cbeae27ed6e9e51b3"
+  },
+  "static_fixtures": {
+    "deduplicated_presentations": true,
+    "missing_counter_unavailable": true,
+    "intermediate_reset_detected": true,
+    "empty_quantiles_preserved": true,
+    "missing_metric_supported": true
+  },
+  "runtime_or_build_started": false
+}

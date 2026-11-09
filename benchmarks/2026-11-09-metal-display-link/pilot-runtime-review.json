@@ -1,0 +1,210 @@
+{
+  "status": "No arithmetic/control blocker to balanced series found in valid pilots. Pilots excluded from comparison.",
+  "pilots": [
+    {
+      "pilot": "pilot-stock-20261109-202842",
+      "not_comparison_replicate": true,
+      "app_inputs": 1442,
+      "native_packets": 1440,
+      "measured_input_stages": 960,
+      "max_abs_clock_mapping_residual_ms": 0.11849403381347656,
+      "core_exposure": 4.601195999886841,
+      "presentations": 514,
+      "rate": 111.7100858152187,
+      "telemetry": [
+        {
+          "phase": "idle_before",
+          "rows": 10,
+          "dt": 9.032815125014167,
+          "power_w": 0.1295868654234373,
+          "residency_wall_ratio": 0.9999140587214406
+        },
+        {
+          "phase": "scrolling",
+          "rows": 12,
+          "dt": 11.059159834054299,
+          "power_w": 1.4998373487580938,
+          "residency_wall_ratio": 0.9999963867911399
+        },
+        {
+          "phase": "idle_after",
+          "rows": 10,
+          "dt": 9.038702792022377,
+          "power_w": 0.12607914910155157,
+          "residency_wall_ratio": 1.0000004978196975
+        }
+      ],
+      "capture_arm_ca": 314206.626819042,
+      "capture_end_ca": 314256.626819042,
+      "idle_after_end_ca": 314252.1612358093,
+      "flush_after_idle_margin_s": 4.4655832326970994,
+      "native_footer": {
+        "event": "capture_status",
+        "status": "complete",
+        "reason": "duration",
+        "records": 10308,
+        "dropped": 0,
+        "marker_overflow": 0,
+        "flushed_at_s": 314256.63668925
+      },
+      "geometry": [
+        243.0,
+        117.0,
+        1095.0,
+        882.0
+      ],
+      "environment": {
+        "screens": [
+          {
+            "built_in": 1,
+            "frame": [
+              0,
+              0,
+              1728,
+              1117
+            ],
+            "id": 1,
+            "maximum_fps": 120,
+            "mode_refresh_hz": 120,
+            "pixel_height": 2234,
+            "pixel_width": 3456,
+            "scale": 2
+          }
+        ],
+        "low_power_mode": false,
+        "power_source": "AC",
+        "window_bounds": [
+          {
+            "Height": 1037,
+            "Width": 1714,
+            "X": 0,
+            "Y": 34
+          }
+        ]
+      },
+      "outcomes": {
+        "submissions": 1322,
+        "missing_present_callback": 0,
+        "zero_or_not_presented": 0,
+        "missing_gpu_callback": 0,
+        "gpu_errors": 0
+      },
+      "file_hashes": {
+        "frames.jsonl": "e8ad437ad88b92692497ff2c4faacc21ccbbc075fe806158a4629e44f699bc75",
+        "native.jsonl": "9b747fe60b3aa560c6d6306fa1dcb0e5affd2b7c5ac060a91d08a408352c23d6",
+        "measurement.json": "54b0649fe8537779cd550093786ea1896ae52fa7f6aaa4f15af6d724aae86da6",
+        "analysis.json": "4f7d3b0f5b7cdebf909d892b99c823ebb5bdc1be66c4a36da4a2fc37a23fa80a"
+      },
+      "independent_quantiles_and_cpu_gpu_rates_reproduced": true
+    },
+    {
+      "pilot": "pilot-fixed-20261109-203131",
+      "not_comparison_replicate": true,
+      "app_inputs": 1442,
+      "native_packets": 1440,
+      "measured_input_stages": 960,
+      "max_abs_clock_mapping_residual_ms": 0.18143653869628906,
+      "core_exposure": 4.601195999886841,
+      "presentations": 390,
+      "rate": 84.76057094929045,
+      "telemetry": [
+        {
+          "phase": "idle_before",
+          "rows": 10,
+          "dt": 9.040267749980558,
+          "power_w": 0.11500023735494293,
+          "residency_wall_ratio": 1.0000011107730862
+        },
+        {
+          "phase": "scrolling",
+          "rows": 11,
+          "dt": 10.0413674589945,
+          "power_w": 1.1167080471650073,
+          "residency_wall_ratio": 0.9999855181748474
+        },
+        {
+          "phase": "idle_after",
+          "rows": 10,
+          "dt": 9.037443582958076,
+          "power_w": 0.11948469819897399,
+          "residency_wall_ratio": 1.0001108259984581
+        }
+      ],
+      "capture_arm_ca": 314374.341884958,
+      "capture_end_ca": 314424.341884958,
+      "idle_after_end_ca": 314419.8143520355,
+      "flush_after_idle_margin_s": 4.527532922453247,
+      "native_footer": {
+        "event": "capture_status",
+        "status": "complete",
+        "reason": "duration",
+        "records": 11028,
+        "dropped": 0,
+        "marker_overflow": 0,
+        "flushed_at_s": 314424.351179208
+      },
+      "geometry": [
+        243.0,
+        117.0,
+        1095.0,
+        882.0
+      ],
+      "environment": {
+        "screens": [
+          {
+            "built_in": 1,
+            "frame": [
+              0,
+              0,
+              1728,
+              1117
+            ],
+            "id": 1,
+            "maximum_fps": 120,
+            "mode_refresh_hz": 120,
+            "pixel_height": 2234,
+            "pixel_width": 3456,
+            "scale": 2
+          }
+        ],
+        "low_power_mode": false,
+        "power_source": "AC",
+        "window_bounds": [
+          {
+            "Height": 1037,
+            "Width": 1714,
+            "X": 0,
+            "Y": 34
+          }
+        ]
+      },
+      "outcomes": {
+        "submissions": 1412,
+        "missing_present_callback": 0,
+        "zero_or_not_presented": 365,
+        "missing_gpu_callback": 0,
+        "gpu_errors": 0
+      },
+      "file_hashes": {
+        "frames.jsonl": "8e1152e4476b98a558a747648253f0d5867747ff78336b43001563dbb4bd0d48",
+        "native.jsonl": "ced9f9d9dcfabcfdd5f7403a79d64190180f19adadb3c3d9bdb4514f2724518d",
+        "measurement.json": "93dfc476f902cdb84552bd5a46656db18d50b502c412bfe5bc4759e55ec2c7cb",
+        "analysis.json": "b34798ed895d257e46a84e91deb16c5fad5562a5ddbcc909e37a74737bdc7fa8"
+      },
+      "independent_quantiles_and_cpu_gpu_rates_reproduced": true
+    }
+  ],
+  "excluded_failed_pilot": {
+    "path": "pilot-fixed-20261109-202952",
+    "valid": false,
+    "failures": [
+      "scenario failed",
+      "focus/readiness contamination",
+      "missing before/after position witnesses",
+      "incomplete/dropped timing capture",
+      "packet capture mismatch"
+    ],
+    "included_in_numeric_comparison": false
+  },
+  "all_pilots_excluded_from_main_eight": true
+}

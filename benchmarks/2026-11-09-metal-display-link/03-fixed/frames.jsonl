@@ -1,0 +1,26 @@
+{"at_ms":288.962125,"detail":{"indexed_window":[811,0,26,true],"loaded_commits":200,"viewport":[243.0,117.0,1095.0,882.0]},"event":"scenario_ready","unix_ms":1794245796017.676}
+{"at_ms":288.98325,"detail":{"intentional_dwell":false,"op":3,"window":"WindowId(1v1)"},"event":"scenario_input","unix_ms":1794245796017.698}
+{"at_ms":218.796333,"dirty_ms":184.699917,"duration_ms":9.844999999999999,"event":"draw","invalidations":6,"start_ms":208.95133299999998,"window":"WindowId(1v1)"}
+{"animation_interval_ms":null,"at_ms":219.031792,"duration_ms":0.234459,"event":"submit","start_ms":218.797333,"window":"WindowId(1v1)"}
+{"at_ms":228.824292,"dirty_ms":219.638458,"duration_ms":1.645042,"event":"draw","invalidations":2,"start_ms":227.17925,"window":"WindowId(1v1)"}
+{"animation_interval_ms":null,"at_ms":228.932,"duration_ms":0.106458,"event":"submit","start_ms":228.82554199999998,"window":"WindowId(1v1)"}
+{"at_ms":235.387208,"dirty_ms":229.166958,"duration_ms":1.3508330000000002,"event":"draw","invalidations":3,"start_ms":234.036375,"window":"WindowId(1v1)"}
+{"animation_interval_ms":null,"at_ms":235.542875,"duration_ms":0.15495799999999998,"event":"submit","start_ms":235.38791700000002,"window":"WindowId(1v1)"}
+{"at_ms":253.51591699999997,"dirty_ms":235.56550000000001,"duration_ms":11.390917,"event":"draw","invalidations":6,"start_ms":242.125,"window":"WindowId(1v1)"}
+{"animation_interval_ms":18.191708000000002,"at_ms":253.73458300000001,"duration_ms":0.21775,"event":"submit","start_ms":253.516833,"window":"WindowId(1v1)"}
+{"at_ms":278.415833,"dirty_ms":268.13225,"duration_ms":1.6940410000000001,"event":"draw","invalidations":1,"start_ms":276.72179200000005,"window":"WindowId(1v1)"}
+{"animation_interval_ms":null,"at_ms":278.525083,"duration_ms":0.108333,"event":"submit","start_ms":278.41675,"window":"WindowId(1v1)"}
+{"at_ms":293.76725,"dirty_ms":289.059083,"duration_ms":1.68275,"event":"draw","invalidations":1,"start_ms":292.08450000000005,"window":"WindowId(1v1)"}
+{"animation_interval_ms":null,"at_ms":293.99208300000004,"duration_ms":0.223458,"event":"submit","start_ms":293.768625,"window":"WindowId(1v1)"}
+{"at_ms":318.60862499999996,"dirty_ms":309.874375,"duration_ms":1.555208,"event":"draw","invalidations":2,"start_ms":317.053417,"window":"WindowId(1v1)"}
+{"animation_interval_ms":null,"at_ms":318.77250000000004,"duration_ms":0.16279200000000002,"event":"submit","start_ms":318.609708,"window":"WindowId(1v1)"}
+{"at_ms":1104.212292,"dirty_ms":1075.531833,"duration_ms":20.432209,"event":"draw","invalidations":5,"start_ms":1083.7800829999999,"window":"WindowId(1v1)"}
+{"animation_interval_ms":null,"at_ms":1104.398958,"duration_ms":0.18512499999999998,"event":"submit","start_ms":1104.213833,"window":"WindowId(1v1)"}
+{"a":288979833,"at_ms":288.98425,"b":0,"event":"stage","label":"scenario","op":3,"stage":"input","thread":1}
+{"at_ms":3488.423875,"dirty_ms":3476.7401250000003,"duration_ms":4.673208,"event":"draw","invalidations":3,"start_ms":3483.750667,"window":"WindowId(1v1)"}
+{"animation_interval_ms":null,"at_ms":3488.852708,"duration_ms":0.426625,"event":"submit","start_ms":3488.4260830000003,"window":"WindowId(1v1)"}
+{"at_ms":3612.170083,"dirty_ms":3606.789417,"duration_ms":3.423375,"event":"draw","invalidations":1,"start_ms":3608.746708,"window":"WindowId(1v1)"}
+{"animation_interval_ms":null,"at_ms":3612.479833,"duration_ms":0.308,"event":"submit","start_ms":3612.1718330000003,"window":"WindowId(1v1)"}
+{"at_ms":3985.3484999999996,"dirty_ms":3980.2610830000003,"duration_ms":1.633208,"event":"draw","invalidations":1,"start_ms":3983.715292,"window":"WindowId(1v1)"}
+{"animation_interval_ms":null,"at_ms":3985.52775,"duration_ms":0.178417,"event":"submit","start_ms":3985.349333,"window":"WindowId(1v1)"}
+{"at_ms":28091.537333,"detail":{"errors":["step 3 (SwitchWindow { name: \"primary\" }): window \"primary\" did not receive native focus"],"outcome":"failed"},"event":"scenario_end","unix_ms":1794245823820.394}

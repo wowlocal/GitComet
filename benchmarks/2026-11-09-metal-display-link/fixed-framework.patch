@@ -1,0 +1,2174 @@
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index 5d0fcf3f1b..04711c056e 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -24,6 +24,7 @@ Items are sorted by issue or pull request number.
+ ### Fixes
+ 
+ - `ColorExt::blend` diverged from upstream/original behavior [#327](https://github.com/gpui-ce/gpui-ce/issues/327), [#357](https://github.com/gpui-ce/gpui-ce/pull/357)
++- Pace native Metal windows with `CAMetalDisplayLink` on macOS 14+ to avoid synchronous drawable acquisition during display updates. Older macOS versions and WGPU retain `CVDisplayLink`. Backported from [Zed #65472](https://github.com/zed-industries/zed/pull/65472).
+ 
+ ### Security Changes
+ 
+diff --git a/Cargo.lock b/Cargo.lock
+index e357ce4465..b2d1400a15 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -2569,6 +2569,7 @@ dependencies = [
+  "log",
+  "metal",
+  "objc2 0.6.5",
++ "objc2-foundation 0.3.2",
+  "objc2-quartz-core 0.3.2",
+  "parking_lot 0.13.0",
+  "smallvec",
+diff --git a/Cargo.toml b/Cargo.toml
+index ee3bbe3874..618d6ce8d6 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -207,8 +207,12 @@ objc2-core-media = { version = "0.3", default-features = false, features = [
+   "objc2",
+ ] }
+ objc2-quartz-core = { version = "0.3", default-features = false, features = [
++  "CABase",
++  "objc2-core-foundation",
+   "CALayer",
++  "CAMetalDisplayLink",
+   "CAMetalLayer",
++  "objc2-metal",
+ ] }
+ objc2-screen-capture-kit = { version = "0.3", default-features = false, features = [
+   "std",
+diff --git a/crates/gpui_apple/Cargo.toml b/crates/gpui_apple/Cargo.toml
+index cd0b64aa37..cc9530b6ec 100644
+--- a/crates/gpui_apple/Cargo.toml
++++ b/crates/gpui_apple/Cargo.toml
+@@ -37,6 +37,7 @@ image.workspace = true
+ log.workspace = true
+ metal.workspace = true
+ objc2.workspace = true
++objc2-foundation.workspace = true
+ objc2-quartz-core.workspace = true
+ parking_lot.workspace = true
+ smallvec.workspace = true
+diff --git a/crates/gpui_apple/src/display_link.rs b/crates/gpui_apple/src/display_link.rs
+new file mode 100644
+index 0000000000..2bd630fd26
+--- /dev/null
++++ b/crates/gpui_apple/src/display_link.rs
+@@ -0,0 +1,184 @@
++// Backport of zed-industries/zed#65472 (Apache-2.0).
++// Original implementation: Steve Shreeve and Anthony Eid.
++// Commits: fa7daa2 and 0d1c7a2 (merged as 0373366f43e3).
++// Adapted for gpui-ce's metal 0.33 retained object wrappers.
++
++use foreign_types::ForeignTypeRef;
++use objc2::{
++    AnyThread, DefinedClass, MainThreadMarker, MainThreadOnly, Message, define_class, msg_send,
++    rc::Retained,
++    runtime::{AnyClass, ProtocolObject},
++};
++use objc2_foundation::{NSObject, NSObjectProtocol, NSRunLoop, NSRunLoopCommonModes};
++use objc2_quartz_core::{
++    CAMetalDisplayLink, CAMetalDisplayLinkDelegate, CAMetalDisplayLinkUpdate, CAMetalLayer,
++};
++
++fn retain_drawable(
++    drawable: &ProtocolObject<dyn objc2_quartz_core::CAMetalDrawable>,
++) -> metal::MetalDrawable {
++    // SAFETY: CAMetalDisplayLinkUpdate::drawable returns a CAMetalDrawable.
++    // Both wrappers name that same Objective-C protocol. Borrowing first and
++    // then cloning takes our own retain; it does not consume objc2's retain.
++    unsafe {
++        metal::MetalDrawableRef::from_ptr(
++            drawable as *const ProtocolObject<dyn objc2_quartz_core::CAMetalDrawable>
++                as *mut metal::CAMetalDrawable,
++        )
++    }
++    .to_owned()
++}
++
++fn layer_object(layer: &metal::MetalLayerRef) -> &CAMetalLayer {
++    // SAFETY: Both wrappers name CAMetalLayer. The returned borrow has the
++    // lifetime of metal's retained layer and transfers no ownership.
++    unsafe { &*(layer.as_ptr() as *const CAMetalLayer) }
++}
++
++struct MetalDisplayLinkDelegateIvars {
++    callback: Box<dyn Fn(metal::MetalDrawable)>,
++}
++
++define_class!(
++    // SAFETY: `NSObject` has no subclassing requirements.
++    #[unsafe(super(NSObject))]
++    #[thread_kind = MainThreadOnly]
++    #[ivars = MetalDisplayLinkDelegateIvars]
++    struct MetalDisplayLinkDelegate;
++
++    unsafe impl NSObjectProtocol for MetalDisplayLinkDelegate {}
++
++    unsafe impl CAMetalDisplayLinkDelegate for MetalDisplayLinkDelegate {
++        #[unsafe(method(metalDisplayLink:needsUpdate:))]
++        fn needs_update(&self, _link: &CAMetalDisplayLink, update: &CAMetalDisplayLinkUpdate) {
++            // The callback may destroy its frame source, releasing our owner's retain.
++            let delegate = self.retain();
++            let drawable = retain_drawable(&update.drawable());
++            (delegate.ivars().callback)(drawable);
++        }
++    }
++);
++
++impl MetalDisplayLinkDelegate {
++    fn new(
++        main_thread: MainThreadMarker,
++        callback: impl Fn(metal::MetalDrawable) + 'static,
++    ) -> Retained<Self> {
++        let this = Self::alloc(main_thread).set_ivars(MetalDisplayLinkDelegateIvars {
++            callback: Box::new(callback),
++        });
++        // SAFETY: `NSObject`'s `init` is its designated initializer.
++        unsafe { msg_send![super(this), init] }
++    }
++}
++
++/// A main-run-loop source of Metal drawables on macOS 14+ and iOS/iPadOS 17+.
++///
++/// Callbacks run on the run loop the link is registered with:
++/// <https://developer.apple.com/documentation/quartzcore/cametaldisplaylink>.
++/// This wrapper uses the main run loop because GPUI renders on the foreground thread.
++pub struct MetalFrameSource {
++    link: Retained<CAMetalDisplayLink>,
++    // The link holds its delegate weakly.
++    _delegate: Retained<MetalDisplayLinkDelegate>,
++    _main_thread: MainThreadMarker,
++}
++
++impl MetalFrameSource {
++    /// Whether this system has `CAMetalDisplayLink` (macOS 14+, iOS/iPadOS 17+).
++    pub fn is_available() -> bool {
++        AnyClass::get(c"CAMetalDisplayLink").is_some()
++    }
++
++    /// Starts delivering updates for `layer`, or returns `None` where
++    /// `CAMetalDisplayLink` is unavailable.
++    pub fn new(
++        layer: &metal::MetalLayerRef,
++        main_thread: MainThreadMarker,
++        callback: impl Fn(metal::MetalDrawable) + 'static,
++    ) -> Option<Self> {
++        if !Self::is_available() {
++            return None;
++        }
++        let delegate = MetalDisplayLinkDelegate::new(main_thread, callback);
++        let layer = layer_object(layer);
++        let link = CAMetalDisplayLink::initWithMetalLayer(CAMetalDisplayLink::alloc(), layer);
++        link.setDelegate(Some(ProtocolObject::from_ref(&*delegate)));
++        // SAFETY: the retained marker confines the source to the main thread,
++        // and the main run loop outlives the source.
++        unsafe { link.addToRunLoop_forMode(&NSRunLoop::mainRunLoop(), NSRunLoopCommonModes) };
++        Some(Self {
++            link,
++            _delegate: delegate,
++            _main_thread: main_thread,
++        })
++    }
++
++    /// A paused link delivers no updates and acquires no drawables.
++    pub fn set_paused(&self, paused: bool) {
++        self.link.setPaused(paused);
++    }
++}
++
++impl Drop for MetalFrameSource {
++    fn drop(&mut self) {
++        self.link.invalidate();
++    }
++}
++
++#[cfg(test)]
++mod tests {
++    use super::*;
++    use foreign_types::ForeignType;
++    use gpui::{DevicePixels, size};
++
++    #[test]
++    fn bridged_drawable_outlives_objc2_owner_and_autorelease_pool() {
++        let drawable = objc2::rc::autoreleasepool(|_| {
++            let mut renderer = crate::metal_renderer::MetalRenderer::new(Default::default(), false);
++            renderer.update_drawable_size(size(DevicePixels(64), DevicePixels(48)));
++            let layer = layer_object(renderer.layer().expect("window renderer has a layer"));
++            let original = layer
++                .nextDrawable()
++                .expect("window layer supplies a drawable");
++            let retained = retain_drawable(&original);
++            assert_eq!(
++                retained.as_ptr().cast_const().cast(),
++                Retained::as_ptr(&original)
++            );
++            drop(original);
++            retained
++        });
++        assert_eq!(drawable.texture().width(), 64);
++        assert_eq!(drawable.texture().height(), 48);
++    }
++
++    #[test]
++    fn detached_link_restores_normal_layer_drawable_acquisition() {
++        if !MetalFrameSource::is_available() {
++            return;
++        }
++        let mut renderer = crate::metal_renderer::MetalRenderer::new(Default::default(), false);
++        renderer.update_drawable_size(size(DevicePixels(64), DevicePixels(64)));
++        let layer = layer_object(renderer.layer().expect("window renderer has a layer"));
++        // Keep this link off the run loop. Only its layer attachment and
++        // invalidation contract are under test here.
++        let link = CAMetalDisplayLink::initWithMetalLayer(CAMetalDisplayLink::alloc(), layer);
++        renderer.set_display_link_attached(true);
++        let mut scene = gpui::Scene::default();
++        scene.finish();
++        renderer.draw(&scene);
++        link.invalidate();
++        renderer.set_display_link_attached(false);
++        let drawable = renderer
++            .layer()
++            .unwrap()
++            .next_drawable()
++            .expect("invalidation restores native drawable acquisition")
++            .to_owned();
++        assert_eq!(drawable.texture().width(), 64);
++        assert_eq!(drawable.texture().height(), 64);
++        drop(drawable);
++        renderer.draw(&scene);
++    }
++}
+diff --git a/crates/gpui_apple/src/gpui_apple.rs b/crates/gpui_apple/src/gpui_apple.rs
+index 208d297ea1..45eaf6b779 100644
+--- a/crates/gpui_apple/src/gpui_apple.rs
++++ b/crates/gpui_apple/src/gpui_apple.rs
+@@ -4,5 +4,7 @@
+ //! This crate contains the Metal renderer and GPU resource management shared
+ //! by GPUI's Apple platform backends.
+ 
++pub mod display_link;
+ mod metal_atlas;
+ pub mod metal_renderer;
++pub mod native_timing;
+diff --git a/crates/gpui_apple/src/metal_renderer.rs b/crates/gpui_apple/src/metal_renderer.rs
+index fb8399801a..858d7c1f3a 100644
+--- a/crates/gpui_apple/src/metal_renderer.rs
++++ b/crates/gpui_apple/src/metal_renderer.rs
+@@ -460,12 +460,22 @@ impl InstanceBufferPool {
+     }
+ }
+ 
++// Backport of zed-industries/zed#65472 (Steve Shreeve and Anthony Eid),
++// adapted to gpui-ce's metal 0.33 owned drawable wrappers.
++enum DisplayLinkMode {
++    Detached,
++    Attached {
++        drawable: Option<metal::MetalDrawable>,
++    },
++}
++
+ pub struct MetalRenderer {
+     device: metal::Device,
+     layer: Option<metal::MetalLayer>,
+     is_apple_gpu: bool,
+     is_unified_memory: bool,
+     presents_with_transaction: bool,
++    display_link_mode: DisplayLinkMode,
+     /// For headless rendering, tracks whether output should be opaque
+     opaque: bool,
+     command_queue: CommandQueue,
+@@ -516,6 +526,9 @@ pub struct MetalRenderer {
+     /// The previous frame changed too much to repaint partially.
+     previous_change_large: bool,
+     retained_scene: RetainedScene,
++    native_timing_window: u64,
++    native_timing_calls: u64,
++    native_timing_last_revision: Option<u64>,
+     /// Offscreen render target reused across `render_scene` calls when
+     /// rendering headlessly without reading pixels back.
+     #[cfg(any(test, feature = "bench-support", feature = "test-support"))]
+@@ -770,6 +783,7 @@ impl MetalRenderer {
+             device,
+             layer,
+             presents_with_transaction: false,
++            display_link_mode: DisplayLinkMode::Detached,
+             is_apple_gpu,
+             is_unified_memory,
+             opaque,
+@@ -808,6 +822,9 @@ impl MetalRenderer {
+             retained_valid: false,
+             previous_change_large: false,
+             retained_scene: RetainedScene::default(),
++            native_timing_window: 0,
++            native_timing_calls: 0,
++            native_timing_last_revision: None,
+             #[cfg(any(test, feature = "bench-support", feature = "test-support"))]
+             headless_render_target: None,
+         }
+@@ -817,6 +834,10 @@ impl MetalRenderer {
+         self.layer.as_ref().map(|l| l.as_ref())
+     }
+ 
++    pub fn set_native_timing_window(&mut self, window: u64) {
++        self.native_timing_window = window;
++    }
++
+     pub fn layer_ptr(&self) -> *mut CAMetalLayer {
+         self.layer
+             .as_ref()
+@@ -828,6 +849,35 @@ impl MetalRenderer {
+         &self.sprite_atlas
+     }
+ 
++    /// Supplies the drawable acquired by the window's Metal display link.
++    /// Clear it after each callback to release an unused frame to the layer.
++    /// Returns an unused drawable when the frame neither drew nor presented.
++    pub fn set_frame_drawable(
++        &mut self,
++        drawable: Option<metal::MetalDrawable>,
++    ) -> Option<metal::MetalDrawable> {
++        match &mut self.display_link_mode {
++            DisplayLinkMode::Attached { drawable: current } => std::mem::replace(current, drawable),
++            DisplayLinkMode::Detached => {
++                debug_assert!(
++                    drawable.is_none(),
++                    "received a display link drawable while detached"
++                );
++                None
++            }
++        }
++    }
++
++    /// While attached, rendering only consumes the display link's drawable.
++    /// Detach only after invalidating the link, before a synchronous draw.
++    pub fn set_display_link_attached(&mut self, attached: bool) {
++        self.display_link_mode = if attached {
++            DisplayLinkMode::Attached { drawable: None }
++        } else {
++            DisplayLinkMode::Detached
++        };
++    }
++
+     pub fn set_presents_with_transaction(&mut self, presents_with_transaction: bool) {
+         self.presents_with_transaction = presents_with_transaction;
+         if let Some(layer) = &self.layer {
+@@ -955,23 +1005,60 @@ impl MetalRenderer {
+                 return;
+             }
+         };
+-        let viewport_size = layer.drawable_size();
+-        let viewport_size: Size<DevicePixels> = size(
+-            (viewport_size.width.ceil() as i32).into(),
+-            (viewport_size.height.ceil() as i32).into(),
++        let drawable = match &mut self.display_link_mode {
++            DisplayLinkMode::Attached { drawable } => {
++                let Some(drawable) = drawable.take() else {
++                    log::error!("skipped a frame drawn outside its display link's update");
++                    return;
++                };
++                drawable
++            }
++            DisplayLinkMode::Detached => {
++                let Some(drawable) = layer.next_drawable() else {
++                    log::error!(
++                        "failed to retrieve next drawable, drawable size: {:?}",
++                        layer.drawable_size()
++                    );
++                    self.forget_previous_frame();
++                    return;
++                };
++                drawable.to_owned()
++            }
++        };
++        // A link's drawable may predate a resize of the layer. Its texture is
++        // the actual render target for this update, including intermediate
++        // targets and retained-scene bookkeeping.
++        let texture = drawable.texture();
++        let viewport_size = size(
++            (texture.width() as i32).into(),
++            (texture.height() as i32).into(),
+         );
+         let mode = self.frame_mode(scene, viewport_size);
+-        let drawable = if let Some(drawable) = layer.next_drawable() {
+-            drawable
++
++        let timing = if crate::native_timing::enabled() {
++            self.native_timing_calls += 1;
++            let revision = gpu::gpu_frame_context().scene_revision;
++            let new_scene = self.native_timing_last_revision != Some(revision);
++            self.native_timing_last_revision = Some(revision);
++            crate::native_timing::submission(
++                self.native_timing_window,
++                drawable.drawable_id() as u64,
++                self.native_timing_calls,
++                revision,
++                new_scene,
++            )
+         } else {
+-            log::error!(
+-                "failed to retrieve next drawable, drawable size: {:?}",
+-                viewport_size
+-            );
+-            self.forget_previous_frame();
+-            return;
++            None
+         };
+-
++        if let Some(timing) = &timing {
++            let presented = timing.clone();
++            drawable.add_presented_handler(
++                &ConcreteBlock::new(move |drawable: &metal::DrawableRef| {
++                    presented.presented(drawable.presented_time());
++                })
++                .copy(),
++            );
++        }
+         let mut instance_buffer = self.acquire_instance_buffer(scene);
+         let command_buffer = match self.draw_frame(
+             scene,
+@@ -989,14 +1076,39 @@ impl MetalRenderer {
+         };
+         self.release_instance_buffer_when_complete(&command_buffer, instance_buffer);
+ 
++        if let Some(timing) = &timing {
++            // Capture only numeric metadata, never the buffer that owns the block.
++            let completed = timing.clone();
++            command_buffer.add_completed_handler(
++                &ConcreteBlock::new(move |buffer: &metal::CommandBufferRef| {
++                    // SAFETY: metal's completed-handler borrow is a live
++                    // MTLCommandBuffer. These documented read-only host-time
++                    // properties are valid after completion (zero on failure).
++                    // metal0.33 has no typed wrappers for these getters.
++                    let (gpu_start_s, gpu_end_s): (f64, f64) = unsafe {
++                        let object = buffer.as_ptr().cast::<objc2::runtime::AnyObject>();
++                        (
++                            objc2::msg_send![object, GPUStartTime],
++                            objc2::msg_send![object, GPUEndTime],
++                        )
++                    };
++                    completed.gpu_completed(buffer.status() as u64, gpu_start_s, gpu_end_s);
++                })
++                .copy(),
++            );
++        }
++
+         if self.presents_with_transaction {
+             command_buffer.commit();
+             command_buffer.wait_until_scheduled();
+             drawable.present();
+         } else {
+-            command_buffer.present_drawable(drawable);
++            command_buffer.present_drawable(&drawable);
+             command_buffer.commit();
+         }
++        if let Some(timing) = timing {
++            timing.end();
++        }
+     }
+ 
+     /// Forgets the previous frame, so the next one repaints everything.
+@@ -2941,6 +3053,79 @@ mod tests {
+     };
+     use std::borrow::Cow;
+ 
++    #[test]
++    fn display_link_drawable_dimensions_survive_a_layer_resize() {
++        let mut renderer = MetalRenderer::new(Default::default(), false);
++        let old_size = size(DevicePixels(64), DevicePixels(48));
++        let new_size = size(DevicePixels(128), DevicePixels(96));
++        renderer.update_drawable_size(old_size);
++        let old_drawable = renderer
++            .layer()
++            .unwrap()
++            .next_drawable()
++            .expect("layer supplies the pre-resize drawable")
++            .to_owned();
++        renderer.update_drawable_size(new_size);
++        renderer.set_display_link_attached(true);
++        renderer.set_frame_drawable(Some(old_drawable));
++        let mut scene = Scene::default();
++        scene.finish();
++        renderer.draw(&scene);
++
++        assert_eq!(renderer.intermediate_texture_size, Some(old_size));
++        let retained = renderer.retained_texture.as_ref().expect("retained frame");
++        assert_eq!((retained.width(), retained.height()), (64, 48));
++
++        renderer.set_display_link_attached(false);
++        let new_drawable = renderer
++            .layer()
++            .unwrap()
++            .next_drawable()
++            .expect("layer supplies the post-resize drawable")
++            .to_owned();
++        renderer.set_display_link_attached(true);
++        renderer.set_frame_drawable(Some(new_drawable));
++        renderer.draw(&scene);
++        assert_eq!(renderer.intermediate_texture_size, Some(new_size));
++    }
++
++    #[test]
++    fn display_link_mode_consumes_and_clears_owned_drawables() {
++        let mut renderer = MetalRenderer::new(Default::default(), false);
++        renderer.update_drawable_size(size(DevicePixels(64), DevicePixels(64)));
++        let drawable = renderer
++            .layer()
++            .unwrap()
++            .next_drawable()
++            .expect("window layer supplies a drawable")
++            .to_owned();
++        renderer.set_display_link_attached(true);
++        assert!(
++            renderer
++                .set_frame_drawable(Some(drawable.clone()))
++                .is_none()
++        );
++        let mut scene = Scene::default();
++        scene.finish();
++        renderer.draw(&scene);
++        assert!(matches!(
++            renderer.display_link_mode,
++            DisplayLinkMode::Attached { drawable: None }
++        ));
++        assert!(
++            renderer
++                .set_frame_drawable(Some(drawable.clone()))
++                .is_none()
++        );
++        assert!(renderer.set_frame_drawable(None).is_some());
++        renderer.set_frame_drawable(Some(drawable));
++        renderer.set_display_link_attached(false);
++        assert!(matches!(
++            renderer.display_link_mode,
++            DisplayLinkMode::Detached
++        ));
++    }
++
+     #[test]
+     fn precompiled_libraries_load_with_their_entry_points() {
+         let device = metal::Device::system_default().expect("Metal device");
+diff --git a/crates/gpui_apple/src/native_timing.rs b/crates/gpui_apple/src/native_timing.rs
+new file mode 100644
+index 0000000000..0d71b7f305
+--- /dev/null
++++ b/crates/gpui_apple/src/native_timing.rs
+@@ -0,0 +1,1082 @@
++//! Private, opt-in, bounded native scrolling/presentation diagnostics.
++//!
++//! Set `GPUI_NATIVE_TIMING_PATH` to a local JSONL destination. Capture normally
++//! starts at the first native precise touch/momentum packet, then ends after
++//! `GPUI_NATIVE_TIMING_SECONDS` (30 by default, at most 120). `GPUI_NATIVE_TIMING_ARM`
++//! may be `immediate` for a programmatic replay. Only numeric scrolling and
++//! presentation metadata are retained.
++//! The disabled path does not read clocks, allocate, create threads or write files.
++
++use objc2_foundation::NSProcessInfo;
++use objc2_quartz_core::CACurrentMediaTime;
++use std::{
++    fmt,
++    fs::{self, OpenOptions},
++    io::{self, BufWriter, Write},
++    path::PathBuf,
++    sync::{
++        Arc, Condvar, Mutex, OnceLock,
++        atomic::{AtomicU8, Ordering},
++    },
++    time::{Duration, Instant},
++};
++
++const WAITING: u8 = 0;
++const RECORDING: u8 = 1;
++const FINISHED: u8 = 2;
++const MAX_RECORDS: usize = 32_768;
++const MAX_MARKERS: usize = 16;
++static CAPTURE: OnceLock<Option<Arc<Capture>>> = OnceLock::new();
++
++struct Config {
++    path: PathBuf,
++    duration: Duration,
++    immediate: bool,
++    link_options: LinkOptions,
++}
++
++/// Normal launches retain the system frame policy. Private capture selectors
++/// compare explicit policies in the same binary. Rates come from NSScreen.
++#[derive(Clone, Copy, Debug, Default, PartialEq)]
++pub(crate) struct LinkOptions {
++    display_maximum: bool,
++    pub latency: Option<f32>,
++}
++
++impl LinkOptions {
++    fn for_launch(capture_options: Option<Self>) -> Self {
++        capture_options.unwrap_or_default()
++    }
++
++    fn parse(frame_rate: Option<&str>, latency: Option<&str>) -> Option<Self> {
++        let display_maximum = match frame_rate {
++            None | Some("default") => false,
++            Some("display-max") => true,
++            _ => return None,
++        };
++        let latency = match latency {
++            None => None,
++            Some("1") => Some(1.0),
++            Some("2") => Some(2.0),
++            _ => return None,
++        };
++        Some(Self {
++            display_maximum,
++            latency,
++        })
++    }
++
++    pub fn maximum_rate(self, screen_maximum: Option<f32>) -> Option<f32> {
++        screen_maximum
++            .filter(|maximum| self.display_maximum && maximum.is_finite() && *maximum > 0.0)
++    }
++
++    fn mode(self) -> &'static str {
++        if self.display_maximum {
++            "display-max"
++        } else {
++            "default"
++        }
++    }
++}
++
++pub(crate) fn link_options() -> LinkOptions {
++    LinkOptions::for_launch(capture().map(|c| c.config.link_options))
++}
++
++/// Whether the selected policy needs the current Metal window's screen rate.
++#[doc(hidden)]
++pub fn requests_display_maximum() -> bool {
++    link_options().display_maximum
++}
++
++#[derive(Clone, Copy)]
++struct ClockAnchor {
++    ca_s: f64,
++    uptime_s: f64,
++}
++
++impl ClockAnchor {
++    fn now() -> Self {
++        Self {
++            ca_s: CACurrentMediaTime(),
++            uptime_s: NSProcessInfo::processInfo().systemUptime(),
++        }
++    }
++
++    fn event_to_ca(self, event_s: f64) -> f64 {
++        event_s + self.ca_s - self.uptime_s
++    }
++}
++
++#[derive(Clone, Copy)]
++struct Arm {
++    clock: ClockAnchor,
++    deadline: Instant,
++    until_s: f64,
++}
++
++#[derive(Clone, Copy)]
++struct Marker {
++    window: u64,
++    seq: u64,
++}
++
++#[derive(Clone, Copy)]
++enum Event {
++    NativeScroll {
++        window: u64,
++        event_s: f64,
++        dx: f64,
++        dy: f64,
++        phase: u64,
++        momentum: u64,
++        precise: bool,
++    },
++    ScenarioScroll {
++        window: u64,
++        dx: f64,
++        dy: f64,
++    },
++    MetalUpdate {
++        window: u64,
++        drawable: u64,
++        deadline_s: f64,
++        target_s: f64,
++        latency: f64,
++        minimum: f64,
++        maximum: f64,
++        preferred: f64,
++    },
++    Wake {
++        window: u64,
++    },
++    Decision {
++        window: u64,
++        used: bool,
++        paused: bool,
++    },
++    HistoryOffset {
++        window: u64,
++        top: u64,
++        within: f64,
++        row_height: f64,
++        viewport: f64,
++    },
++    SubmitBegin {
++        window: u64,
++        drawable: u64,
++        call: u64,
++        revision: u64,
++        new_scene: bool,
++        marker: Option<u64>,
++    },
++    SubmitEnd {
++        window: u64,
++        drawable: u64,
++        call: u64,
++    },
++    Presented {
++        window: u64,
++        drawable: u64,
++        call: u64,
++        revision: u64,
++        marker: Option<u64>,
++        presented_s: f64,
++    },
++    GpuCompleted {
++        window: u64,
++        drawable: u64,
++        call: u64,
++        revision: u64,
++        marker: Option<u64>,
++        status: u64,
++        gpu_start_s: f64,
++        gpu_end_s: f64,
++    },
++}
++
++struct Record {
++    seq: u64,
++    at_s: f64,
++    event: Event,
++}
++
++#[derive(Clone, Copy)]
++enum Stop {
++    Duration,
++    Capacity,
++}
++
++struct Buffer {
++    arm: Option<Arm>,
++    stop: Option<Stop>,
++    records: Vec<Record>,
++    capacity: usize,
++    next_seq: u64,
++    dropped: u64,
++    marker_overflow: u64,
++    markers: [Option<Marker>; MAX_MARKERS],
++}
++
++impl Buffer {
++    fn new(capacity: usize) -> Self {
++        Self {
++            arm: None,
++            stop: None,
++            records: Vec::with_capacity(capacity),
++            capacity,
++            next_seq: 1,
++            dropped: 0,
++            marker_overflow: 0,
++            markers: [None; MAX_MARKERS],
++        }
++    }
++
++    fn push(&mut self, at_s: f64, event: Event) -> Option<u64> {
++        if self.arm.is_none() || self.stop.is_some() {
++            return None;
++        }
++        if at_s >= self.arm.unwrap().until_s {
++            self.stop = Some(Stop::Duration);
++            return None;
++        }
++        if self.records.len() == self.capacity {
++            self.dropped += 1;
++            self.stop = Some(Stop::Capacity);
++            return None;
++        }
++        let seq = self.next_seq;
++        self.next_seq += 1;
++        self.records.push(Record { seq, at_s, event });
++        Some(seq)
++    }
++
++    fn marker(&self, window: u64) -> Option<u64> {
++        self.markers
++            .iter()
++            .flatten()
++            .find(|m| m.window == window)
++            .map(|m| m.seq)
++    }
++
++    fn set_marker(&mut self, window: u64, seq: u64) {
++        if let Some(slot) = self
++            .markers
++            .iter_mut()
++            .find(|m| m.is_some_and(|m| m.window == window))
++        {
++            *slot = Some(Marker { window, seq });
++        } else if let Some(slot) = self.markers.iter_mut().find(|m| m.is_none()) {
++            *slot = Some(Marker { window, seq });
++        } else {
++            self.marker_overflow += 1;
++        }
++    }
++}
++
++struct Capture {
++    config: Config,
++    phase: AtomicU8,
++    buffer: Mutex<Buffer>,
++    changed: Condvar,
++}
++
++fn capture() -> Option<&'static Arc<Capture>> {
++    CAPTURE
++        .get_or_init(|| {
++            let path = PathBuf::from(std::env::var_os("GPUI_NATIVE_TIMING_PATH")?);
++            if path.as_os_str().is_empty() {
++                return None;
++            }
++            let seconds = std::env::var("GPUI_NATIVE_TIMING_SECONDS")
++                .ok()
++                .and_then(|s| s.parse::<u64>().ok())
++                .unwrap_or(30)
++                .clamp(1, 120);
++            let immediate = std::env::var("GPUI_NATIVE_TIMING_ARM").is_ok_and(|s| s == "immediate");
++            let frame_rate = std::env::var("GPUI_NATIVE_TIMING_FRAME_RATE").ok();
++            let latency = std::env::var("GPUI_NATIVE_TIMING_LATENCY").ok();
++            let link_options = LinkOptions::parse(frame_rate.as_deref(), latency.as_deref())
++                .unwrap_or_else(|| {
++                    log::warn!(
++                        "invalid native timing A/B selector; frame-rate/latency overrides disabled"
++                    );
++                    LinkOptions::default()
++                });
++            let capture = Arc::new(Capture {
++                config: Config {
++                    path,
++                    duration: Duration::from_secs(seconds),
++                    immediate,
++                    link_options,
++                },
++                phase: AtomicU8::new(WAITING),
++                buffer: Mutex::new(Buffer::new(MAX_RECORDS)),
++                changed: Condvar::new(),
++            });
++            if immediate {
++                capture.arm();
++            }
++            let worker = capture.clone();
++            if let Err(error) = std::thread::Builder::new()
++                .name("gpui-native-timing".into())
++                .spawn(move || worker.run())
++            {
++                log::error!("native timing worker could not start: {error}");
++                return None;
++            }
++            Some(capture)
++        })
++        .as_ref()
++}
++
++/// True only when configured and not finished. Does no clock work when disabled.
++pub fn enabled() -> bool {
++    capture().is_some_and(|c| c.phase.load(Ordering::Acquire) != FINISHED)
++}
++
++fn active() -> Option<&'static Arc<Capture>> {
++    capture().filter(|c| c.phase.load(Ordering::Acquire) == RECORDING)
++}
++
++impl Capture {
++    fn arm(&self) {
++        let mut buffer = self.buffer.lock().unwrap_or_else(|e| e.into_inner());
++        if buffer.arm.is_none() && self.phase.load(Ordering::Acquire) == WAITING {
++            let clock = ClockAnchor::now();
++            buffer.arm = Some(Arm {
++                clock,
++                deadline: Instant::now() + self.config.duration,
++                until_s: clock.ca_s + self.config.duration.as_secs_f64(),
++            });
++            self.phase.store(RECORDING, Ordering::Release);
++            self.changed.notify_one();
++        }
++    }
++
++    fn record(&self, event: Event) -> Option<u64> {
++        if self.phase.load(Ordering::Acquire) != RECORDING {
++            return None;
++        }
++        let at_s = CACurrentMediaTime();
++        let mut buffer = self.buffer.lock().unwrap_or_else(|e| e.into_inner());
++        let seq = buffer.push(at_s, event);
++        if buffer.stop.is_some() {
++            self.changed.notify_one();
++        }
++        seq
++    }
++
++    fn run(&self) {
++        // This initial status makes an unarmed capture explicit. The worker is
++        // allowed to wait indefinitely while a person reads the instructions.
++        if let Err(error) = self.header() {
++            // Serialize with arm(): a first packet racing this failure must
++            // never revive a recorder whose only worker has already exited.
++            {
++                let _buffer = self.buffer.lock().unwrap_or_else(|e| e.into_inner());
++                self.phase.store(FINISHED, Ordering::Release);
++            }
++            log::error!("native timing output could not be created: {error}");
++            return;
++        }
++        let mut buffer = self.buffer.lock().unwrap_or_else(|e| e.into_inner());
++        while buffer.arm.is_none() {
++            buffer = self.changed.wait(buffer).unwrap_or_else(|e| e.into_inner());
++        }
++        let arm = buffer.arm.unwrap();
++        while buffer.stop.is_none() {
++            let remaining = arm.deadline.saturating_duration_since(Instant::now());
++            if remaining.is_zero() {
++                buffer.stop = Some(Stop::Duration);
++                break;
++            }
++            (buffer, _) = self
++                .changed
++                .wait_timeout(buffer, remaining)
++                .unwrap_or_else(|e| e.into_inner());
++        }
++        self.phase.store(FINISHED, Ordering::Release);
++        let stop = buffer.stop.unwrap();
++        let records = std::mem::take(&mut buffer.records);
++        let dropped = buffer.dropped;
++        let marker_overflow = buffer.marker_overflow;
++        drop(buffer);
++        if let Err(error) = self.flush(arm, stop, &records, dropped, marker_overflow) {
++            log::error!("native timing output could not be flushed: {error}");
++        }
++    }
++
++    fn header(&self) -> io::Result<()> {
++        if let Some(parent) = self
++            .config
++            .path
++            .parent()
++            .filter(|p| !p.as_os_str().is_empty())
++        {
++            fs::create_dir_all(parent)?;
++        }
++        let mut output = BufWriter::new(
++            OpenOptions::new()
++                .create_new(true)
++                .write(true)
++                .open(&self.config.path)?,
++        );
++        writeln!(
++            output,
++            "{{\"event\":\"capture_status\",\"version\":2,\"status\":\"{}\",\"pid\":{},\"duration_s\":{},\"max_records\":{},\"max_marker_windows\":{},\"record_size_bytes\":{},\"clock\":\"CACurrentMediaTime_seconds\",\"native_event_clock\":\"system_uptime_seconds\",\"native_origin\":\"AppKit_packets_not_verified_hardware\",\"requested_frame_rate_mode\":\"{}\",\"requested_latency\":{}}}",
++            if self.config.immediate {
++                "immediate_arm"
++            } else {
++                "waiting_for_native_precise_scroll"
++            },
++            std::process::id(),
++            self.config.duration.as_secs(),
++            MAX_RECORDS,
++            MAX_MARKERS,
++            std::mem::size_of::<Record>(),
++            self.config.link_options.mode(),
++            Optional(
++                self.config
++                    .link_options
++                    .latency
++                    .map(|latency| latency as u64)
++            )
++        )?;
++        output.flush()
++    }
++
++    fn flush(
++        &self,
++        arm: Arm,
++        stop: Stop,
++        records: &[Record],
++        dropped: u64,
++        marker_overflow: u64,
++    ) -> io::Result<()> {
++        let mut output = BufWriter::new(OpenOptions::new().append(true).open(&self.config.path)?);
++        writeln!(
++            output,
++            "{{\"event\":\"capture_armed\",\"ca_anchor_s\":{},\"uptime_anchor_s\":{},\"event_to_ca_offset_s\":{}}}",
++            Number(arm.clock.ca_s),
++            Number(arm.clock.uptime_s),
++            Number(arm.clock.event_to_ca(0.0))
++        )?;
++        for record in records {
++            record.write(&mut output)?;
++        }
++        writeln!(
++            output,
++            "{{\"event\":\"capture_status\",\"status\":\"complete\",\"reason\":\"{}\",\"records\":{},\"dropped\":{},\"marker_overflow\":{},\"flushed_at_s\":{}}}",
++            match stop {
++                Stop::Duration => "duration",
++                Stop::Capacity => "capacity",
++            },
++            records.len(),
++            dropped,
++            marker_overflow,
++            Number(CACurrentMediaTime())
++        )?;
++        output.flush()
++    }
++}
++
++/// Record a native AppKit packet, including zero-delta lifecycle packets.
++#[doc(hidden)]
++pub fn native_scroll(
++    window: u64,
++    event_s: f64,
++    dx: f64,
++    dy: f64,
++    phase: u64,
++    momentum: u64,
++    precise: bool,
++) {
++    if let Some(capture) = capture() {
++        if capture.phase.load(Ordering::Acquire) == WAITING && native_arms(precise, phase, momentum)
++        {
++            capture.arm();
++        }
++        capture.record(Event::NativeScroll {
++            window,
++            event_s,
++            dx,
++            dy,
++            phase,
++            momentum,
++            precise,
++        });
++    }
++}
++
++fn native_arms(precise: bool, phase: u64, momentum: u64) -> bool {
++    precise && (phase != 0 || momentum != 0)
++}
++
++/// Optional experiment marker for a scenario packet dispatched without AppKit.
++/// It never arms a capture that is waiting for a native packet.
++pub fn scenario_scroll(window: u64, dx: f64, dy: f64) {
++    if let Some(capture) = active() {
++        capture.record(Event::ScenarioScroll { window, dx, dy });
++    }
++}
++
++/// Mark the actual indexed-history geometry during prepaint. The next renderer
++/// submission links this record by sequence; repeated cached scenes keep it.
++pub fn history_offset(window: u64, top: u64, within: f64, row_height: f64, viewport: f64) {
++    if let Some(capture) = active() {
++        let at_s = CACurrentMediaTime();
++        let mut buffer = capture.buffer.lock().unwrap_or_else(|e| e.into_inner());
++        if let Some(seq) = buffer.push(
++            at_s,
++            Event::HistoryOffset {
++                window,
++                top,
++                within,
++                row_height,
++                viewport,
++            },
++        ) {
++            buffer.set_marker(window, seq);
++        }
++        if buffer.stop.is_some() {
++            capture.changed.notify_one();
++        }
++    }
++}
++
++pub(crate) fn metal_update(
++    window: u64,
++    drawable: u64,
++    deadline_s: f64,
++    target_s: f64,
++    latency: f64,
++    range: [f64; 3],
++) {
++    if let Some(capture) = active() {
++        capture.record(Event::MetalUpdate {
++            window,
++            drawable,
++            deadline_s,
++            target_s,
++            latency,
++            minimum: range[0],
++            maximum: range[1],
++            preferred: range[2],
++        });
++    }
++}
++
++#[doc(hidden)]
++pub fn wake(window: u64) {
++    if let Some(capture) = active() {
++        capture.record(Event::Wake { window });
++    }
++}
++
++#[doc(hidden)]
++pub fn decision(window: u64, used: bool, paused: bool) {
++    if let Some(capture) = active() {
++        capture.record(Event::Decision {
++            window,
++            used,
++            paused,
++        });
++    }
++}
++
++pub(crate) struct Submission {
++    capture: Arc<Capture>,
++    window: u64,
++    drawable: u64,
++    call: u64,
++    revision: u64,
++    marker: Option<u64>,
++}
++
++impl Submission {
++    pub fn presented(&self, presented_s: f64) {
++        self.capture.record(Event::Presented {
++            window: self.window,
++            drawable: self.drawable,
++            call: self.call,
++            revision: self.revision,
++            marker: self.marker,
++            presented_s,
++        });
++    }
++
++    pub fn end(&self) {
++        self.capture.record(Event::SubmitEnd {
++            window: self.window,
++            drawable: self.drawable,
++            call: self.call,
++        });
++    }
++
++    pub fn gpu_completed(&self, status: u64, gpu_start_s: f64, gpu_end_s: f64) {
++        self.capture.record(Event::GpuCompleted {
++            window: self.window,
++            drawable: self.drawable,
++            call: self.call,
++            revision: self.revision,
++            marker: self.marker,
++            status,
++            gpu_start_s,
++            gpu_end_s,
++        });
++    }
++}
++
++pub(crate) fn submission(
++    window: u64,
++    drawable: u64,
++    call: u64,
++    revision: u64,
++    new_scene: bool,
++) -> Option<Arc<Submission>> {
++    let capture = active()?;
++    let at_s = CACurrentMediaTime();
++    let mut buffer = capture.buffer.lock().unwrap_or_else(|e| e.into_inner());
++    let marker = buffer.marker(window);
++    let seq = buffer.push(
++        at_s,
++        Event::SubmitBegin {
++            window,
++            drawable,
++            call,
++            revision,
++            new_scene,
++            marker,
++        },
++    );
++    if buffer.stop.is_some() {
++        capture.changed.notify_one();
++    }
++    seq?;
++    Some(Arc::new(Submission {
++        capture: capture.clone(),
++        window,
++        drawable,
++        call,
++        revision,
++        marker,
++    }))
++}
++
++// Only the background writer formats records. Non-finite native/app values
++// become JSON null so a damaged diagnostic remains machine-readable.
++struct Number(f64);
++impl fmt::Display for Number {
++    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
++        if self.0.is_finite() {
++            write!(f, "{:.9}", self.0)
++        } else {
++            f.write_str("null")
++        }
++    }
++}
++struct Optional(Option<u64>);
++impl fmt::Display for Optional {
++    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
++        match self.0 {
++            Some(n) => write!(f, "{n}"),
++            None => f.write_str("null"),
++        }
++    }
++}
++
++impl Record {
++    fn write(&self, output: &mut impl Write) -> io::Result<()> {
++        macro_rules! row {
++            ($kind:literal $(, $key:literal => $value:expr)* $(,)?) => {{
++                write!(output, "{{\"event\":\"{}\",\"seq\":{},\"at_s\":{}", $kind, self.seq, Number(self.at_s))?;
++                $(write!(output, ",\"{}\":{}", $key, $value)?;)*
++                writeln!(output, "}}")
++            }};
++        }
++        match self.event {
++            Event::NativeScroll {
++                window,
++                event_s,
++                dx,
++                dy,
++                phase,
++                momentum,
++                precise,
++            } => {
++                row!("native_scroll", "window"=>window, "event_uptime_s"=>Number(event_s), "dx"=>Number(dx), "dy"=>Number(dy), "phase"=>phase, "momentum"=>momentum, "precise"=>precise)
++            }
++            Event::ScenarioScroll { window, dx, dy } => {
++                row!("scenario_scroll", "window"=>window, "dx"=>Number(dx), "dy"=>Number(dy))
++            }
++            Event::MetalUpdate {
++                window,
++                drawable,
++                deadline_s,
++                target_s,
++                latency,
++                minimum,
++                maximum,
++                preferred,
++            } => {
++                row!("metal_update", "window"=>window, "drawable"=>drawable, "deadline_s"=>Number(deadline_s), "target_presentation_s"=>Number(target_s), "preferred_latency"=>Number(latency), "minimum_hz"=>Number(minimum), "maximum_hz"=>Number(maximum), "preferred_hz"=>Number(preferred))
++            }
++            Event::Wake { window } => row!("wake", "window"=>window),
++            Event::Decision {
++                window,
++                used,
++                paused,
++            } => row!("frame_decision", "window"=>window, "used_drawable"=>used, "paused"=>paused),
++            Event::HistoryOffset {
++                window,
++                top,
++                within,
++                row_height,
++                viewport,
++            } => {
++                row!("history_offset", "window"=>window, "top"=>top, "within"=>Number(within), "row_height"=>Number(row_height), "viewport"=>Number(viewport))
++            }
++            Event::SubmitBegin {
++                window,
++                drawable,
++                call,
++                revision,
++                new_scene,
++                marker,
++            } => {
++                row!("submit_begin", "window"=>window, "drawable"=>drawable, "call"=>call, "scene_revision"=>revision, "new_scene"=>new_scene, "history_marker"=>Optional(marker))
++            }
++            Event::SubmitEnd {
++                window,
++                drawable,
++                call,
++            } => row!("submit_end", "window"=>window, "drawable"=>drawable, "call"=>call),
++            Event::Presented {
++                window,
++                drawable,
++                call,
++                revision,
++                marker,
++                presented_s,
++            } => {
++                row!("presented", "window"=>window, "drawable"=>drawable, "call"=>call, "scene_revision"=>revision, "history_marker"=>Optional(marker), "presented_s"=>Number(presented_s), "did_present"=>(presented_s > 0.0))
++            }
++            Event::GpuCompleted {
++                window,
++                drawable,
++                call,
++                revision,
++                marker,
++                status,
++                gpu_start_s,
++                gpu_end_s,
++            } => {
++                row!("gpu_completed", "window"=>window, "drawable"=>drawable, "call"=>call, "scene_revision"=>revision, "history_marker"=>Optional(marker), "status"=>status, "gpu_start_s"=>Number(gpu_start_s), "gpu_end_s"=>Number(gpu_end_s))
++            }
++        }
++    }
++}
++
++#[cfg(test)]
++mod tests {
++    use super::*;
++
++    #[test]
++    fn normal_launch_preserves_system_defaults_and_capture_can_override_them() {
++        let normal = LinkOptions::for_launch(None);
++        assert_eq!(normal.maximum_rate(Some(120.0)), None);
++        assert_eq!(normal.latency, None);
++        let baseline = LinkOptions::for_launch(Some(LinkOptions::default()));
++        assert_eq!(baseline.maximum_rate(Some(120.0)), None);
++        assert_eq!(baseline.latency, None);
++    }
++
++    #[test]
++    fn private_link_overrides_accept_only_the_named_modes_and_supported_latencies() {
++        assert_eq!(LinkOptions::parse(None, None), Some(LinkOptions::default()));
++        let maximum = LinkOptions::parse(Some("display-max"), Some("1")).unwrap();
++        assert!(maximum.display_maximum);
++        assert_eq!(maximum.latency, Some(1.0));
++        assert_eq!(
++            LinkOptions::parse(Some("default"), Some("2"))
++                .unwrap()
++                .latency,
++            Some(2.0)
++        );
++        for invalid in ["0", "3", "NaN", "1.5", "120"] {
++            assert!(LinkOptions::parse(None, Some(invalid)).is_none());
++        }
++        for invalid in ["120", "max", "", "NaN"] {
++            assert!(LinkOptions::parse(Some(invalid), None).is_none());
++        }
++    }
++
++    #[test]
++    fn only_a_valid_current_screen_maximum_can_override_the_rate() {
++        let maximum = LinkOptions::parse(Some("display-max"), None).unwrap();
++        assert_eq!(maximum.maximum_rate(Some(120.0)), Some(120.0));
++        for invalid in [
++            None,
++            Some(0.0),
++            Some(-1.0),
++            Some(f32::NAN),
++            Some(f32::INFINITY),
++        ] {
++            assert_eq!(maximum.maximum_rate(invalid), None);
++        }
++        assert_eq!(LinkOptions::default().maximum_rate(Some(120.0)), None);
++    }
++
++    #[test]
++    fn completion_metadata_can_outlive_its_owner_without_retaining_native_buffers() {
++        let clock = ClockAnchor::now();
++        let mut buffer = Buffer::new(2);
++        buffer.arm = Some(Arm {
++            clock,
++            deadline: Instant::now() + Duration::from_secs(1),
++            until_s: clock.ca_s + 1.0,
++        });
++        let capture = Arc::new(Capture {
++            config: Config {
++                path: PathBuf::new(),
++                duration: Duration::from_secs(1),
++                immediate: false,
++                link_options: LinkOptions::default(),
++            },
++            phase: AtomicU8::new(RECORDING),
++            buffer: Mutex::new(buffer),
++            changed: Condvar::new(),
++        });
++        let submission = Arc::new(Submission {
++            capture: capture.clone(),
++            window: 1,
++            drawable: 2,
++            call: 3,
++            revision: 4,
++            marker: Some(5),
++        });
++        let weak = Arc::downgrade(&submission);
++        std::thread::spawn(move || submission.gpu_completed(4, 1.25, 1.5))
++            .join()
++            .unwrap();
++        assert!(weak.upgrade().is_none());
++        assert_eq!(Arc::strong_count(&capture), 1);
++        let buffer = capture.buffer.lock().unwrap();
++        assert_eq!(buffer.records.len(), 1);
++        match buffer.records[0].event {
++            Event::GpuCompleted {
++                window,
++                drawable,
++                call,
++                revision,
++                marker,
++                status,
++                gpu_start_s,
++                gpu_end_s,
++            } => {
++                assert_eq!(
++                    (window, drawable, call, revision, marker, status),
++                    (1, 2, 3, 4, Some(5), 4)
++                );
++                assert_eq!((gpu_start_s, gpu_end_s), (1.25, 1.5));
++            }
++            _ => panic!("completion must retain its submission identity"),
++        }
++    }
++
++    fn armed(capacity: usize) -> Buffer {
++        let mut buffer = Buffer::new(capacity);
++        buffer.arm = Some(Arm {
++            clock: ClockAnchor {
++                ca_s: 10.0,
++                uptime_s: 9.75,
++            },
++            deadline: Instant::now() + Duration::from_secs(1),
++            until_s: 11.0,
++        });
++        buffer
++    }
++
++    #[test]
++    fn waiting_does_not_consume_the_bounded_buffer() {
++        let mut buffer = Buffer::new(2);
++        assert_eq!(buffer.push(1.0, Event::Wake { window: 1 }), None);
++        assert!(buffer.records.is_empty());
++        assert_eq!(buffer.next_seq, 1);
++    }
++
++    #[test]
++    fn only_native_precise_lifecycle_packets_arm_the_default_capture() {
++        assert!(!native_arms(false, 1, 0));
++        assert!(!native_arms(true, 0, 0));
++        assert!(native_arms(true, 1, 0));
++        assert!(native_arms(true, 8, 0));
++        assert!(native_arms(true, 0, 2));
++    }
++
++    #[test]
++    fn records_after_the_capture_deadline_are_excluded() {
++        let mut buffer = armed(2);
++        assert_eq!(buffer.push(11.0, Event::Wake { window: 1 }), None);
++        assert!(matches!(buffer.stop, Some(Stop::Duration)));
++        assert!(buffer.records.is_empty());
++        assert_eq!(buffer.dropped, 0);
++    }
++
++    #[test]
++    fn worker_waits_to_arm_then_flushes_automatically_with_clock_metadata() {
++        let path = std::env::temp_dir().join(format!(
++            "gpui-native-timing-{}-{}.jsonl",
++            std::process::id(),
++            std::time::SystemTime::now()
++                .duration_since(std::time::UNIX_EPOCH)
++                .unwrap()
++                .as_nanos()
++        ));
++        let capture = Arc::new(Capture {
++            config: Config {
++                path: path.clone(),
++                duration: Duration::from_millis(20),
++                immediate: false,
++                link_options: LinkOptions::default(),
++            },
++            phase: AtomicU8::new(WAITING),
++            buffer: Mutex::new(Buffer::new(2)),
++            changed: Condvar::new(),
++        });
++        let worker = capture.clone();
++        let (finished, completion) = std::sync::mpsc::channel();
++        std::thread::spawn(move || {
++            worker.run();
++            let _ = finished.send(());
++        });
++        std::thread::sleep(Duration::from_millis(35));
++        assert_eq!(capture.phase.load(Ordering::Acquire), WAITING);
++        capture.arm();
++        completion.recv_timeout(Duration::from_secs(2)).unwrap();
++        let output = fs::read_to_string(&path).unwrap();
++        fs::remove_file(path).unwrap();
++        assert!(output.contains("waiting_for_native_precise_scroll"));
++        assert!(output.contains("\"event\":\"capture_armed\""));
++        assert!(output.contains("\"event_to_ca_offset_s\":"));
++        assert!(output.contains("\"reason\":\"duration\",\"records\":0,\"dropped\":0"));
++        assert_eq!(capture.phase.load(Ordering::Acquire), FINISHED);
++    }
++
++    #[test]
++    fn an_existing_destination_is_preserved() {
++        let path = std::env::temp_dir().join(format!(
++            "gpui-native-timing-existing-{}-{}.jsonl",
++            std::process::id(),
++            std::time::SystemTime::now()
++                .duration_since(std::time::UNIX_EPOCH)
++                .unwrap()
++                .as_nanos()
++        ));
++        fs::write(&path, b"previous capture").unwrap();
++        let capture = Capture {
++            config: Config {
++                path: path.clone(),
++                duration: Duration::from_secs(1),
++                immediate: false,
++                link_options: LinkOptions::default(),
++            },
++            phase: AtomicU8::new(WAITING),
++            buffer: Mutex::new(Buffer::new(2)),
++            changed: Condvar::new(),
++        };
++        assert_eq!(
++            capture.header().unwrap_err().kind(),
++            io::ErrorKind::AlreadyExists
++        );
++        assert_eq!(fs::read(&path).unwrap(), b"previous capture");
++        fs::remove_file(path).unwrap();
++    }
++
++    #[test]
++    fn a_failed_capture_cannot_be_rearmed_after_its_worker_exits() {
++        let capture = Capture {
++            config: Config {
++                path: PathBuf::new(),
++                duration: Duration::from_secs(1),
++                immediate: false,
++                link_options: LinkOptions::default(),
++            },
++            phase: AtomicU8::new(FINISHED),
++            buffer: Mutex::new(Buffer::new(2)),
++            changed: Condvar::new(),
++        };
++        capture.arm();
++        assert!(capture.buffer.lock().unwrap().arm.is_none());
++        assert_eq!(capture.phase.load(Ordering::Acquire), FINISHED);
++    }
++
++    #[test]
++    fn overflow_stops_without_growing_or_overwriting_earlier_records() {
++        let mut buffer = armed(2);
++        assert_eq!(buffer.push(1.0, Event::Wake { window: 1 }), Some(1));
++        assert_eq!(buffer.push(2.0, Event::Wake { window: 1 }), Some(2));
++        assert_eq!(buffer.push(3.0, Event::Wake { window: 1 }), None);
++        assert!(matches!(buffer.stop, Some(Stop::Capacity)));
++        assert_eq!(buffer.records.len(), 2);
++        assert_eq!(buffer.records[0].at_s, 1.0);
++        assert_eq!(buffer.dropped, 1);
++    }
++
++    #[test]
++    fn clock_anchor_maps_event_uptime_into_the_native_clock() {
++        let anchor = ClockAnchor {
++            ca_s: 10.0,
++            uptime_s: 9.75,
++        };
++        assert_eq!(anchor.event_to_ca(9.0), 9.25);
++    }
++
++    #[test]
++    fn latest_marker_is_window_scoped_and_does_not_allocate_more_slots() {
++        let mut buffer = armed(2);
++        buffer.set_marker(1, 7);
++        buffer.set_marker(2, 8);
++        buffer.set_marker(1, 9);
++        assert_eq!(buffer.marker(1), Some(9));
++        assert_eq!(buffer.marker(2), Some(8));
++        for window in 3..=MAX_MARKERS as u64 {
++            buffer.set_marker(window, window);
++        }
++        buffer.set_marker(100, 20);
++        assert_eq!(buffer.marker_overflow, 1);
++        assert_eq!(buffer.marker(100), None);
++    }
++
++    #[test]
++    fn lifecycle_zero_deltas_and_nonfinite_values_serialize_as_valid_tokens() {
++        let record = Record {
++            seq: 1,
++            at_s: 2.0,
++            event: Event::NativeScroll {
++                window: 3,
++                event_s: 1.5,
++                dx: 0.0,
++                dy: f64::NAN,
++                phase: 8,
++                momentum: 1,
++                precise: true,
++            },
++        };
++        let mut output = Vec::new();
++        record.write(&mut output).unwrap();
++        let output = String::from_utf8(output).unwrap();
++        assert!(output.contains("\"dx\":0.000000000"));
++        assert!(output.contains("\"dy\":null"));
++        assert!(output.contains("\"phase\":8,\"momentum\":1,\"precise\":true"));
++    }
++}
++
++/// Explicit programmatic benchmark arming, separate from native AppKit input.
++pub fn arm_scenario_capture() {
++    if let Some(capture) = capture() {
++        capture.arm();
++    }
++}
+diff --git a/crates/gpui_macos/src/display_link.rs b/crates/gpui_macos/src/display_link.rs
+index 0b1e146a8e..687bbb8706 100644
+--- a/crates/gpui_macos/src/display_link.rs
++++ b/crates/gpui_macos/src/display_link.rs
+@@ -1,4 +1,6 @@
+-//! Frame pacing for macOS windows, built on `CVDisplayLink`.
++//! Frame pacing for macOS windows. Native Metal uses a per-layer
++//! `CAMetalDisplayLink` on macOS 14+; older systems and WGPU retain the shared
++//! `CVDisplayLink` registry described below.
+ //!
+ //! CVDisplayLink has no safe teardown: `CVDisplayLinkStop` merely flags the
+ //! link's io thread to exit "soon" and returns immediately, and there is no
+@@ -55,7 +57,9 @@ use core_graphics::display::CGDirectDisplayID;
+ use dispatch2::{
+     _dispatch_source_type_data_add, DispatchObject, DispatchQueue, DispatchRetained, DispatchSource,
+ };
++use gpui_apple::display_link::MetalFrameSource;
+ use gpui_util::ResultExt;
++use std::cell::{Cell, RefCell};
+ use std::{
+     collections::{BTreeMap, btree_map},
+     ffi::c_void,
+@@ -224,6 +228,52 @@ fn unsubscribe(display_id: CGDirectDisplayID, subscriber_id: SubscriberId) {
+     }
+ }
+ 
++// Backport of zed-industries/zed#65472 (Steve Shreeve and Anthony Eid).
++/// A window's Metal link, shared with GPUI's frame waker outside its lock.
++/// An update with no presentation or further demand pauses the link so idle
++/// windows acquire no drawables. GPUI continues to make every frame decision.
++#[derive(Default)]
++pub struct MetalFrames {
++    source: RefCell<Option<MetalFrameSource>>,
++    woken: Cell<bool>,
++}
++
++impl MetalFrames {
++    #[cfg(not(feature = "wgpu"))]
++    pub fn replace(&self, source: Option<MetalFrameSource>) {
++        *self.source.borrow_mut() = source;
++    }
++
++    #[cfg(not(feature = "wgpu"))]
++    pub fn is_attached(&self) -> bool {
++        self.source.borrow().is_some()
++    }
++
++    pub fn wake(&self) {
++        self.woken.set(true);
++        // A source being replaced starts unpaused, so skipping it is safe.
++        if let Ok(source) = self.source.try_borrow()
++            && let Some(source) = source.as_ref()
++        {
++            source.set_paused(false);
++        }
++    }
++
++    #[cfg(not(feature = "wgpu"))]
++    pub fn begin_frame(&self) {
++        self.woken.set(false);
++    }
++
++    #[cfg(not(feature = "wgpu"))]
++    pub fn end_frame(&self, used_drawable: bool) -> bool {
++        let pause = !used_drawable && !self.woken.get();
++        if pause && let Some(source) = self.source.borrow().as_ref() {
++            source.set_paused(true);
++        }
++        pause
++    }
++}
++
+ /// A per-window source of frame requests, paced by the display the window is
+ /// on. The wrapped dispatch source coalesces vsync ticks from the display's
+ /// io thread and invokes `callback(data)` on the main queue.
+@@ -280,6 +330,33 @@ impl Drop for WindowFrameSource {
+     }
+ }
+ 
++#[cfg(all(test, not(feature = "wgpu")))]
++mod metal_tests {
++    use super::*;
++
++    #[test]
++    fn metal_frames_pause_only_when_gpui_neither_draws_nor_asks_again() {
++        let frames = MetalFrames::default();
++
++        frames.begin_frame();
++        assert!(!frames.end_frame(true), "a frame that drew keeps running");
++
++        frames.begin_frame();
++        frames.wake();
++        assert!(
++            !frames.end_frame(false),
++            "a wake during an update keeps it running"
++        );
++
++        frames.wake();
++        frames.begin_frame();
++        assert!(frames.end_frame(false), "the update served an earlier wake");
++
++        frames.begin_frame();
++        assert!(frames.end_frame(false), "an idle update pauses the link");
++    }
++}
++
+ mod sys {
+     //! Derived from display-link crate under the following license:
+     //! <https://github.com/BrainiumLLC/display-link/blob/master/LICENSE-MIT>
+diff --git a/crates/gpui_macos/src/gpui_macos.rs b/crates/gpui_macos/src/gpui_macos.rs
+index a996b979a9..4ded56f3ad 100644
+--- a/crates/gpui_macos/src/gpui_macos.rs
++++ b/crates/gpui_macos/src/gpui_macos.rs
+@@ -4,6 +4,8 @@
+ //! macOS screens have a y axis that goes up from the bottom of the screen and
+ //! an origin at the bottom left of the main display.
+ 
++pub use gpui_apple::native_timing;
++
+ mod dispatcher;
+ mod display;
+ mod display_link;
+diff --git a/crates/gpui_macos/src/window.rs b/crates/gpui_macos/src/window.rs
+index f60ec23896..abc66d287e 100644
+--- a/crates/gpui_macos/src/window.rs
++++ b/crates/gpui_macos/src/window.rs
+@@ -1,6 +1,6 @@
+ use crate::{
+-    MacDisplay, TISCopyCurrentKeyboardInputSource, TISGetInputSourceProperty, WindowFrameSource,
+-    events::platform_input_from_native, kTISPropertyInputSourceIsASCIICapable,
++    MacDisplay, MetalFrames, TISCopyCurrentKeyboardInputSource, TISGetInputSourceProperty,
++    WindowFrameSource, events::platform_input_from_native, kTISPropertyInputSourceIsASCIICapable,
+     kTISPropertyInputSourceType, kTISTypeKeyboardInputMode, renderer,
+ };
+ #[cfg(any(test, feature = "test-support"))]
+@@ -26,6 +26,8 @@ use core_graphics::display::CGDirectDisplayID;
+ use ctor::ctor;
+ use foreign_types::ForeignTypeRef;
+ use futures::channel::oneshot;
++#[cfg(not(feature = "wgpu"))]
++use gpui_apple::display_link::MetalFrameSource;
+ use gpui_util::ResultExt;
+ use objc2::{
+     MainThreadMarker, class, msg_send,
+@@ -56,9 +58,9 @@ use std::{
+     os::unix::ffi::OsStrExt,
+     path::PathBuf,
+     ptr::{self, NonNull},
+-    rc::Rc,
++    rc::{Rc, Weak},
+     sync::{
+-        Arc, Weak,
++        Arc,
+         atomic::{AtomicBool, Ordering},
+     },
+     time::Duration,
+@@ -809,6 +811,14 @@ unsafe fn apply_simple_fullscreen_plan(
+     }
+ }
+ 
++// Backport of zed-industries/zed#65472 (Steve Shreeve and Anthony Eid).
++// WGPU continues to own its surface acquisition and uses the existing source.
++enum FrameSource {
++    #[cfg(not(feature = "wgpu"))]
++    Metal(Rc<MetalFrames>),
++    DisplayLink(Option<WindowFrameSource>),
++}
++
+ struct MacWindowState {
+     handle: AnyWindowHandle,
+     foreground_executor: ForegroundExecutor,
+@@ -819,7 +829,7 @@ struct MacWindowState {
+     background_appearance: WindowBackgroundAppearance,
+     cursor_style: CursorStyle,
+     cursor_visible: Arc<AtomicBool>,
+-    frame_source: Option<WindowFrameSource>,
++    frame_source: FrameSource,
+     renderer: renderer::Renderer,
+     /// Forces an uncached scene after GPU recovery or a transient presentation failure.
+     force_render_pending: bool,
+@@ -1010,7 +1020,7 @@ impl MacWindowState {
+         }
+     }
+ 
+-    fn start_display_link(&mut self) {
++    fn start_display_link(&mut self, _window_state: &Rc<Mutex<MacWindowState>>) {
+         self.stop_display_link();
+         unsafe {
+             if !self
+@@ -1021,20 +1031,51 @@ impl MacWindowState {
+                 return;
+             }
+         }
+-        let Some(display_id) = display_id_for_screen(unsafe { self.native_window.screen() }) else {
+-            // AppKit can temporarily report no screen while displays are being reconfigured.
+-            return;
+-        };
+-        let data = self.native_view.as_ptr() as *mut c_void;
+-        self.frame_source
+-            .get_or_insert_with(|| WindowFrameSource::new(data, step))
+-            .start(display_id)
+-            .log_err();
++        match &mut self.frame_source {
++            #[cfg(not(feature = "wgpu"))]
++            FrameSource::Metal(frames) => {
++                let Some(layer) = self.renderer.layer() else {
++                    return;
++                };
++                let marker =
++                    MainThreadMarker::new().expect("macOS windows require the main thread");
++                let state = Rc::downgrade(_window_state);
++                let source = MetalFrameSource::new(layer, marker, move |drawable| {
++                    if let Some(state) = state.upgrade() {
++                        metal_frame(&state, drawable);
++                    }
++                });
++                if let Some(source) = source {
++                    frames.replace(Some(source));
++                    self.renderer.set_display_link_attached(true);
++                }
++            }
++            FrameSource::DisplayLink(source) => {
++                let Some(display_id) =
++                    display_id_for_screen(unsafe { self.native_window.screen() })
++                else {
++                    return;
++                };
++                let data = self.native_view.as_ptr() as *mut c_void;
++                source
++                    .get_or_insert_with(|| WindowFrameSource::new(data, step))
++                    .start(display_id)
++                    .log_err();
++            }
++        }
+     }
+ 
+     fn stop_display_link(&mut self) {
+-        if let Some(frame_source) = self.frame_source.as_mut() {
+-            frame_source.stop();
++        match &mut self.frame_source {
++            #[cfg(not(feature = "wgpu"))]
++            FrameSource::Metal(frames) => {
++                if frames.is_attached() {
++                    frames.replace(None);
++                    self.renderer.set_display_link_attached(false);
++                }
++            }
++            FrameSource::DisplayLink(Some(source)) => source.stop(),
++            FrameSource::DisplayLink(None) => {}
+         }
+     }
+ 
+@@ -1134,9 +1175,12 @@ impl MacWindowState {
+     }
+ }
+ 
+-unsafe impl Send for MacWindowState {}
+-
+-pub(crate) struct MacWindow(Arc<Mutex<MacWindowState>>, MainThreadMarker);
++pub(crate) struct MacWindow(
++    Rc<Mutex<MacWindowState>>,
++    MainThreadMarker,
++    // Kept outside the state lock so invalidations never lock it re-entrantly.
++    Option<Rc<MetalFrames>>,
++);
+ 
+ impl MacWindow {
+     pub fn open(
+@@ -1271,7 +1315,16 @@ impl MacWindow {
+             let native_view: ObjcId = msg_send![native_view, initWithFrame: content_bounds];
+             assert!(!native_view.is_null());
+ 
+-            let state = Arc::new(Mutex::new(MacWindowState {
++            #[cfg(not(feature = "wgpu"))]
++            let metal_frames =
++                MetalFrameSource::is_available().then(|| Rc::new(MetalFrames::default()));
++            #[cfg(feature = "wgpu")]
++            let metal_frames: Option<Rc<MetalFrames>> = None;
++            #[cfg(not(feature = "wgpu"))]
++            let mut renderer = renderer;
++            #[cfg(not(feature = "wgpu"))]
++            renderer.set_native_timing_window(handle.window_id().as_u64());
++            let state = Rc::new(Mutex::new(MacWindowState {
+                 handle,
+                 foreground_executor,
+                 background_executor,
+@@ -1281,7 +1334,19 @@ impl MacWindow {
+                 background_appearance: WindowBackgroundAppearance::Opaque,
+                 cursor_style: CursorStyle::Arrow,
+                 cursor_visible,
+-                frame_source: None,
++                frame_source: {
++                    #[cfg(not(feature = "wgpu"))]
++                    {
++                        match &metal_frames {
++                            Some(frames) => FrameSource::Metal(frames.clone()),
++                            None => FrameSource::DisplayLink(None),
++                        }
++                    }
++                    #[cfg(feature = "wgpu")]
++                    {
++                        FrameSource::DisplayLink(None)
++                    }
++                },
+                 renderer,
+                 force_render_pending: false,
+                 request_frame_callback: None,
+@@ -1322,14 +1387,11 @@ impl MacWindow {
+                 accesskit_adapter: None,
+                 sheet_parent: None,
+             }));
+-            let mut window = Self(state, marker);
++            let mut window = Self(state, marker, metal_frames);
+ 
+-            set_window_state_ivar(
+-                native_window,
+-                Arc::into_raw(window.0.clone()) as *mut c_void,
+-            );
++            set_window_state_ivar(native_window, Rc::into_raw(window.0.clone()) as *mut c_void);
+             native_window.setDelegate_(native_window);
+-            set_window_state_ivar(native_view, Arc::into_raw(window.0.clone()) as *mut c_void);
++            set_window_state_ivar(native_view, Rc::into_raw(window.0.clone()) as *mut c_void);
+ 
+             if let Some(title) = titlebar
+                 .as_ref()
+@@ -1552,7 +1614,12 @@ impl Drop for MacWindow {
+         this.renderer.destroy();
+         let window = this.native_window;
+         let sheet_parent = this.sheet_parent.take();
+-        this.frame_source.take();
++        this.stop_display_link();
++        match &mut this.frame_source {
++            #[cfg(not(feature = "wgpu"))]
++            FrameSource::Metal(_) => {}
++            FrameSource::DisplayLink(source) => drop(source.take()),
++        }
+         unsafe {
+             this.native_window.setDelegate_(NIL);
+         }
+@@ -2184,6 +2251,21 @@ impl PlatformWindow for MacWindow {
+         this.renderer.draw(scene);
+     }
+ 
++    fn schedule_frame(&self) {
++        if let Some(frames) = &self.2 {
++            frames.wake();
++        }
++    }
++
++    fn frame_waker(&self) -> Option<Rc<dyn Fn()>> {
++        let frames = Rc::downgrade(self.2.as_ref()?);
++        Some(Rc::new(move || {
++            if let Some(frames) = frames.upgrade() {
++                frames.wake();
++            }
++        }))
++    }
++
+     fn sprite_atlas(&self) -> Arc<dyn PlatformAtlas> {
+         self.0.lock().renderer.sprite_atlas().clone()
+     }
+@@ -2551,14 +2633,14 @@ unsafe fn is_gpui_window(window: ObjcId) -> bool {
+     }
+ }
+ 
+-unsafe fn get_window_state(object: &Objc2Object) -> Arc<Mutex<MacWindowState>> {
++unsafe fn get_window_state(object: &Objc2Object) -> Rc<Mutex<MacWindowState>> {
+     unsafe {
+         let raw: *mut c_void = *window_state_ivar(object).load(object);
+         debug_assert!(
+             !raw.is_null(),
+             "GPUI callback invoked before its state was installed"
+         );
+-        let rc1 = Arc::from_raw(raw as *mut Mutex<MacWindowState>);
++        let rc1 = Rc::from_raw(raw as *mut Mutex<MacWindowState>);
+         let rc2 = rc1.clone();
+         mem::forget(rc1);
+         rc2
+@@ -2568,13 +2650,13 @@ unsafe fn get_window_state(object: &Objc2Object) -> Arc<Mutex<MacWindowState>> {
+ /// Returns `None` while AppKit is running superclass initialization, before the window state can
+ /// exist. Overrides invoked in that phase must forward to their superclass without touching GPUI
+ /// state.
+-unsafe fn initialized_window_state(object: &Objc2Object) -> Option<Arc<Mutex<MacWindowState>>> {
++unsafe fn initialized_window_state(object: &Objc2Object) -> Option<Rc<Mutex<MacWindowState>>> {
+     unsafe {
+         let raw: *mut c_void = *window_state_ivar(object).load(object);
+         if raw.is_null() {
+             return None;
+         }
+-        let rc1 = Arc::from_raw(raw as *mut Mutex<MacWindowState>);
++        let rc1 = Rc::from_raw(raw as *mut Mutex<MacWindowState>);
+         let rc2 = rc1.clone();
+         mem::forget(rc1);
+         Some(rc2)
+@@ -2585,7 +2667,7 @@ unsafe fn drop_window_state(object: &Objc2Object) {
+     unsafe {
+         let raw: *mut c_void = *window_state_ivar(object).load(object);
+         if !raw.is_null() {
+-            drop(Arc::from_raw(raw as *mut Mutex<MacWindowState>));
++            drop(Rc::from_raw(raw as *mut Mutex<MacWindowState>));
+         }
+     }
+ }
+@@ -2959,10 +3041,25 @@ unsafe extern "C" fn handle_key_event(
+ 
+ unsafe extern "C" fn handle_view_event(this: &Objc2Object, _: Sel, native_event: ObjcId) {
+     let window_state = unsafe { get_window_state(this) };
+-    let weak_window_state = Arc::downgrade(&window_state);
++    let weak_window_state = Rc::downgrade(&window_state);
+     let mut lock = window_state.as_ref().lock();
+     let window_height = lock.content_size().height;
+     let native_event_type = unsafe { native_event.eventType() };
++    if native_event_type == NSEventType::ScrollWheel && gpui_apple::native_timing::enabled() {
++        // This is a native AppKit packet, distinct from scenario dispatches
++        // directly into GPUI. Retain lifecycle packets even when delta is zero.
++        let event = unsafe { &*native_event.cast::<objc2_app_kit::NSEvent>() };
++        gpui_apple::native_timing::native_scroll(
++            lock.handle.window_id().as_u64(),
++            event.timestamp(),
++            event.scrollingDeltaX(),
++            event.scrollingDeltaY(),
++            event.phase().0 as u64,
++            event.momentumPhase().0 as u64,
++            event.hasPreciseScrollingDeltas(),
++        );
++    }
++
+     match native_event_type {
+         NSEventType::LeftMouseDown => {
+             // AppKit owns `native_event` for the callback; retain it so the drag session can still
+@@ -3125,7 +3222,7 @@ unsafe extern "C" fn window_did_change_occlusion_state(this: &Objc2Object, _: Se
+             .contains(NSWindowOcclusionState::Visible)
+         {
+             lock.move_traffic_light();
+-            lock.start_display_link();
++            lock.start_display_link(&window_state);
+         } else {
+             lock.stop_display_link();
+         }
+@@ -3177,7 +3274,7 @@ unsafe extern "C" fn window_will_exit_fullscreen(this: &Objc2Object, _: Sel, _:
+ 
+ unsafe extern "C" fn window_did_exit_fullscreen(this: &Objc2Object, _: Sel, _: ObjcId) {
+     // SAFETY: This method is registered only on GPUI window classes, which initialize
+-    // WINDOW_STATE_IVAR with an Arc<Mutex<MacWindowState>> during window creation.
++    // WINDOW_STATE_IVAR with an Rc<Mutex<MacWindowState>> during window creation.
+     let window_state = unsafe { get_window_state(this) };
+     window_state.as_ref().lock().move_traffic_light();
+ }
+@@ -3201,7 +3298,7 @@ unsafe extern "C" fn window_did_move(this: &Objc2Object, _: Sel, _: ObjcId) {
+ }
+ 
+ // Update the window scale factor and drawable size, and call the resize callback if any.
+-fn update_window_scale_factor(window_state: &Arc<Mutex<MacWindowState>>) {
++fn update_window_scale_factor(window_state: &Rc<Mutex<MacWindowState>>) {
+     let mut lock = window_state.as_ref().lock();
+     let scale_factor = lock.scale_factor();
+     let size = lock.content_size();
+@@ -3229,7 +3326,7 @@ fn update_window_scale_factor(window_state: &Arc<Mutex<MacWindowState>>) {
+ unsafe extern "C" fn window_did_change_screen(this: &Objc2Object, _: Sel, _: ObjcId) {
+     let window_state = unsafe { get_window_state(this) };
+     let mut lock = window_state.as_ref().lock();
+-    lock.start_display_link();
++    lock.start_display_link(&window_state);
+     drop(lock);
+     update_window_scale_factor(&window_state);
+ }
+@@ -3294,7 +3391,7 @@ unsafe extern "C" fn window_did_change_key_status(this: &Objc2Object, selector:
+                 let mut lock = window_state.lock();
+                 lock.request_frame_callback = Some(callback);
+                 lock.renderer.set_presents_with_transaction(false);
+-                lock.start_display_link();
++                lock.start_display_link(&window_state);
+             }
+         } else {
+             lock.activated_least_once = true;
+@@ -3418,7 +3515,7 @@ unsafe extern "C" fn display_layer(this: &Objc2Object, _: Sel, _: ObjcId) {
+         let mut lock = window_state.lock();
+         lock.request_frame_callback = Some(callback);
+         lock.renderer.set_presents_with_transaction(false);
+-        lock.start_display_link();
++        lock.start_display_link(&window_state);
+     }
+ }
+ 
+@@ -3437,6 +3534,27 @@ extern "C" fn step(view: *mut c_void) {
+     }
+ }
+ 
++#[cfg(not(feature = "wgpu"))]
++fn metal_frame(window_state: &Rc<Mutex<MacWindowState>>, drawable: metal::MetalDrawable) {
++    let mut state = window_state.lock();
++    let FrameSource::Metal(frames) = &state.frame_source else {
++        return;
++    };
++    let frames = frames.clone();
++    let Some(mut callback) = state.request_frame_callback.take() else {
++        return;
++    };
++    state.renderer.set_frame_drawable(Some(drawable));
++    let request = state.next_frame_request();
++    drop(state);
++    frames.begin_frame();
++    callback(request);
++    let mut state = window_state.lock();
++    state.request_frame_callback = Some(callback);
++    let used_drawable = state.renderer.set_frame_drawable(None).is_none();
++    frames.end_frame(used_drawable);
++}
++
+ unsafe extern "C" fn valid_attributes_for_marked_text(_: &Objc2Object, _: Sel) -> ObjcId {
+     unsafe { msg_send![class!(NSArray), array] }
+ }
+@@ -3902,7 +4020,7 @@ async fn synthetic_drag(
+ /// Sends the specified FileDropEvent using `PlatformInput::FileDrop` to the window
+ /// state and updates the window state according to the event passed.
+ fn send_file_drop_event(
+-    window_state: Arc<Mutex<MacWindowState>>,
++    window_state: Rc<Mutex<MacWindowState>>,
+     file_drop_event: FileDropEvent,
+ ) -> bool {
+     let external_files_dragged = match file_drop_event {
+diff --git a/crates/gpui_platform/src/gpui_platform.rs b/crates/gpui_platform/src/gpui_platform.rs
+index 55270d6eec..fd5453ee76 100644
+--- a/crates/gpui_platform/src/gpui_platform.rs
++++ b/crates/gpui_platform/src/gpui_platform.rs
+@@ -2,6 +2,8 @@
+ //! `current_platform` constructor so consumers don't need `#[cfg]` gating.
+ 
+ pub use gpui::Platform;
++#[cfg(target_os = "macos")]
++pub use gpui_macos::native_timing;
+ 
+ use std::rc::Rc;
+ 

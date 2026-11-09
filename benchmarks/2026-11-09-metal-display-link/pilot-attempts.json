@@ -1,0 +1,146 @@
+[
+  {
+    "series": "pilot-stock-20261109-202842",
+    "pilot": true,
+    "order": [
+      "stock"
+    ],
+    "real_session_sha256": "d980104ddf08f0e6ac83f95d34dde114ab07982bfeafe296d0838eb062566621",
+    "input_profile_sha256": "b00eb3bcd8a01fa8402bb8963a8509a8191bca6cbd1505ec69bb80a4b4dcc678",
+    "input_plan_sha256": "3ab76a1962320ac20f7097dcb91d85c0b8e35ee4764ef06cbeae27ed6e9e51b3",
+    "runs": [
+      {
+        "condition": "stock",
+        "ordinal": 1,
+        "path": "pilots/pilot-stock-20261109-202842/01-stock",
+        "valid": true,
+        "failures": []
+      }
+    ],
+    "started_unix_s": 1794245322.697122,
+    "expected_viewport": [
+      243.0,
+      117.0,
+      1095.0,
+      882.0
+    ],
+    "expected_environment": {
+      "screens": [
+        {
+          "built_in": 1,
+          "frame": [
+            0,
+            0,
+            1728,
+            1117
+          ],
+          "id": 1,
+          "maximum_fps": 120,
+          "mode_refresh_hz": 120,
+          "pixel_height": 2234,
+          "pixel_width": 3456,
+          "scale": 2
+        }
+      ],
+      "low_power_mode": false,
+      "power_source": "AC",
+      "window_bounds": [
+        {
+          "Height": 1037,
+          "Width": 1714,
+          "X": 0,
+          "Y": 34
+        }
+      ]
+    },
+    "completed_unix_s": 1794245387.379571
+  },
+  {
+    "series": "pilot-fixed-20261109-202952",
+    "pilot": true,
+    "order": [
+      "fixed"
+    ],
+    "real_session_sha256": "d980104ddf08f0e6ac83f95d34dde114ab07982bfeafe296d0838eb062566621",
+    "input_profile_sha256": "b00eb3bcd8a01fa8402bb8963a8509a8191bca6cbd1505ec69bb80a4b4dcc678",
+    "input_plan_sha256": "3ab76a1962320ac20f7097dcb91d85c0b8e35ee4764ef06cbeae27ed6e9e51b3",
+    "runs": [
+      {
+        "condition": "fixed",
+        "ordinal": 1,
+        "path": "pilots/pilot-fixed-20261109-202952/01-fixed",
+        "valid": false,
+        "failures": [
+          "scenario failed",
+          "focus/readiness contamination",
+          "missing before/after position witnesses",
+          "incomplete/dropped timing capture",
+          "packet capture mismatch"
+        ]
+      }
+    ],
+    "started_unix_s": 1794245392.776725,
+    "expected_viewport": [
+      243.0,
+      117.0,
+      1095.0,
+      882.0
+    ]
+  },
+  {
+    "series": "pilot-fixed-20261109-203131",
+    "pilot": true,
+    "order": [
+      "fixed"
+    ],
+    "real_session_sha256": "d980104ddf08f0e6ac83f95d34dde114ab07982bfeafe296d0838eb062566621",
+    "input_profile_sha256": "b00eb3bcd8a01fa8402bb8963a8509a8191bca6cbd1505ec69bb80a4b4dcc678",
+    "input_plan_sha256": "3ab76a1962320ac20f7097dcb91d85c0b8e35ee4764ef06cbeae27ed6e9e51b3",
+    "runs": [
+      {
+        "condition": "fixed",
+        "ordinal": 1,
+        "path": "pilots/pilot-fixed-20261109-203131/01-fixed",
+        "valid": true,
+        "failures": []
+      }
+    ],
+    "started_unix_s": 1794245491.536116,
+    "expected_viewport": [
+      243.0,
+      117.0,
+      1095.0,
+      882.0
+    ],
+    "expected_environment": {
+      "screens": [
+        {
+          "built_in": 1,
+          "frame": [
+            0,
+            0,
+            1728,
+            1117
+          ],
+          "id": 1,
+          "maximum_fps": 120,
+          "mode_refresh_hz": 120,
+          "pixel_height": 2234,
+          "pixel_width": 3456,
+          "scale": 2
+        }
+      ],
+      "low_power_mode": false,
+      "power_source": "AC",
+      "window_bounds": [
+        {
+          "Height": 1037,
+          "Width": 1714,
+          "X": 0,
+          "Y": 34
+        }
+      ]
+    },
+    "completed_unix_s": 1794245555.126883
+  }
+]

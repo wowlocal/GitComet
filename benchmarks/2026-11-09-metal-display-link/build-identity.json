@@ -1,0 +1,32 @@
+{
+  "checked_at": "2026-11-09T20:28:37.343325",
+  "application_sources_match": true,
+  "common_resource_count": 4,
+  "resources_match": true,
+  "stock_binary_sha256": "600bfe5e5db6969aa99d503e9a78ef984bc2ec1a61db0e6bd4308dd8627fe2bf",
+  "fixed_binary_sha256": "f23c14a83b84bf542cadd0d8fee060ff53b4e1f3f987c7dc7180e6ed410b08aa",
+  "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)\nbinary: rustc\ncommit-hash: 58cf8f9c35b355199727627d07ae34a4e2846d67\ncommit-date: 2026-10-13\nhost: aarch64-apple-darwin\nrelease: 1.99.1\nLLVM version: 23.1.1\n",
+  "environment": {
+    "low_power_mode": false,
+    "screens": [
+      {
+        "built_in": 1,
+        "frame": [
+          0,
+          0,
+          1728,
+          1117
+        ],
+        "id": 1,
+        "maximum_fps": 120,
+        "mode_refresh_hz": 120,
+        "pixel_height": 2234,
+        "pixel_width": 3456,
+        "scale": 2
+      }
+    ],
+    "target_windows": [],
+    "thermal_state": 0,
+    "unix_ms": 1794245317405.137
+  }
+}

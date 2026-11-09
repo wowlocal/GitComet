@@ -1,0 +1,130 @@
+{
+  "series": "balanced-20261109-203428",
+  "pilot": false,
+  "order": [
+    "stock",
+    "fixed",
+    "fixed",
+    "stock",
+    "fixed",
+    "stock",
+    "stock",
+    "fixed"
+  ],
+  "real_session_sha256": "d980104ddf08f0e6ac83f95d34dde114ab07982bfeafe296d0838eb062566621",
+  "input_profile_sha256": "b00eb3bcd8a01fa8402bb8963a8509a8191bca6cbd1505ec69bb80a4b4dcc678",
+  "input_plan_sha256": "3ab76a1962320ac20f7097dcb91d85c0b8e35ee4764ef06cbeae27ed6e9e51b3",
+  "runs": [
+    {
+      "condition": "stock",
+      "ordinal": 1,
+      "path": "01-stock",
+      "valid": true,
+      "failures": []
+    },
+    {
+      "condition": "fixed",
+      "ordinal": 2,
+      "path": "02-fixed",
+      "valid": true,
+      "failures": []
+    },
+    {
+      "condition": "fixed",
+      "ordinal": 3,
+      "path": "03-fixed",
+      "valid": false,
+      "failures": [
+        "scenario failed",
+        "focus/readiness contamination",
+        "missing before/after position witnesses",
+        "incomplete/dropped timing capture",
+        "packet capture mismatch"
+      ]
+    },
+    {
+      "condition": "fixed",
+      "ordinal": 3,
+      "path": "03-fixed-attempt2",
+      "valid": true,
+      "failures": []
+    },
+    {
+      "condition": "stock",
+      "ordinal": 4,
+      "path": "04-stock",
+      "valid": true,
+      "failures": []
+    },
+    {
+      "condition": "fixed",
+      "ordinal": 5,
+      "path": "05-fixed",
+      "valid": true,
+      "failures": []
+    },
+    {
+      "condition": "stock",
+      "ordinal": 6,
+      "path": "06-stock",
+      "valid": true,
+      "failures": []
+    },
+    {
+      "condition": "stock",
+      "ordinal": 7,
+      "path": "07-stock",
+      "valid": true,
+      "failures": []
+    },
+    {
+      "condition": "fixed",
+      "ordinal": 8,
+      "path": "08-fixed",
+      "valid": true,
+      "failures": []
+    }
+  ],
+  "started_unix_s": 1794245668.149589,
+  "expected_viewport": [
+    243.0,
+    117.0,
+    1095.0,
+    882.0
+  ],
+  "expected_environment": {
+    "screens": [
+      {
+        "built_in": 1,
+        "frame": [
+          0,
+          0,
+          1728,
+          1117
+        ],
+        "id": 1,
+        "maximum_fps": 120,
+        "mode_refresh_hz": 120,
+        "pixel_height": 2234,
+        "pixel_width": 3456,
+        "scale": 2
+      }
+    ],
+    "low_power_mode": false,
+    "power_source": "AC",
+    "window_bounds": [
+      {
+        "Height": 1037,
+        "Width": 1714,
+        "X": 0,
+        "Y": 34
+      }
+    ]
+  },
+  "resumed_unix_s": [
+    1794245984.797001
+  ],
+  "completed_unix_s": 1794246367.3146508,
+  "repository_identity_sha256": "d1a197a359cfb0069a86a9968926672590775df6573571c106b4a8994d87d348",
+  "redactions": "Real/copied session files, private repository identity/content, stderr and unrelated application events omitted. Numeric measurement inputs retained. Repository in window witnesses replaced with a literal placeholder; power-source string reduced to AC/Battery."
+}
