@@ -197,7 +197,7 @@ impl RepoTabPresentations {
         // Public GPUI line layout observes font-collection generations. One
         // cached probe invalidates our widths when fonts change, without
         // measuring every label again during accessibility redraws.
-        let probe_text = "GitComet repository tabs";
+        let probe_text = "Repository tabs font probe";
         let probe = window.text_system().layout_line(
             probe_text,
             px(REPO_TAB_FONT_SIZE_PX),
