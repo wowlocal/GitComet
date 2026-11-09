@@ -1,0 +1,10 @@
+{
+  "exporter_sha256": "b64a3d5513ddc804fe72c7474d485a15dc9e264fde802acdfda8ea5a27bd20eb",
+  "original_collector_lock_sha256": "1affffad470c8e9f4fa19c88af25f0a29011d1f57b55372edd8ec89fa87c9a44",
+  "original_converter_lock_sha256": "2ea1fac6318f4c4415a1fdf6e83d9f199199b36fb50b94c8f5fcac173830a56f",
+  "orchestration_sha256": "7f675570a463f253cf460e56a8830e5b9593a5f3c283e021dda5f82fb1ec05dd",
+  "numeric_reanalysis_matches_private": true,
+  "raw_capture_data_changed": false,
+  "raw_events_data_changed": false,
+  "raw_cua_numeric_data_changed": false
+}

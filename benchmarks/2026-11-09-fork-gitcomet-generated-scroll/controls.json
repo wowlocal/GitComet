@@ -1,0 +1,690 @@
+[
+  {
+    "ordinal": 1,
+    "condition": "gitcomet",
+    "saved_repo_count": 40,
+    "active_repo_matches": true,
+    "repository_identity_unchanged": true,
+    "original_gitcomet_session_unchanged": true,
+    "native_before": {
+      "frontmost_bundle": "ai.autoexplore.gitcomet",
+      "low_power_mode": false,
+      "reduce_motion": false,
+      "screens": [
+        {
+          "built_in": 1,
+          "frame": [
+            0,
+            0,
+            1728,
+            1117
+          ],
+          "id": 1,
+          "maximum_fps": 120,
+          "mode_refresh_hz": 120,
+          "pixel_height": 2234,
+          "pixel_width": 3456,
+          "scale": 2
+        }
+      ],
+      "target_windows": [
+        {
+          "alpha": 1,
+          "bounds": {
+            "Height": 1039,
+            "Width": 1714,
+            "X": 0,
+            "Y": 33
+          },
+          "onscreen": true
+        }
+      ],
+      "thermal_state": 0
+    },
+    "native_after": {
+      "frontmost_bundle": "ai.autoexplore.gitcomet",
+      "low_power_mode": false,
+      "reduce_motion": false,
+      "screens": [
+        {
+          "built_in": 1,
+          "frame": [
+            0,
+            0,
+            1728,
+            1117
+          ],
+          "id": 1,
+          "maximum_fps": 120,
+          "mode_refresh_hz": 120,
+          "pixel_height": 2234,
+          "pixel_width": 3456,
+          "scale": 2
+        }
+      ],
+      "target_windows": [
+        {
+          "alpha": 1,
+          "bounds": {
+            "Height": 1039,
+            "Width": 1714,
+            "X": 0,
+            "Y": 33
+          },
+          "onscreen": true
+        }
+      ],
+      "thermal_state": 0
+    },
+    "interference_before": {
+      "checked_unix_ms": 1794256957785.585,
+      "compiler_game_processes_found": []
+    },
+    "interference_after": {
+      "checked_unix_ms": 1794257011238.967,
+      "compiler_game_processes_found": []
+    }
+  },
+  {
+    "ordinal": 2,
+    "condition": "fork",
+    "saved_repo_count": 40,
+    "active_repo_matches": true,
+    "repository_identity_unchanged": true,
+    "original_gitcomet_session_unchanged": true,
+    "native_before": {
+      "frontmost_bundle": "com.DanPristupov.Fork",
+      "low_power_mode": false,
+      "reduce_motion": false,
+      "screens": [
+        {
+          "built_in": 1,
+          "frame": [
+            0,
+            0,
+            1728,
+            1117
+          ],
+          "id": 1,
+          "maximum_fps": 120,
+          "mode_refresh_hz": 120,
+          "pixel_height": 2234,
+          "pixel_width": 3456,
+          "scale": 2
+        }
+      ],
+      "target_windows": [
+        {
+          "alpha": 1,
+          "bounds": {
+            "Height": 1033,
+            "Width": 1518,
+            "X": 56,
+            "Y": 33
+          },
+          "onscreen": true
+        }
+      ],
+      "thermal_state": 0
+    },
+    "native_after": {
+      "frontmost_bundle": "com.DanPristupov.Fork",
+      "low_power_mode": false,
+      "reduce_motion": false,
+      "screens": [
+        {
+          "built_in": 1,
+          "frame": [
+            0,
+            0,
+            1728,
+            1117
+          ],
+          "id": 1,
+          "maximum_fps": 120,
+          "mode_refresh_hz": 120,
+          "pixel_height": 2234,
+          "pixel_width": 3456,
+          "scale": 2
+        }
+      ],
+      "target_windows": [
+        {
+          "alpha": 1,
+          "bounds": {
+            "Height": 1033,
+            "Width": 1518,
+            "X": 56,
+            "Y": 33
+          },
+          "onscreen": true
+        }
+      ],
+      "thermal_state": 0
+    },
+    "interference_before": {
+      "checked_unix_ms": 1794257050054.8857,
+      "compiler_game_processes_found": []
+    },
+    "interference_after": {
+      "checked_unix_ms": 1794257103489.891,
+      "compiler_game_processes_found": []
+    }
+  },
+  {
+    "ordinal": 3,
+    "condition": "fork",
+    "saved_repo_count": 40,
+    "active_repo_matches": true,
+    "repository_identity_unchanged": true,
+    "original_gitcomet_session_unchanged": true,
+    "native_before": {
+      "frontmost_bundle": "com.DanPristupov.Fork",
+      "low_power_mode": false,
+      "reduce_motion": false,
+      "screens": [
+        {
+          "built_in": 1,
+          "frame": [
+            0,
+            0,
+            1728,
+            1117
+          ],
+          "id": 1,
+          "maximum_fps": 120,
+          "mode_refresh_hz": 120,
+          "pixel_height": 2234,
+          "pixel_width": 3456,
+          "scale": 2
+        }
+      ],
+      "target_windows": [
+        {
+          "alpha": 1,
+          "bounds": {
+            "Height": 1033,
+            "Width": 1518,
+            "X": 56,
+            "Y": 33
+          },
+          "onscreen": true
+        }
+      ],
+      "thermal_state": 0
+    },
+    "native_after": {
+      "frontmost_bundle": "com.DanPristupov.Fork",
+      "low_power_mode": false,
+      "reduce_motion": false,
+      "screens": [
+        {
+          "built_in": 1,
+          "frame": [
+            0,
+            0,
+            1728,
+            1117
+          ],
+          "id": 1,
+          "maximum_fps": 120,
+          "mode_refresh_hz": 120,
+          "pixel_height": 2234,
+          "pixel_width": 3456,
+          "scale": 2
+        }
+      ],
+      "target_windows": [
+        {
+          "alpha": 1,
+          "bounds": {
+            "Height": 1033,
+            "Width": 1518,
+            "X": 56,
+            "Y": 33
+          },
+          "onscreen": true
+        }
+      ],
+      "thermal_state": 0
+    },
+    "interference_before": {
+      "checked_unix_ms": 1794257136958.803,
+      "compiler_game_processes_found": []
+    },
+    "interference_after": {
+      "checked_unix_ms": 1794257190408.834,
+      "compiler_game_processes_found": []
+    }
+  },
+  {
+    "ordinal": 4,
+    "condition": "gitcomet",
+    "saved_repo_count": 40,
+    "active_repo_matches": true,
+    "repository_identity_unchanged": true,
+    "original_gitcomet_session_unchanged": true,
+    "native_before": {
+      "frontmost_bundle": "ai.autoexplore.gitcomet",
+      "low_power_mode": false,
+      "reduce_motion": false,
+      "screens": [
+        {
+          "built_in": 1,
+          "frame": [
+            0,
+            0,
+            1728,
+            1117
+          ],
+          "id": 1,
+          "maximum_fps": 120,
+          "mode_refresh_hz": 120,
+          "pixel_height": 2234,
+          "pixel_width": 3456,
+          "scale": 2
+        }
+      ],
+      "target_windows": [
+        {
+          "alpha": 1,
+          "bounds": {
+            "Height": 1039,
+            "Width": 1714,
+            "X": 0,
+            "Y": 33
+          },
+          "onscreen": true
+        }
+      ],
+      "thermal_state": 0
+    },
+    "native_after": {
+      "frontmost_bundle": "ai.autoexplore.gitcomet",
+      "low_power_mode": false,
+      "reduce_motion": false,
+      "screens": [
+        {
+          "built_in": 1,
+          "frame": [
+            0,
+            0,
+            1728,
+            1117
+          ],
+          "id": 1,
+          "maximum_fps": 120,
+          "mode_refresh_hz": 120,
+          "pixel_height": 2234,
+          "pixel_width": 3456,
+          "scale": 2
+        }
+      ],
+      "target_windows": [
+        {
+          "alpha": 1,
+          "bounds": {
+            "Height": 1039,
+            "Width": 1714,
+            "X": 0,
+            "Y": 33
+          },
+          "onscreen": true
+        }
+      ],
+      "thermal_state": 0
+    },
+    "interference_before": {
+      "checked_unix_ms": 1794257218945.892,
+      "compiler_game_processes_found": []
+    },
+    "interference_after": {
+      "checked_unix_ms": 1794257271369.3171,
+      "compiler_game_processes_found": []
+    }
+  },
+  {
+    "ordinal": 5,
+    "condition": "fork",
+    "saved_repo_count": 40,
+    "active_repo_matches": true,
+    "repository_identity_unchanged": true,
+    "original_gitcomet_session_unchanged": true,
+    "native_before": {
+      "frontmost_bundle": "com.DanPristupov.Fork",
+      "low_power_mode": false,
+      "reduce_motion": false,
+      "screens": [
+        {
+          "built_in": 1,
+          "frame": [
+            0,
+            0,
+            1728,
+            1117
+          ],
+          "id": 1,
+          "maximum_fps": 120,
+          "mode_refresh_hz": 120,
+          "pixel_height": 2234,
+          "pixel_width": 3456,
+          "scale": 2
+        }
+      ],
+      "target_windows": [
+        {
+          "alpha": 1,
+          "bounds": {
+            "Height": 1033,
+            "Width": 1518,
+            "X": 56,
+            "Y": 33
+          },
+          "onscreen": true
+        }
+      ],
+      "thermal_state": 0
+    },
+    "native_after": {
+      "frontmost_bundle": "com.DanPristupov.Fork",
+      "low_power_mode": false,
+      "reduce_motion": false,
+      "screens": [
+        {
+          "built_in": 1,
+          "frame": [
+            0,
+            0,
+            1728,
+            1117
+          ],
+          "id": 1,
+          "maximum_fps": 120,
+          "mode_refresh_hz": 120,
+          "pixel_height": 2234,
+          "pixel_width": 3456,
+          "scale": 2
+        }
+      ],
+      "target_windows": [
+        {
+          "alpha": 1,
+          "bounds": {
+            "Height": 1033,
+            "Width": 1518,
+            "X": 56,
+            "Y": 33
+          },
+          "onscreen": true
+        }
+      ],
+      "thermal_state": 0
+    },
+    "interference_before": {
+      "checked_unix_ms": 1794257297296.572,
+      "compiler_game_processes_found": []
+    },
+    "interference_after": {
+      "checked_unix_ms": 1794257350705.5308,
+      "compiler_game_processes_found": []
+    }
+  },
+  {
+    "ordinal": 6,
+    "condition": "gitcomet",
+    "saved_repo_count": 40,
+    "active_repo_matches": true,
+    "repository_identity_unchanged": true,
+    "original_gitcomet_session_unchanged": true,
+    "native_before": {
+      "frontmost_bundle": "ai.autoexplore.gitcomet",
+      "low_power_mode": false,
+      "reduce_motion": false,
+      "screens": [
+        {
+          "built_in": 1,
+          "frame": [
+            0,
+            0,
+            1728,
+            1117
+          ],
+          "id": 1,
+          "maximum_fps": 120,
+          "mode_refresh_hz": 120,
+          "pixel_height": 2234,
+          "pixel_width": 3456,
+          "scale": 2
+        }
+      ],
+      "target_windows": [
+        {
+          "alpha": 1,
+          "bounds": {
+            "Height": 1039,
+            "Width": 1714,
+            "X": 0,
+            "Y": 33
+          },
+          "onscreen": true
+        }
+      ],
+      "thermal_state": 0
+    },
+    "native_after": {
+      "frontmost_bundle": "ai.autoexplore.gitcomet",
+      "low_power_mode": false,
+      "reduce_motion": false,
+      "screens": [
+        {
+          "built_in": 1,
+          "frame": [
+            0,
+            0,
+            1728,
+            1117
+          ],
+          "id": 1,
+          "maximum_fps": 120,
+          "mode_refresh_hz": 120,
+          "pixel_height": 2234,
+          "pixel_width": 3456,
+          "scale": 2
+        }
+      ],
+      "target_windows": [
+        {
+          "alpha": 1,
+          "bounds": {
+            "Height": 1039,
+            "Width": 1714,
+            "X": 0,
+            "Y": 33
+          },
+          "onscreen": true
+        }
+      ],
+      "thermal_state": 0
+    },
+    "interference_before": {
+      "checked_unix_ms": 1794257374464.963,
+      "compiler_game_processes_found": []
+    },
+    "interference_after": {
+      "checked_unix_ms": 1794257428905.719,
+      "compiler_game_processes_found": []
+    }
+  },
+  {
+    "ordinal": 7,
+    "condition": "gitcomet",
+    "saved_repo_count": 40,
+    "active_repo_matches": true,
+    "repository_identity_unchanged": true,
+    "original_gitcomet_session_unchanged": true,
+    "native_before": {
+      "frontmost_bundle": "ai.autoexplore.gitcomet",
+      "low_power_mode": false,
+      "reduce_motion": false,
+      "screens": [
+        {
+          "built_in": 1,
+          "frame": [
+            0,
+            0,
+            1728,
+            1117
+          ],
+          "id": 1,
+          "maximum_fps": 120,
+          "mode_refresh_hz": 120,
+          "pixel_height": 2234,
+          "pixel_width": 3456,
+          "scale": 2
+        }
+      ],
+      "target_windows": [
+        {
+          "alpha": 1,
+          "bounds": {
+            "Height": 1039,
+            "Width": 1714,
+            "X": 0,
+            "Y": 33
+          },
+          "onscreen": true
+        }
+      ],
+      "thermal_state": 0
+    },
+    "native_after": {
+      "frontmost_bundle": "ai.autoexplore.gitcomet",
+      "low_power_mode": false,
+      "reduce_motion": false,
+      "screens": [
+        {
+          "built_in": 1,
+          "frame": [
+            0,
+            0,
+            1728,
+            1117
+          ],
+          "id": 1,
+          "maximum_fps": 120,
+          "mode_refresh_hz": 120,
+          "pixel_height": 2234,
+          "pixel_width": 3456,
+          "scale": 2
+        }
+      ],
+      "target_windows": [
+        {
+          "alpha": 1,
+          "bounds": {
+            "Height": 1039,
+            "Width": 1714,
+            "X": 0,
+            "Y": 33
+          },
+          "onscreen": true
+        }
+      ],
+      "thermal_state": 0
+    },
+    "interference_before": {
+      "checked_unix_ms": 1794257460893.239,
+      "compiler_game_processes_found": []
+    },
+    "interference_after": {
+      "checked_unix_ms": 1794257516317.7568,
+      "compiler_game_processes_found": []
+    }
+  },
+  {
+    "ordinal": 8,
+    "condition": "fork",
+    "saved_repo_count": 40,
+    "active_repo_matches": true,
+    "repository_identity_unchanged": true,
+    "original_gitcomet_session_unchanged": true,
+    "native_before": {
+      "frontmost_bundle": "com.DanPristupov.Fork",
+      "low_power_mode": false,
+      "reduce_motion": false,
+      "screens": [
+        {
+          "built_in": 1,
+          "frame": [
+            0,
+            0,
+            1728,
+            1117
+          ],
+          "id": 1,
+          "maximum_fps": 120,
+          "mode_refresh_hz": 120,
+          "pixel_height": 2234,
+          "pixel_width": 3456,
+          "scale": 2
+        }
+      ],
+      "target_windows": [
+        {
+          "alpha": 1,
+          "bounds": {
+            "Height": 1033,
+            "Width": 1518,
+            "X": 56,
+            "Y": 33
+          },
+          "onscreen": true
+        }
+      ],
+      "thermal_state": 0
+    },
+    "native_after": {
+      "frontmost_bundle": "com.DanPristupov.Fork",
+      "low_power_mode": false,
+      "reduce_motion": false,
+      "screens": [
+        {
+          "built_in": 1,
+          "frame": [
+            0,
+            0,
+            1728,
+            1117
+          ],
+          "id": 1,
+          "maximum_fps": 120,
+          "mode_refresh_hz": 120,
+          "pixel_height": 2234,
+          "pixel_width": 3456,
+          "scale": 2
+        }
+      ],
+      "target_windows": [
+        {
+          "alpha": 1,
+          "bounds": {
+            "Height": 1033,
+            "Width": 1518,
+            "X": 56,
+            "Y": 33
+          },
+          "onscreen": true
+        }
+      ],
+      "thermal_state": 0
+    },
+    "interference_before": {
+      "checked_unix_ms": 1794257545364.4468,
+      "compiler_game_processes_found": []
+    },
+    "interference_after": {
+      "checked_unix_ms": 1794257597759.1018,
+      "compiler_game_processes_found": []
+    }
+  }
+]

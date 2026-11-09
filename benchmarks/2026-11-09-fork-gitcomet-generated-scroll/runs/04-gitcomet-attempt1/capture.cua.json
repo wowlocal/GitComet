@@ -1,0 +1,1395 @@
+{
+  "schema": "cua-scroll-timing-v1",
+  "plan_revision": 2,
+  "label": "gitcomet",
+  "events": [
+    {
+      "name": "idle-before",
+      "state": "begin",
+      "unix_ms": 1794257222726
+    },
+    {
+      "name": "idle-before",
+      "state": "end",
+      "unix_ms": 1794257232727
+    },
+    {
+      "name": "scrolling",
+      "state": "begin",
+      "unix_ms": 1794257232727
+    },
+    {
+      "name": "scrolling",
+      "state": "end",
+      "unix_ms": 1794257252727
+    },
+    {
+      "name": "idle-after",
+      "state": "begin",
+      "unix_ms": 1794257252727
+    },
+    {
+      "name": "idle-after",
+      "state": "end",
+      "unix_ms": 1794257267727
+    }
+  ],
+  "commands": [
+    {
+      "index": 0,
+      "direction": "down",
+      "requested_pages": 1,
+      "scheduled_unix_ms": 1794257234726,
+      "begin_unix_ms": 1794257234727,
+      "subcommands_completed": 10,
+      "subcall_count": 10,
+      "subcall_pages": 0.1,
+      "planned_spacing_ms": 50,
+      "subcalls": [
+        {
+          "index": 0,
+          "scheduled_unix_ms": 1794257234726,
+          "begin_unix_ms": 1794257234727,
+          "end_unix_ms": 1794257234772,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 1,
+          "scheduled_unix_ms": 1794257234776,
+          "begin_unix_ms": 1794257234776,
+          "end_unix_ms": 1794257234834,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 2,
+          "scheduled_unix_ms": 1794257234826,
+          "begin_unix_ms": 1794257234834,
+          "end_unix_ms": 1794257234880,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 3,
+          "scheduled_unix_ms": 1794257234876,
+          "begin_unix_ms": 1794257234880,
+          "end_unix_ms": 1794257234936,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 4,
+          "scheduled_unix_ms": 1794257234926,
+          "begin_unix_ms": 1794257234936,
+          "end_unix_ms": 1794257234994,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 5,
+          "scheduled_unix_ms": 1794257234976,
+          "begin_unix_ms": 1794257234994,
+          "end_unix_ms": 1794257235052,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 6,
+          "scheduled_unix_ms": 1794257235026,
+          "begin_unix_ms": 1794257235052,
+          "end_unix_ms": 1794257235111,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 7,
+          "scheduled_unix_ms": 1794257235076,
+          "begin_unix_ms": 1794257235111,
+          "end_unix_ms": 1794257235170,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 8,
+          "scheduled_unix_ms": 1794257235126,
+          "begin_unix_ms": 1794257235170,
+          "end_unix_ms": 1794257235227,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 9,
+          "scheduled_unix_ms": 1794257235176,
+          "begin_unix_ms": 1794257235227,
+          "end_unix_ms": 1794257235286,
+          "requested_pages": 0.1
+        }
+      ],
+      "end_unix_ms": 1794257235286
+    },
+    {
+      "index": 1,
+      "direction": "down",
+      "requested_pages": 1,
+      "scheduled_unix_ms": 1794257235726,
+      "begin_unix_ms": 1794257235726,
+      "subcommands_completed": 10,
+      "subcall_count": 10,
+      "subcall_pages": 0.1,
+      "planned_spacing_ms": 50,
+      "subcalls": [
+        {
+          "index": 0,
+          "scheduled_unix_ms": 1794257235726,
+          "begin_unix_ms": 1794257235726,
+          "end_unix_ms": 1794257235771,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 1,
+          "scheduled_unix_ms": 1794257235776,
+          "begin_unix_ms": 1794257235776,
+          "end_unix_ms": 1794257235827,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 2,
+          "scheduled_unix_ms": 1794257235826,
+          "begin_unix_ms": 1794257235827,
+          "end_unix_ms": 1794257235885,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 3,
+          "scheduled_unix_ms": 1794257235876,
+          "begin_unix_ms": 1794257235885,
+          "end_unix_ms": 1794257235944,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 4,
+          "scheduled_unix_ms": 1794257235926,
+          "begin_unix_ms": 1794257235944,
+          "end_unix_ms": 1794257236001,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 5,
+          "scheduled_unix_ms": 1794257235976,
+          "begin_unix_ms": 1794257236001,
+          "end_unix_ms": 1794257236048,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 6,
+          "scheduled_unix_ms": 1794257236026,
+          "begin_unix_ms": 1794257236048,
+          "end_unix_ms": 1794257236103,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 7,
+          "scheduled_unix_ms": 1794257236076,
+          "begin_unix_ms": 1794257236103,
+          "end_unix_ms": 1794257236162,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 8,
+          "scheduled_unix_ms": 1794257236126,
+          "begin_unix_ms": 1794257236162,
+          "end_unix_ms": 1794257236219,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 9,
+          "scheduled_unix_ms": 1794257236176,
+          "begin_unix_ms": 1794257236219,
+          "end_unix_ms": 1794257236278,
+          "requested_pages": 0.1
+        }
+      ],
+      "end_unix_ms": 1794257236278
+    },
+    {
+      "index": 2,
+      "direction": "up",
+      "requested_pages": 1,
+      "scheduled_unix_ms": 1794257236726,
+      "begin_unix_ms": 1794257236727,
+      "subcommands_completed": 10,
+      "subcall_count": 10,
+      "subcall_pages": 0.1,
+      "planned_spacing_ms": 50,
+      "subcalls": [
+        {
+          "index": 0,
+          "scheduled_unix_ms": 1794257236726,
+          "begin_unix_ms": 1794257236727,
+          "end_unix_ms": 1794257236772,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 1,
+          "scheduled_unix_ms": 1794257236776,
+          "begin_unix_ms": 1794257236777,
+          "end_unix_ms": 1794257236827,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 2,
+          "scheduled_unix_ms": 1794257236826,
+          "begin_unix_ms": 1794257236827,
+          "end_unix_ms": 1794257236884,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 3,
+          "scheduled_unix_ms": 1794257236876,
+          "begin_unix_ms": 1794257236884,
+          "end_unix_ms": 1794257236944,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 4,
+          "scheduled_unix_ms": 1794257236926,
+          "begin_unix_ms": 1794257236944,
+          "end_unix_ms": 1794257237002,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 5,
+          "scheduled_unix_ms": 1794257236976,
+          "begin_unix_ms": 1794257237002,
+          "end_unix_ms": 1794257237063,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 6,
+          "scheduled_unix_ms": 1794257237026,
+          "begin_unix_ms": 1794257237063,
+          "end_unix_ms": 1794257237120,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 7,
+          "scheduled_unix_ms": 1794257237076,
+          "begin_unix_ms": 1794257237120,
+          "end_unix_ms": 1794257237179,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 8,
+          "scheduled_unix_ms": 1794257237126,
+          "begin_unix_ms": 1794257237179,
+          "end_unix_ms": 1794257237236,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 9,
+          "scheduled_unix_ms": 1794257237176,
+          "begin_unix_ms": 1794257237236,
+          "end_unix_ms": 1794257237295,
+          "requested_pages": 0.1
+        }
+      ],
+      "end_unix_ms": 1794257237295
+    },
+    {
+      "index": 3,
+      "direction": "up",
+      "requested_pages": 1,
+      "scheduled_unix_ms": 1794257237726,
+      "begin_unix_ms": 1794257237727,
+      "subcommands_completed": 10,
+      "subcall_count": 10,
+      "subcall_pages": 0.1,
+      "planned_spacing_ms": 50,
+      "subcalls": [
+        {
+          "index": 0,
+          "scheduled_unix_ms": 1794257237726,
+          "begin_unix_ms": 1794257237727,
+          "end_unix_ms": 1794257237771,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 1,
+          "scheduled_unix_ms": 1794257237776,
+          "begin_unix_ms": 1794257237777,
+          "end_unix_ms": 1794257237828,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 2,
+          "scheduled_unix_ms": 1794257237826,
+          "begin_unix_ms": 1794257237828,
+          "end_unix_ms": 1794257237885,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 3,
+          "scheduled_unix_ms": 1794257237876,
+          "begin_unix_ms": 1794257237885,
+          "end_unix_ms": 1794257237944,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 4,
+          "scheduled_unix_ms": 1794257237926,
+          "begin_unix_ms": 1794257237944,
+          "end_unix_ms": 1794257238003,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 5,
+          "scheduled_unix_ms": 1794257237976,
+          "begin_unix_ms": 1794257238003,
+          "end_unix_ms": 1794257238061,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 6,
+          "scheduled_unix_ms": 1794257238026,
+          "begin_unix_ms": 1794257238061,
+          "end_unix_ms": 1794257238119,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 7,
+          "scheduled_unix_ms": 1794257238076,
+          "begin_unix_ms": 1794257238119,
+          "end_unix_ms": 1794257238178,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 8,
+          "scheduled_unix_ms": 1794257238126,
+          "begin_unix_ms": 1794257238178,
+          "end_unix_ms": 1794257238236,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 9,
+          "scheduled_unix_ms": 1794257238176,
+          "begin_unix_ms": 1794257238236,
+          "end_unix_ms": 1794257238295,
+          "requested_pages": 0.1
+        }
+      ],
+      "end_unix_ms": 1794257238295
+    },
+    {
+      "index": 4,
+      "direction": "down",
+      "requested_pages": 1,
+      "scheduled_unix_ms": 1794257238726,
+      "begin_unix_ms": 1794257238727,
+      "subcommands_completed": 10,
+      "subcall_count": 10,
+      "subcall_pages": 0.1,
+      "planned_spacing_ms": 50,
+      "subcalls": [
+        {
+          "index": 0,
+          "scheduled_unix_ms": 1794257238726,
+          "begin_unix_ms": 1794257238727,
+          "end_unix_ms": 1794257238771,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 1,
+          "scheduled_unix_ms": 1794257238776,
+          "begin_unix_ms": 1794257238776,
+          "end_unix_ms": 1794257238826,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 2,
+          "scheduled_unix_ms": 1794257238826,
+          "begin_unix_ms": 1794257238826,
+          "end_unix_ms": 1794257238868,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 3,
+          "scheduled_unix_ms": 1794257238876,
+          "begin_unix_ms": 1794257238877,
+          "end_unix_ms": 1794257238935,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 4,
+          "scheduled_unix_ms": 1794257238926,
+          "begin_unix_ms": 1794257238935,
+          "end_unix_ms": 1794257238994,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 5,
+          "scheduled_unix_ms": 1794257238976,
+          "begin_unix_ms": 1794257238994,
+          "end_unix_ms": 1794257239052,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 6,
+          "scheduled_unix_ms": 1794257239026,
+          "begin_unix_ms": 1794257239052,
+          "end_unix_ms": 1794257239112,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 7,
+          "scheduled_unix_ms": 1794257239076,
+          "begin_unix_ms": 1794257239112,
+          "end_unix_ms": 1794257239169,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 8,
+          "scheduled_unix_ms": 1794257239126,
+          "begin_unix_ms": 1794257239169,
+          "end_unix_ms": 1794257239229,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 9,
+          "scheduled_unix_ms": 1794257239176,
+          "begin_unix_ms": 1794257239229,
+          "end_unix_ms": 1794257239288,
+          "requested_pages": 0.1
+        }
+      ],
+      "end_unix_ms": 1794257239288
+    },
+    {
+      "index": 5,
+      "direction": "down",
+      "requested_pages": 1,
+      "scheduled_unix_ms": 1794257239726,
+      "begin_unix_ms": 1794257239727,
+      "subcommands_completed": 10,
+      "subcall_count": 10,
+      "subcall_pages": 0.1,
+      "planned_spacing_ms": 50,
+      "subcalls": [
+        {
+          "index": 0,
+          "scheduled_unix_ms": 1794257239726,
+          "begin_unix_ms": 1794257239727,
+          "end_unix_ms": 1794257239771,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 1,
+          "scheduled_unix_ms": 1794257239776,
+          "begin_unix_ms": 1794257239776,
+          "end_unix_ms": 1794257239828,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 2,
+          "scheduled_unix_ms": 1794257239826,
+          "begin_unix_ms": 1794257239828,
+          "end_unix_ms": 1794257239885,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 3,
+          "scheduled_unix_ms": 1794257239876,
+          "begin_unix_ms": 1794257239885,
+          "end_unix_ms": 1794257239950,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 4,
+          "scheduled_unix_ms": 1794257239926,
+          "begin_unix_ms": 1794257239950,
+          "end_unix_ms": 1794257240003,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 5,
+          "scheduled_unix_ms": 1794257239976,
+          "begin_unix_ms": 1794257240003,
+          "end_unix_ms": 1794257240060,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 6,
+          "scheduled_unix_ms": 1794257240026,
+          "begin_unix_ms": 1794257240060,
+          "end_unix_ms": 1794257240119,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 7,
+          "scheduled_unix_ms": 1794257240076,
+          "begin_unix_ms": 1794257240119,
+          "end_unix_ms": 1794257240178,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 8,
+          "scheduled_unix_ms": 1794257240126,
+          "begin_unix_ms": 1794257240178,
+          "end_unix_ms": 1794257240236,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 9,
+          "scheduled_unix_ms": 1794257240176,
+          "begin_unix_ms": 1794257240236,
+          "end_unix_ms": 1794257240295,
+          "requested_pages": 0.1
+        }
+      ],
+      "end_unix_ms": 1794257240295
+    },
+    {
+      "index": 6,
+      "direction": "up",
+      "requested_pages": 1,
+      "scheduled_unix_ms": 1794257240726,
+      "begin_unix_ms": 1794257240727,
+      "subcommands_completed": 10,
+      "subcall_count": 10,
+      "subcall_pages": 0.1,
+      "planned_spacing_ms": 50,
+      "subcalls": [
+        {
+          "index": 0,
+          "scheduled_unix_ms": 1794257240726,
+          "begin_unix_ms": 1794257240727,
+          "end_unix_ms": 1794257240771,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 1,
+          "scheduled_unix_ms": 1794257240776,
+          "begin_unix_ms": 1794257240777,
+          "end_unix_ms": 1794257240827,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 2,
+          "scheduled_unix_ms": 1794257240826,
+          "begin_unix_ms": 1794257240827,
+          "end_unix_ms": 1794257240886,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 3,
+          "scheduled_unix_ms": 1794257240876,
+          "begin_unix_ms": 1794257240886,
+          "end_unix_ms": 1794257240945,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 4,
+          "scheduled_unix_ms": 1794257240926,
+          "begin_unix_ms": 1794257240945,
+          "end_unix_ms": 1794257241003,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 5,
+          "scheduled_unix_ms": 1794257240976,
+          "begin_unix_ms": 1794257241003,
+          "end_unix_ms": 1794257241060,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 6,
+          "scheduled_unix_ms": 1794257241026,
+          "begin_unix_ms": 1794257241060,
+          "end_unix_ms": 1794257241120,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 7,
+          "scheduled_unix_ms": 1794257241076,
+          "begin_unix_ms": 1794257241120,
+          "end_unix_ms": 1794257241177,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 8,
+          "scheduled_unix_ms": 1794257241126,
+          "begin_unix_ms": 1794257241177,
+          "end_unix_ms": 1794257241236,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 9,
+          "scheduled_unix_ms": 1794257241176,
+          "begin_unix_ms": 1794257241236,
+          "end_unix_ms": 1794257241295,
+          "requested_pages": 0.1
+        }
+      ],
+      "end_unix_ms": 1794257241295
+    },
+    {
+      "index": 7,
+      "direction": "up",
+      "requested_pages": 1,
+      "scheduled_unix_ms": 1794257241726,
+      "begin_unix_ms": 1794257241727,
+      "subcommands_completed": 10,
+      "subcall_count": 10,
+      "subcall_pages": 0.1,
+      "planned_spacing_ms": 50,
+      "subcalls": [
+        {
+          "index": 0,
+          "scheduled_unix_ms": 1794257241726,
+          "begin_unix_ms": 1794257241727,
+          "end_unix_ms": 1794257241769,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 1,
+          "scheduled_unix_ms": 1794257241776,
+          "begin_unix_ms": 1794257241777,
+          "end_unix_ms": 1794257241827,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 2,
+          "scheduled_unix_ms": 1794257241826,
+          "begin_unix_ms": 1794257241827,
+          "end_unix_ms": 1794257241888,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 3,
+          "scheduled_unix_ms": 1794257241876,
+          "begin_unix_ms": 1794257241888,
+          "end_unix_ms": 1794257241945,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 4,
+          "scheduled_unix_ms": 1794257241926,
+          "begin_unix_ms": 1794257241945,
+          "end_unix_ms": 1794257242003,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 5,
+          "scheduled_unix_ms": 1794257241976,
+          "begin_unix_ms": 1794257242003,
+          "end_unix_ms": 1794257242062,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 6,
+          "scheduled_unix_ms": 1794257242026,
+          "begin_unix_ms": 1794257242062,
+          "end_unix_ms": 1794257242120,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 7,
+          "scheduled_unix_ms": 1794257242076,
+          "begin_unix_ms": 1794257242120,
+          "end_unix_ms": 1794257242179,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 8,
+          "scheduled_unix_ms": 1794257242126,
+          "begin_unix_ms": 1794257242179,
+          "end_unix_ms": 1794257242237,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 9,
+          "scheduled_unix_ms": 1794257242176,
+          "begin_unix_ms": 1794257242237,
+          "end_unix_ms": 1794257242294,
+          "requested_pages": 0.1
+        }
+      ],
+      "end_unix_ms": 1794257242294
+    },
+    {
+      "index": 8,
+      "direction": "down",
+      "requested_pages": 1,
+      "scheduled_unix_ms": 1794257242726,
+      "begin_unix_ms": 1794257242727,
+      "subcommands_completed": 10,
+      "subcall_count": 10,
+      "subcall_pages": 0.1,
+      "planned_spacing_ms": 50,
+      "subcalls": [
+        {
+          "index": 0,
+          "scheduled_unix_ms": 1794257242726,
+          "begin_unix_ms": 1794257242727,
+          "end_unix_ms": 1794257242771,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 1,
+          "scheduled_unix_ms": 1794257242776,
+          "begin_unix_ms": 1794257242777,
+          "end_unix_ms": 1794257242827,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 2,
+          "scheduled_unix_ms": 1794257242826,
+          "begin_unix_ms": 1794257242827,
+          "end_unix_ms": 1794257242886,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 3,
+          "scheduled_unix_ms": 1794257242876,
+          "begin_unix_ms": 1794257242886,
+          "end_unix_ms": 1794257242944,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 4,
+          "scheduled_unix_ms": 1794257242926,
+          "begin_unix_ms": 1794257242944,
+          "end_unix_ms": 1794257243001,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 5,
+          "scheduled_unix_ms": 1794257242976,
+          "begin_unix_ms": 1794257243001,
+          "end_unix_ms": 1794257243061,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 6,
+          "scheduled_unix_ms": 1794257243026,
+          "begin_unix_ms": 1794257243061,
+          "end_unix_ms": 1794257243120,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 7,
+          "scheduled_unix_ms": 1794257243076,
+          "begin_unix_ms": 1794257243120,
+          "end_unix_ms": 1794257243176,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 8,
+          "scheduled_unix_ms": 1794257243126,
+          "begin_unix_ms": 1794257243176,
+          "end_unix_ms": 1794257243236,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 9,
+          "scheduled_unix_ms": 1794257243176,
+          "begin_unix_ms": 1794257243236,
+          "end_unix_ms": 1794257243295,
+          "requested_pages": 0.1
+        }
+      ],
+      "end_unix_ms": 1794257243295
+    },
+    {
+      "index": 9,
+      "direction": "down",
+      "requested_pages": 1,
+      "scheduled_unix_ms": 1794257243726,
+      "begin_unix_ms": 1794257243726,
+      "subcommands_completed": 10,
+      "subcall_count": 10,
+      "subcall_pages": 0.1,
+      "planned_spacing_ms": 50,
+      "subcalls": [
+        {
+          "index": 0,
+          "scheduled_unix_ms": 1794257243726,
+          "begin_unix_ms": 1794257243726,
+          "end_unix_ms": 1794257243777,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 1,
+          "scheduled_unix_ms": 1794257243776,
+          "begin_unix_ms": 1794257243777,
+          "end_unix_ms": 1794257243836,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 2,
+          "scheduled_unix_ms": 1794257243826,
+          "begin_unix_ms": 1794257243836,
+          "end_unix_ms": 1794257243893,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 3,
+          "scheduled_unix_ms": 1794257243876,
+          "begin_unix_ms": 1794257243893,
+          "end_unix_ms": 1794257243951,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 4,
+          "scheduled_unix_ms": 1794257243926,
+          "begin_unix_ms": 1794257243951,
+          "end_unix_ms": 1794257244019,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 5,
+          "scheduled_unix_ms": 1794257243976,
+          "begin_unix_ms": 1794257244019,
+          "end_unix_ms": 1794257244069,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 6,
+          "scheduled_unix_ms": 1794257244026,
+          "begin_unix_ms": 1794257244069,
+          "end_unix_ms": 1794257244128,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 7,
+          "scheduled_unix_ms": 1794257244076,
+          "begin_unix_ms": 1794257244128,
+          "end_unix_ms": 1794257244186,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 8,
+          "scheduled_unix_ms": 1794257244126,
+          "begin_unix_ms": 1794257244186,
+          "end_unix_ms": 1794257244245,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 9,
+          "scheduled_unix_ms": 1794257244176,
+          "begin_unix_ms": 1794257244245,
+          "end_unix_ms": 1794257244303,
+          "requested_pages": 0.1
+        }
+      ],
+      "end_unix_ms": 1794257244303
+    },
+    {
+      "index": 10,
+      "direction": "up",
+      "requested_pages": 1,
+      "scheduled_unix_ms": 1794257244726,
+      "begin_unix_ms": 1794257244727,
+      "subcommands_completed": 10,
+      "subcall_count": 10,
+      "subcall_pages": 0.1,
+      "planned_spacing_ms": 50,
+      "subcalls": [
+        {
+          "index": 0,
+          "scheduled_unix_ms": 1794257244726,
+          "begin_unix_ms": 1794257244727,
+          "end_unix_ms": 1794257244772,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 1,
+          "scheduled_unix_ms": 1794257244776,
+          "begin_unix_ms": 1794257244777,
+          "end_unix_ms": 1794257244827,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 2,
+          "scheduled_unix_ms": 1794257244826,
+          "begin_unix_ms": 1794257244827,
+          "end_unix_ms": 1794257244885,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 3,
+          "scheduled_unix_ms": 1794257244876,
+          "begin_unix_ms": 1794257244885,
+          "end_unix_ms": 1794257244945,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 4,
+          "scheduled_unix_ms": 1794257244926,
+          "begin_unix_ms": 1794257244945,
+          "end_unix_ms": 1794257245001,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 5,
+          "scheduled_unix_ms": 1794257244976,
+          "begin_unix_ms": 1794257245001,
+          "end_unix_ms": 1794257245071,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 6,
+          "scheduled_unix_ms": 1794257245026,
+          "begin_unix_ms": 1794257245071,
+          "end_unix_ms": 1794257245129,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 7,
+          "scheduled_unix_ms": 1794257245076,
+          "begin_unix_ms": 1794257245129,
+          "end_unix_ms": 1794257245186,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 8,
+          "scheduled_unix_ms": 1794257245126,
+          "begin_unix_ms": 1794257245186,
+          "end_unix_ms": 1794257245245,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 9,
+          "scheduled_unix_ms": 1794257245176,
+          "begin_unix_ms": 1794257245245,
+          "end_unix_ms": 1794257245303,
+          "requested_pages": 0.1
+        }
+      ],
+      "end_unix_ms": 1794257245303
+    },
+    {
+      "index": 11,
+      "direction": "up",
+      "requested_pages": 1,
+      "scheduled_unix_ms": 1794257245726,
+      "begin_unix_ms": 1794257245727,
+      "subcommands_completed": 10,
+      "subcall_count": 10,
+      "subcall_pages": 0.1,
+      "planned_spacing_ms": 50,
+      "subcalls": [
+        {
+          "index": 0,
+          "scheduled_unix_ms": 1794257245726,
+          "begin_unix_ms": 1794257245727,
+          "end_unix_ms": 1794257245771,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 1,
+          "scheduled_unix_ms": 1794257245776,
+          "begin_unix_ms": 1794257245776,
+          "end_unix_ms": 1794257245828,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 2,
+          "scheduled_unix_ms": 1794257245826,
+          "begin_unix_ms": 1794257245828,
+          "end_unix_ms": 1794257245886,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 3,
+          "scheduled_unix_ms": 1794257245876,
+          "begin_unix_ms": 1794257245886,
+          "end_unix_ms": 1794257245943,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 4,
+          "scheduled_unix_ms": 1794257245926,
+          "begin_unix_ms": 1794257245943,
+          "end_unix_ms": 1794257246002,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 5,
+          "scheduled_unix_ms": 1794257245976,
+          "begin_unix_ms": 1794257246002,
+          "end_unix_ms": 1794257246061,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 6,
+          "scheduled_unix_ms": 1794257246026,
+          "begin_unix_ms": 1794257246061,
+          "end_unix_ms": 1794257246119,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 7,
+          "scheduled_unix_ms": 1794257246076,
+          "begin_unix_ms": 1794257246119,
+          "end_unix_ms": 1794257246178,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 8,
+          "scheduled_unix_ms": 1794257246126,
+          "begin_unix_ms": 1794257246178,
+          "end_unix_ms": 1794257246236,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 9,
+          "scheduled_unix_ms": 1794257246176,
+          "begin_unix_ms": 1794257246236,
+          "end_unix_ms": 1794257246294,
+          "requested_pages": 0.1
+        }
+      ],
+      "end_unix_ms": 1794257246294
+    },
+    {
+      "index": 12,
+      "direction": "down",
+      "requested_pages": 1,
+      "scheduled_unix_ms": 1794257246726,
+      "begin_unix_ms": 1794257246726,
+      "subcommands_completed": 10,
+      "subcall_count": 10,
+      "subcall_pages": 0.1,
+      "planned_spacing_ms": 50,
+      "subcalls": [
+        {
+          "index": 0,
+          "scheduled_unix_ms": 1794257246726,
+          "begin_unix_ms": 1794257246726,
+          "end_unix_ms": 1794257246771,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 1,
+          "scheduled_unix_ms": 1794257246776,
+          "begin_unix_ms": 1794257246776,
+          "end_unix_ms": 1794257246829,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 2,
+          "scheduled_unix_ms": 1794257246826,
+          "begin_unix_ms": 1794257246829,
+          "end_unix_ms": 1794257246885,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 3,
+          "scheduled_unix_ms": 1794257246876,
+          "begin_unix_ms": 1794257246885,
+          "end_unix_ms": 1794257246944,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 4,
+          "scheduled_unix_ms": 1794257246926,
+          "begin_unix_ms": 1794257246944,
+          "end_unix_ms": 1794257247003,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 5,
+          "scheduled_unix_ms": 1794257246976,
+          "begin_unix_ms": 1794257247003,
+          "end_unix_ms": 1794257247061,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 6,
+          "scheduled_unix_ms": 1794257247026,
+          "begin_unix_ms": 1794257247061,
+          "end_unix_ms": 1794257247120,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 7,
+          "scheduled_unix_ms": 1794257247076,
+          "begin_unix_ms": 1794257247120,
+          "end_unix_ms": 1794257247178,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 8,
+          "scheduled_unix_ms": 1794257247126,
+          "begin_unix_ms": 1794257247178,
+          "end_unix_ms": 1794257247236,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 9,
+          "scheduled_unix_ms": 1794257247176,
+          "begin_unix_ms": 1794257247236,
+          "end_unix_ms": 1794257247295,
+          "requested_pages": 0.1
+        }
+      ],
+      "end_unix_ms": 1794257247295
+    },
+    {
+      "index": 13,
+      "direction": "down",
+      "requested_pages": 1,
+      "scheduled_unix_ms": 1794257247726,
+      "begin_unix_ms": 1794257247727,
+      "subcommands_completed": 10,
+      "subcall_count": 10,
+      "subcall_pages": 0.1,
+      "planned_spacing_ms": 50,
+      "subcalls": [
+        {
+          "index": 0,
+          "scheduled_unix_ms": 1794257247726,
+          "begin_unix_ms": 1794257247727,
+          "end_unix_ms": 1794257247772,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 1,
+          "scheduled_unix_ms": 1794257247776,
+          "begin_unix_ms": 1794257247776,
+          "end_unix_ms": 1794257247827,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 2,
+          "scheduled_unix_ms": 1794257247826,
+          "begin_unix_ms": 1794257247827,
+          "end_unix_ms": 1794257247884,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 3,
+          "scheduled_unix_ms": 1794257247876,
+          "begin_unix_ms": 1794257247884,
+          "end_unix_ms": 1794257247943,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 4,
+          "scheduled_unix_ms": 1794257247926,
+          "begin_unix_ms": 1794257247943,
+          "end_unix_ms": 1794257248001,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 5,
+          "scheduled_unix_ms": 1794257247976,
+          "begin_unix_ms": 1794257248002,
+          "end_unix_ms": 1794257248061,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 6,
+          "scheduled_unix_ms": 1794257248026,
+          "begin_unix_ms": 1794257248061,
+          "end_unix_ms": 1794257248120,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 7,
+          "scheduled_unix_ms": 1794257248076,
+          "begin_unix_ms": 1794257248120,
+          "end_unix_ms": 1794257248178,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 8,
+          "scheduled_unix_ms": 1794257248126,
+          "begin_unix_ms": 1794257248178,
+          "end_unix_ms": 1794257248238,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 9,
+          "scheduled_unix_ms": 1794257248176,
+          "begin_unix_ms": 1794257248238,
+          "end_unix_ms": 1794257248295,
+          "requested_pages": 0.1
+        }
+      ],
+      "end_unix_ms": 1794257248295
+    },
+    {
+      "index": 14,
+      "direction": "up",
+      "requested_pages": 1,
+      "scheduled_unix_ms": 1794257248726,
+      "begin_unix_ms": 1794257248727,
+      "subcommands_completed": 10,
+      "subcall_count": 10,
+      "subcall_pages": 0.1,
+      "planned_spacing_ms": 50,
+      "subcalls": [
+        {
+          "index": 0,
+          "scheduled_unix_ms": 1794257248726,
+          "begin_unix_ms": 1794257248727,
+          "end_unix_ms": 1794257248772,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 1,
+          "scheduled_unix_ms": 1794257248776,
+          "begin_unix_ms": 1794257248776,
+          "end_unix_ms": 1794257248827,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 2,
+          "scheduled_unix_ms": 1794257248826,
+          "begin_unix_ms": 1794257248827,
+          "end_unix_ms": 1794257248886,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 3,
+          "scheduled_unix_ms": 1794257248876,
+          "begin_unix_ms": 1794257248886,
+          "end_unix_ms": 1794257248942,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 4,
+          "scheduled_unix_ms": 1794257248926,
+          "begin_unix_ms": 1794257248942,
+          "end_unix_ms": 1794257248988,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 5,
+          "scheduled_unix_ms": 1794257248976,
+          "begin_unix_ms": 1794257248988,
+          "end_unix_ms": 1794257249044,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 6,
+          "scheduled_unix_ms": 1794257249026,
+          "begin_unix_ms": 1794257249044,
+          "end_unix_ms": 1794257249103,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 7,
+          "scheduled_unix_ms": 1794257249076,
+          "begin_unix_ms": 1794257249103,
+          "end_unix_ms": 1794257249161,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 8,
+          "scheduled_unix_ms": 1794257249126,
+          "begin_unix_ms": 1794257249161,
+          "end_unix_ms": 1794257249220,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 9,
+          "scheduled_unix_ms": 1794257249176,
+          "begin_unix_ms": 1794257249220,
+          "end_unix_ms": 1794257249279,
+          "requested_pages": 0.1
+        }
+      ],
+      "end_unix_ms": 1794257249279
+    },
+    {
+      "index": 15,
+      "direction": "up",
+      "requested_pages": 1,
+      "scheduled_unix_ms": 1794257249726,
+      "begin_unix_ms": 1794257249726,
+      "subcommands_completed": 10,
+      "subcall_count": 10,
+      "subcall_pages": 0.1,
+      "planned_spacing_ms": 50,
+      "subcalls": [
+        {
+          "index": 0,
+          "scheduled_unix_ms": 1794257249726,
+          "begin_unix_ms": 1794257249726,
+          "end_unix_ms": 1794257249763,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 1,
+          "scheduled_unix_ms": 1794257249776,
+          "begin_unix_ms": 1794257249777,
+          "end_unix_ms": 1794257249830,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 2,
+          "scheduled_unix_ms": 1794257249826,
+          "begin_unix_ms": 1794257249830,
+          "end_unix_ms": 1794257249885,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 3,
+          "scheduled_unix_ms": 1794257249876,
+          "begin_unix_ms": 1794257249886,
+          "end_unix_ms": 1794257249943,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 4,
+          "scheduled_unix_ms": 1794257249926,
+          "begin_unix_ms": 1794257249944,
+          "end_unix_ms": 1794257250002,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 5,
+          "scheduled_unix_ms": 1794257249976,
+          "begin_unix_ms": 1794257250002,
+          "end_unix_ms": 1794257250061,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 6,
+          "scheduled_unix_ms": 1794257250026,
+          "begin_unix_ms": 1794257250061,
+          "end_unix_ms": 1794257250119,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 7,
+          "scheduled_unix_ms": 1794257250076,
+          "begin_unix_ms": 1794257250119,
+          "end_unix_ms": 1794257250178,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 8,
+          "scheduled_unix_ms": 1794257250126,
+          "begin_unix_ms": 1794257250178,
+          "end_unix_ms": 1794257250236,
+          "requested_pages": 0.1
+        },
+        {
+          "index": 9,
+          "scheduled_unix_ms": 1794257250176,
+          "begin_unix_ms": 1794257250236,
+          "end_unix_ms": 1794257250296,
+          "requested_pages": 0.1
+        }
+      ],
+      "end_unix_ms": 1794257250296
+    }
+  ],
+  "burst": {
+    "subcommands_per_group": 10,
+    "pages_per_subcommand": 0.1,
+    "scheduled_interval_ms": 50,
+    "completed": 160,
+    "start_gap_min_ms": 46,
+    "start_gap_max_ms": 70,
+    "maximum_lateness_ms": 69,
+    "maximum_call_duration_ms": 70
+  },
+  "started_unix_ms": 1794257222726,
+  "ended_unix_ms": 1794257267727
+}

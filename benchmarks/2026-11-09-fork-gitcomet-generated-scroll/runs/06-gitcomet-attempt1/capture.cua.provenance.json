@@ -1,0 +1,7 @@
+{
+  "scope": "Only the selected numeric result of this task own completed CUA tool call; no screenshots, other apps or conversations exported",
+  "call_id": "call_d70976aff4594fa39a0908d59b01b18c",
+  "source_record_sha256": "db0f8ae893870e53948d8f513ddd608aa088f07011eb8060199790bd04df1af1",
+  "capture_sha256": "ce7e7dacaedd2c90a7eee3d79dcc1e7f83810822be52f3a934fd0f05c30c2a6c",
+  "result_sha256": "9570173da749e855f6b29f0d746f759ee2409102d9bb862082a7a222ba0b3c0c"
+}

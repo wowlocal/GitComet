@@ -1,0 +1,88 @@
+{
+  "registered_unix_s": 1794255554.9333508,
+  "apps": {
+    "gitcomet": {
+      "binary_sha256": "f3172102f1b0b9722424ea991ee229a51396ee43a87cffaabcd4adc36b9455c3",
+      "source": "Installed combined reviewed release; local momentum experiment sourcefe34d063 and privateGPUI4b3; unchanged"
+    },
+    "fork": {
+      "binary_sha256": "5e2a769758b352aad2e66d1c8607642b1d3b9f37b09475694cdfed9c3eedf8e1",
+      "version": "2.71.1"
+    }
+  },
+  "profile_repo_count": 40,
+  "scope_reason": "Four protected-folder repos excluded before main acquisition because first GitComet44pilot blocked in synchronousauto-fetch metadata open and tccdconfirmedDownloadspermissionprompt. No OS permissionchanges. Forkreal44sessionbackedupbeforetemporary40session.",
+  "warmup": {
+    "target_pixels": [
+      1200,
+      800
+    ],
+    "direction": "down",
+    "pages": 3,
+    "after_seconds": 5,
+    "additional_common_actions": "Fresh-process screenshot,3 pages down,0.1page up/down,5s settle before observing; internal CUA AX state unverified"
+  },
+  "scroll": {
+    "target_pixels": [
+      1200,
+      800
+    ],
+    "directions": [
+      "down",
+      "down",
+      "up",
+      "up",
+      "down",
+      "down",
+      "up",
+      "up",
+      "down",
+      "down",
+      "up",
+      "up",
+      "down",
+      "down",
+      "up",
+      "up"
+    ],
+    "pages_per_command": 1,
+    "clock": "Host JS Date.now wall clock; command starts/ends retained; nativepacketdelivery timing unavailable",
+    "schedule_lateness_guard_ms": 200,
+    "commands": 160,
+    "phase_padding_seconds_each_side": 2,
+    "groups": 16,
+    "subcommands_per_group": 10,
+    "pages_per_subcommand": 0.1,
+    "subcommand_start_interval_ms": 50,
+    "group_start_interval_ms": 1000,
+    "controller_sha256": "bcb710c1438f46e0823ef9af744442ddfe83e7660ccb7276f5e99a61517f29d6"
+  },
+  "idle_before_seconds": 10,
+  "idle_after_seconds": 15,
+  "order": [
+    "gitcomet",
+    "fork",
+    "fork",
+    "gitcomet",
+    "fork",
+    "gitcomet",
+    "gitcomet",
+    "fork"
+  ],
+  "main_gates": [
+    "one measured app running, fresh PID",
+    "fixed source/helper/binary and input profile",
+    "nativeforeground/window/display/power thermalchecks",
+    "all16commands completed; recordedactualspacing",
+    "normalhistoryawayfromedges",
+    "no compiler/game/profiler/recording/AXquery duringnumericphases; CUAinternalAXunverified"
+  ],
+  "calibration_limits": [
+    "Same requested CUA wheel-burst plan; approximate history widths1095 points, GitComet height884 versus Fork914",
+    "Different row heights, ordering and static UI; exact visible output and presentation cadence are not matched",
+    "40 common repositories, active history away from edges; four protected-folder repositories excluded before main because of a setup permission stall",
+    "Not physical trackpad momentum, native120Hz input, total-system energy or full264-repository performance"
+  ],
+  "revision": 2,
+  "refinement_before_main": "Individual1Hz wheelpulses are nearinstant pagejumps, so use10 smaller sequential requests per1s group. All pilot data remains excluded. Bothapps use samegroupedrequests; actualnative packetfrequency/momentum/presentationnotobserved."
+}

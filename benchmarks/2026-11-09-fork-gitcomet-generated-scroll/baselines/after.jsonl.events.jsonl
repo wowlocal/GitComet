@@ -1,0 +1,2 @@
+{"event": "phase", "run_id": "ca87a82966fc438bb70f404307ec5f4f", "name": "desktop", "state": "begin", "monotonic_s": 326503.198290791, "unix_ms": 1794257621147.392, "source": "retrospective exact collector header/footer baseline bounds"}
+{"event": "phase", "run_id": "ca87a82966fc438bb70f404307ec5f4f", "name": "desktop", "state": "end", "monotonic_s": 326523.2193495, "unix_ms": 1794257641168.574, "source": "retrospective exact collector header/footer baseline bounds"}

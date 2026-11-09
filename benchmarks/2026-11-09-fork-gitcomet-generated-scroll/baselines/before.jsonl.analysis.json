@@ -1,0 +1,175 @@
+{
+  "schema": "fork-gitcomet-energy-v1",
+  "capture": "baselines/before.jsonl",
+  "events": "baselines/before.jsonl.events.jsonl",
+  "capture_sha256": "deaf7b1b7117fba2b5153025178f77f355a5a2a90bb3a0527fce3530da68c3cd",
+  "analyzer_sha256": "f2c843a72562f448b2df35c2da1c904a23e738e78d10e723a32b050ccaf3ead8",
+  "label": "desktop",
+  "run_id": "bd997bc3db554950b5e9471d05e0ee87",
+  "recorded_sources": {
+    "helper_sha256": "532ed0f5bb24f3244cf55b45245eab28504566a7dd32d0fbbbe6e01db43b8d54",
+    "observer_sha256": "013f18ac28b03d0d05c0debfffaf2d6a3a750b19b1117b54f80773d7578c0f14"
+  },
+  "integrity": {
+    "valid": true,
+    "failures": [],
+    "samples": 21
+  },
+  "unit_witness": {
+    "event": "units",
+    "run_id": "bd997bc3db554950b5e9471d05e0ee87",
+    "available": true,
+    "channels": [
+      {
+        "name": "GPU Energy",
+        "group": "Energy Model",
+        "subgroup": null,
+        "unit": "nJ",
+        "format": 1
+      },
+      {
+        "name": "GPUPH",
+        "group": "GPU Stats",
+        "subgroup": "GPU Performance States",
+        "unit": "24Mticks",
+        "format": 2
+      }
+    ],
+    "energy_unit_supported": true,
+    "gpu_state_24mhz_unit_verified": true,
+    "monotonic_s": 325316.698897958,
+    "unix_ms": 1794256434640.754
+  },
+  "phases": [
+    {
+      "name": "desktop",
+      "requested_begin_monotonic_s": 325316.692361875,
+      "requested_end_monotonic_s": 325336.713793208,
+      "requested_duration_s": 20.021431333036162,
+      "raw_sample_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "samples": 21,
+      "available": true,
+      "app_cpu_percent_one_core": null,
+      "windowserver_cpu_percent_one_core": null,
+      "observer_cpu_percent_one_core": 1.5280524440250858,
+      "app_gpu_ms_per_wall_second": null,
+      "windowserver_gpu_ms_per_wall_second": null,
+      "whole_gpu_modeled_w": 0.9011015678455953,
+      "whole_gpu_modeled_j": 18.028219015,
+      "gpu_residency_vs_wall_ratio": 1.0001118730411176,
+      "metric_unavailable_reasons": {
+        "app_cpu_percent_one_core": "process not watched",
+        "windowserver_cpu_percent_one_core": "process identity unavailable or changed",
+        "app_gpu_ms_per_wall_second": "process not watched",
+        "windowserver_gpu_ms_per_wall_second": "process identity unavailable or changed"
+      },
+      "elapsed_s": 20.0068667709711,
+      "integrated_begin_monotonic_s": 325316.6955247495,
+      "integrated_end_monotonic_s": 325336.7023915205,
+      "left_sampling_loss_s": 0.003162874549161643,
+      "right_sampling_loss_s": 0.011401687515899539,
+      "interval_s": {
+        "n": 20,
+        "unavailable": 0,
+        "min": 0.9958769375225529,
+        "median": 1.0004903229419142,
+        "p95": 1.0040619633859023,
+        "max": 1.004587729461491
+      },
+      "acquisition_ms": {
+        "n": 21,
+        "unavailable": 0,
+        "min": 7.941833988297731,
+        "median": 15.720458002761006,
+        "p95": 18.623041978571564,
+        "max": 19.183708005584776
+      },
+      "sample_start_lateness_ms": {
+        "n": 21,
+        "unavailable": 0,
+        "min": 0.12937502469867468,
+        "median": 4.108834022190422,
+        "p95": 5.035916983615607,
+        "max": 5.123374983668327
+      },
+      "extra_process_cpu_percent_one_core": {
+        "cua": {
+          "value": null,
+          "reason": "process identity unavailable or changed"
+        }
+      },
+      "gpu_state_percent_of_wall": {
+        "OFF": 63.701806839099525,
+        "P1": 25.062843709618075,
+        "P2": 2.741826125397716,
+        "P3": 2.7354618521647165,
+        "P4": 5.3021814317230564,
+        "P5": 0.2155218363788491,
+        "P6": 0.03457375449731279,
+        "P7": 0.17581359474889596,
+        "P8": 0.04115816048358503,
+        "P9": 0.0,
+        "P10": 0.0,
+        "P11": 0.0,
+        "P12": 0.0,
+        "P13": 0.0,
+        "P14": 0.0,
+        "P15": 0.0
+      },
+      "gpu_residency_matches_wall_within_5_percent": true,
+      "driver_utilization_point_samples_percent": {
+        "n": 21,
+        "unavailable": 0,
+        "min": 20,
+        "median": 36.0,
+        "p95": 38.0,
+        "max": 39
+      },
+      "cpu_energy_status": "raw counters retained; not validated or analyzed",
+      "total_system_energy_status": "not measured",
+      "gpu_client_lifetime_continuity": "not established: registry client identities are not recorded; an aggregate may recompose without decreasing",
+      "within_capture_lifetime": true
+    }
+  ],
+  "controls_verified_by_observer": [
+    "watched process identities per sample",
+    "counter units where witnessed"
+  ],
+  "controls_not_verified_by_observer": [
+    "native AX state",
+    "physical/native momentum input",
+    "history readiness/filter/viewport/repo count",
+    "equal visible motion or frame cadence",
+    "background quiet/foreground/power/thermal state unless supplied independently"
+  ],
+  "scope": [
+    "Whole-GPU energy is modeled/shared, not app/battery/socket/total-system watts",
+    "Per-process GPU execution accounting is not peak compute utilization",
+    "Missing per-app GPU client is unavailable, not zero",
+    "No helper-inclusive CPU total or total-system energy is computed",
+    "Counter calls occur sequentially; acquisition spans quantify timing skew",
+    "Phase windows integrate only complete adjacent raw intervals inside marker bounds"
+  ]
+}

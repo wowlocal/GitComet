@@ -1,0 +1,8 @@
+{
+  "pilot-gitcomet": "Invalid acquisition: manual tool round trips expanded timing and no verified scroll",
+  "pilot2-gitcomet": "Excluded calibration: single near-instant page pulse per second underloaded rendering",
+  "pilot3-gitcomet": "Excluded setup/calibration attempt",
+  "pilot4-gitcomet": "Invalid workload: first cold call exceeded lateness guard",
+  "pilot5-gitcomet": "Passed calibration pilot; excluded from main comparison",
+  "pilot-fork": "Passed calibration pilot; excluded from main comparison"
+}

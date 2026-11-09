@@ -1,0 +1,95 @@
+{
+  "order": [
+    "gitcomet",
+    "fork",
+    "fork",
+    "gitcomet",
+    "fork",
+    "gitcomet",
+    "gitcomet",
+    "fork"
+  ],
+  "pilot": false,
+  "power_source": "AC",
+  "comparison_controls": {
+    "profile_repo_count": 40,
+    "scope": "Descriptive generated wheel-burst resource comparison; viewport approximately matched, no equal-output/120Hz/total-energy claim",
+    "pre_run": "Fresh PID, common screenshot,3-page warm plus0.1up/down,5s settle; root CUA owns actions",
+    "internal_cua_ax": "unverified",
+    "viewport_limit": "History width approximately1095; Fork height914 versus GitComet884; static layouts differ; no exact equal-output claim"
+  },
+  "runs": [
+    {
+      "ordinal": 1,
+      "condition": "gitcomet",
+      "attempt": 1,
+      "valid": true,
+      "status": "finished",
+      "failures": [],
+      "capture": "runs/01-gitcomet-attempt1/capture.jsonl"
+    },
+    {
+      "ordinal": 2,
+      "condition": "fork",
+      "attempt": 1,
+      "valid": true,
+      "status": "finished",
+      "failures": [],
+      "capture": "runs/02-fork-attempt1/capture.jsonl"
+    },
+    {
+      "ordinal": 3,
+      "condition": "fork",
+      "attempt": 1,
+      "valid": true,
+      "status": "finished",
+      "failures": [],
+      "capture": "runs/03-fork-attempt1/capture.jsonl"
+    },
+    {
+      "ordinal": 4,
+      "condition": "gitcomet",
+      "attempt": 1,
+      "valid": true,
+      "status": "finished",
+      "failures": [],
+      "capture": "runs/04-gitcomet-attempt1/capture.jsonl"
+    },
+    {
+      "ordinal": 5,
+      "condition": "fork",
+      "attempt": 1,
+      "valid": true,
+      "status": "finished",
+      "failures": [],
+      "capture": "runs/05-fork-attempt1/capture.jsonl"
+    },
+    {
+      "ordinal": 6,
+      "condition": "gitcomet",
+      "attempt": 1,
+      "valid": true,
+      "status": "finished",
+      "failures": [],
+      "capture": "runs/06-gitcomet-attempt1/capture.jsonl"
+    },
+    {
+      "ordinal": 7,
+      "condition": "gitcomet",
+      "attempt": 1,
+      "valid": true,
+      "status": "finished",
+      "failures": [],
+      "capture": "runs/07-gitcomet-attempt1/capture.jsonl"
+    },
+    {
+      "ordinal": 8,
+      "condition": "fork",
+      "attempt": 1,
+      "valid": true,
+      "status": "finished",
+      "failures": [],
+      "capture": "runs/08-fork-attempt1/capture.jsonl"
+    }
+  ]
+}

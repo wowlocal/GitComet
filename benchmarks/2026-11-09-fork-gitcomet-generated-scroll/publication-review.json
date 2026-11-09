@@ -1,0 +1,18 @@
+{
+  "scope": "Saved-data-only final export audit; no native/UI/build execution",
+  "balanced_main_runs": 8,
+  "main_exclusions": 0,
+  "portable_command": "python3 analyze.py series manifest.json --out reanalysis.json",
+  "portable_reanalysis_non_path_scalar_fields_equal": 2734,
+  "numeric_reanalysis_matches_private": true,
+  "raw_capture_events_cua_preserved": true,
+  "private_string_scan_passed": true,
+  "omitted": [
+    "Profile/session bytes",
+    "Repository paths, identities and commit content",
+    "App stdout/stderr/startup logs",
+    "Screenshots and conversation content",
+    "Private orchestration and extraction source paths"
+  ],
+  "interpretation": "Main-process CPU is lower for this generated workload; shared GPU watts are confounded and do not establish per-app/total energy efficiency"
+}

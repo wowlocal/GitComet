@@ -1,0 +1,4 @@
+{"event": "phase", "run_id": "89757b661a8541e780dd6f30f6c7cb9a", "monotonic_s": 323940.206796833, "unix_ms": 1794255058139.789, "name": "idle-before", "state": "begin"}
+{"event": "phase", "run_id": "89757b661a8541e780dd6f30f6c7cb9a", "monotonic_s": 323964.770810458, "unix_ms": 1794255082703.953, "name": "idle-before", "state": "end"}
+{"event": "phase", "run_id": "89757b661a8541e780dd6f30f6c7cb9a", "monotonic_s": 323964.799871708, "unix_ms": 1794255082733.0142, "name": "scrolling", "state": "begin"}
+{"event": "control", "run_id": "89757b661a8541e780dd6f30f6c7cb9a", "monotonic_s": 324001.85455775, "unix_ms": 1794255119788.211, "action": "stop_observer"}

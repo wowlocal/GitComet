@@ -1,0 +1,169 @@
+{
+  "schema": "cua-scroll-timing-v1",
+  "label": "gitcomet",
+  "started_unix_ms": 1794255235115,
+  "ended_unix_ms": 1794255280115,
+  "events": [
+    {
+      "name": "idle-before",
+      "state": "begin",
+      "unix_ms": 1794255235115
+    },
+    {
+      "name": "idle-before",
+      "state": "end",
+      "unix_ms": 1794255245116
+    },
+    {
+      "name": "scrolling",
+      "state": "begin",
+      "unix_ms": 1794255245116
+    },
+    {
+      "name": "scrolling",
+      "state": "end",
+      "unix_ms": 1794255265116
+    },
+    {
+      "name": "idle-after",
+      "state": "begin",
+      "unix_ms": 1794255265116
+    },
+    {
+      "name": "idle-after",
+      "state": "end",
+      "unix_ms": 1794255280115
+    }
+  ],
+  "commands": [
+    {
+      "index": 0,
+      "direction": "down",
+      "requested_pages": 1,
+      "scheduled_unix_ms": 1794255247115,
+      "begin_unix_ms": 1794255247117,
+      "end_unix_ms": 1794255247185
+    },
+    {
+      "index": 1,
+      "direction": "down",
+      "requested_pages": 1,
+      "scheduled_unix_ms": 1794255248115,
+      "begin_unix_ms": 1794255248116,
+      "end_unix_ms": 1794255248159
+    },
+    {
+      "index": 2,
+      "direction": "up",
+      "requested_pages": 1,
+      "scheduled_unix_ms": 1794255249115,
+      "begin_unix_ms": 1794255249116,
+      "end_unix_ms": 1794255249160
+    },
+    {
+      "index": 3,
+      "direction": "up",
+      "requested_pages": 1,
+      "scheduled_unix_ms": 1794255250115,
+      "begin_unix_ms": 1794255250116,
+      "end_unix_ms": 1794255250161
+    },
+    {
+      "index": 4,
+      "direction": "down",
+      "requested_pages": 1,
+      "scheduled_unix_ms": 1794255251115,
+      "begin_unix_ms": 1794255251116,
+      "end_unix_ms": 1794255251160
+    },
+    {
+      "index": 5,
+      "direction": "down",
+      "requested_pages": 1,
+      "scheduled_unix_ms": 1794255252115,
+      "begin_unix_ms": 1794255252116,
+      "end_unix_ms": 1794255252159
+    },
+    {
+      "index": 6,
+      "direction": "up",
+      "requested_pages": 1,
+      "scheduled_unix_ms": 1794255253115,
+      "begin_unix_ms": 1794255253116,
+      "end_unix_ms": 1794255253159
+    },
+    {
+      "index": 7,
+      "direction": "up",
+      "requested_pages": 1,
+      "scheduled_unix_ms": 1794255254115,
+      "begin_unix_ms": 1794255254116,
+      "end_unix_ms": 1794255254159
+    },
+    {
+      "index": 8,
+      "direction": "down",
+      "requested_pages": 1,
+      "scheduled_unix_ms": 1794255255115,
+      "begin_unix_ms": 1794255255117,
+      "end_unix_ms": 1794255255159
+    },
+    {
+      "index": 9,
+      "direction": "down",
+      "requested_pages": 1,
+      "scheduled_unix_ms": 1794255256115,
+      "begin_unix_ms": 1794255256116,
+      "end_unix_ms": 1794255256160
+    },
+    {
+      "index": 10,
+      "direction": "up",
+      "requested_pages": 1,
+      "scheduled_unix_ms": 1794255257115,
+      "begin_unix_ms": 1794255257116,
+      "end_unix_ms": 1794255257159
+    },
+    {
+      "index": 11,
+      "direction": "up",
+      "requested_pages": 1,
+      "scheduled_unix_ms": 1794255258115,
+      "begin_unix_ms": 1794255258116,
+      "end_unix_ms": 1794255258165
+    },
+    {
+      "index": 12,
+      "direction": "down",
+      "requested_pages": 1,
+      "scheduled_unix_ms": 1794255259115,
+      "begin_unix_ms": 1794255259116,
+      "end_unix_ms": 1794255259161
+    },
+    {
+      "index": 13,
+      "direction": "down",
+      "requested_pages": 1,
+      "scheduled_unix_ms": 1794255260115,
+      "begin_unix_ms": 1794255260115,
+      "end_unix_ms": 1794255260160
+    },
+    {
+      "index": 14,
+      "direction": "up",
+      "requested_pages": 1,
+      "scheduled_unix_ms": 1794255261115,
+      "begin_unix_ms": 1794255261115,
+      "end_unix_ms": 1794255261159
+    },
+    {
+      "index": 15,
+      "direction": "up",
+      "requested_pages": 1,
+      "scheduled_unix_ms": 1794255262115,
+      "begin_unix_ms": 1794255262116,
+      "end_unix_ms": 1794255262161
+    }
+  ],
+  "provenance": "Exact Date.now timing transcribed from returned CUA pilot2 object, which is retained in conversation tool output"
+}

@@ -1,0 +1,234 @@
+[
+  {
+    "label": "before",
+    "phases": [
+      {
+        "name": "desktop",
+        "requested_begin_monotonic_s": 325316.692361875,
+        "requested_end_monotonic_s": 325336.713793208,
+        "requested_duration_s": 20.021431333036162,
+        "raw_sample_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20
+        ],
+        "samples": 21,
+        "available": true,
+        "app_cpu_percent_one_core": null,
+        "windowserver_cpu_percent_one_core": null,
+        "observer_cpu_percent_one_core": 1.5280524440250858,
+        "app_gpu_ms_per_wall_second": null,
+        "windowserver_gpu_ms_per_wall_second": null,
+        "whole_gpu_modeled_w": 0.9011015678455953,
+        "whole_gpu_modeled_j": 18.028219015,
+        "gpu_residency_vs_wall_ratio": 1.0001118730411176,
+        "metric_unavailable_reasons": {
+          "app_cpu_percent_one_core": "process not watched",
+          "windowserver_cpu_percent_one_core": "process identity unavailable or changed",
+          "app_gpu_ms_per_wall_second": "process not watched",
+          "windowserver_gpu_ms_per_wall_second": "process identity unavailable or changed"
+        },
+        "elapsed_s": 20.0068667709711,
+        "integrated_begin_monotonic_s": 325316.6955247495,
+        "integrated_end_monotonic_s": 325336.7023915205,
+        "left_sampling_loss_s": 0.003162874549161643,
+        "right_sampling_loss_s": 0.011401687515899539,
+        "interval_s": {
+          "n": 20,
+          "unavailable": 0,
+          "min": 0.9958769375225529,
+          "median": 1.0004903229419142,
+          "p95": 1.0040619633859023,
+          "max": 1.004587729461491
+        },
+        "acquisition_ms": {
+          "n": 21,
+          "unavailable": 0,
+          "min": 7.941833988297731,
+          "median": 15.720458002761006,
+          "p95": 18.623041978571564,
+          "max": 19.183708005584776
+        },
+        "sample_start_lateness_ms": {
+          "n": 21,
+          "unavailable": 0,
+          "min": 0.12937502469867468,
+          "median": 4.108834022190422,
+          "p95": 5.035916983615607,
+          "max": 5.123374983668327
+        },
+        "extra_process_cpu_percent_one_core": {
+          "cua": {
+            "value": null,
+            "reason": "process identity unavailable or changed"
+          }
+        },
+        "gpu_state_percent_of_wall": {
+          "OFF": 63.701806839099525,
+          "P1": 25.062843709618075,
+          "P2": 2.741826125397716,
+          "P3": 2.7354618521647165,
+          "P4": 5.3021814317230564,
+          "P5": 0.2155218363788491,
+          "P6": 0.03457375449731279,
+          "P7": 0.17581359474889596,
+          "P8": 0.04115816048358503,
+          "P9": 0.0,
+          "P10": 0.0,
+          "P11": 0.0,
+          "P12": 0.0,
+          "P13": 0.0,
+          "P14": 0.0,
+          "P15": 0.0
+        },
+        "gpu_residency_matches_wall_within_5_percent": true,
+        "driver_utilization_point_samples_percent": {
+          "n": 21,
+          "unavailable": 0,
+          "min": 20,
+          "median": 36.0,
+          "p95": 38.0,
+          "max": 39
+        },
+        "cpu_energy_status": "raw counters retained; not validated or analyzed",
+        "total_system_energy_status": "not measured",
+        "gpu_client_lifetime_continuity": "not established: registry client identities are not recorded; an aggregate may recompose without decreasing",
+        "within_capture_lifetime": true
+      }
+    ]
+  },
+  {
+    "label": "after",
+    "phases": [
+      {
+        "name": "desktop",
+        "requested_begin_monotonic_s": 326503.198290791,
+        "requested_end_monotonic_s": 326523.2193495,
+        "requested_duration_s": 20.021058709011413,
+        "raw_sample_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20
+        ],
+        "samples": 21,
+        "available": true,
+        "app_cpu_percent_one_core": null,
+        "windowserver_cpu_percent_one_core": null,
+        "observer_cpu_percent_one_core": 1.3353469179440427,
+        "app_gpu_ms_per_wall_second": null,
+        "windowserver_gpu_ms_per_wall_second": null,
+        "whole_gpu_modeled_w": 0.9702758297032482,
+        "whole_gpu_modeled_j": 19.411219855,
+        "gpu_residency_vs_wall_ratio": 1.0000442276357109,
+        "metric_unavailable_reasons": {
+          "app_cpu_percent_one_core": "process not watched",
+          "windowserver_cpu_percent_one_core": "process identity unavailable or changed",
+          "app_gpu_ms_per_wall_second": "process not watched",
+          "windowserver_gpu_ms_per_wall_second": "process identity unavailable or changed"
+        },
+        "elapsed_s": 20.005877978983335,
+        "integrated_begin_monotonic_s": 326503.2013293955,
+        "integrated_end_monotonic_s": 326523.2072073745,
+        "left_sampling_loss_s": 0.003038604510948062,
+        "right_sampling_loss_s": 0.012142125517129898,
+        "interval_s": {
+          "n": 20,
+          "unavailable": 0,
+          "min": 0.9951399170095101,
+          "median": 0.9995365102367941,
+          "p95": 1.0055363327090163,
+          "max": 1.0056368749937974
+        },
+        "acquisition_ms": {
+          "n": 21,
+          "unavailable": 0,
+          "min": 7.640583964530379,
+          "median": 13.76695797080174,
+          "p95": 17.17750000534579,
+          "max": 18.293750006705523
+        },
+        "sample_start_lateness_ms": {
+          "n": 21,
+          "unavailable": 0,
+          "min": 0.1710830256342888,
+          "median": 2.6853749877773225,
+          "p95": 5.022792029194534,
+          "max": 5.026000028010458
+        },
+        "extra_process_cpu_percent_one_core": {
+          "cua": {
+            "value": null,
+            "reason": "process identity unavailable or changed"
+          }
+        },
+        "gpu_state_percent_of_wall": {
+          "OFF": 64.04042816879033,
+          "P1": 24.306459065556,
+          "P2": 2.810428393048575,
+          "P3": 2.920687654634125,
+          "P4": 5.54651488510373,
+          "P5": 0.3473860286112359,
+          "P6": 0.03251856782708721,
+          "P7": 0.0,
+          "P8": 0.0,
+          "P9": 0.0,
+          "P10": 0.0,
+          "P11": 0.0,
+          "P12": 0.0,
+          "P13": 0.0,
+          "P14": 0.0,
+          "P15": 0.0
+        },
+        "gpu_residency_matches_wall_within_5_percent": true,
+        "driver_utilization_point_samples_percent": {
+          "n": 21,
+          "unavailable": 0,
+          "min": 35,
+          "median": 38.0,
+          "p95": 39.0,
+          "max": 41
+        },
+        "cpu_energy_status": "raw counters retained; not validated or analyzed",
+        "total_system_energy_status": "not measured",
+        "gpu_client_lifetime_continuity": "not established: registry client identities are not recorded; an aggregate may recompose without decreasing",
+        "within_capture_lifetime": true
+      }
+    ]
+  }
+]
