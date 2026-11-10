@@ -1,0 +1,17 @@
+{
+  "app_heads": {
+    "before": "14b3cba1a8fcd51ae6a32e8bbc385556625bf5b2",
+    "after": "7b0229c82a09383a3cada51834dde4decc9aa7b4"
+  },
+  "framework_base": "c55d73659dd6560d3e70281056f841e6d366c0e5",
+  "common_app_patch_sha256": "8b174605afc0f16548911748700940e56b9f358690c7d7372333c8270840ee56",
+  "framework_observer_full_patch_sha256": "c44c7b985dfd5bff177814fee7d9b495714976360079c773acf3339c0c945b58",
+  "release_profile": {
+    "opt-level": 3,
+    "lto": "fat",
+    "codegen-units": 1
+  },
+  "cargo_lock_sha256": "8b9321569c19e8fc43c426643911be77e04f324259aefc1aae12c2ad478bb909",
+  "expected_source_lock_sha256": "cd4c5b0e08f5c4e28a308acf041847a89902bd3506327e279dfc7d37703b2360",
+  "capture_source_lock_sha256": "f9a3948f676ded18cc75a278bfd8a157e0ffbbdf65d7df55a03a53bd93de15d2"
+}

@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "arms": {
+    "normal": {
+      "runs": 16,
+      "adjacent_pairs": 8,
+      "invalid_attempts_retained": 0,
+      "raw_to_public_analysis_parity": "exact",
+      "local_raw_and_completed_analysis_parity": "exact",
+      "native_bytes": "identical",
+      "path_and_measurement_hash_metadata": "rebased"
+    },
+    "forced": {
+      "runs": 16,
+      "adjacent_pairs": 8,
+      "invalid_attempts_retained": 0,
+      "raw_to_public_analysis_parity": "exact",
+      "local_raw_and_completed_analysis_parity": "exact",
+      "native_bytes": "identical",
+      "path_and_measurement_hash_metadata": "rebased"
+    }
+  },
+  "scope": "Saved-data privacy transform and exact outcome parity; no new acquisition or efficacy judgment"
+}

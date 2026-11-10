@@ -1,0 +1,26 @@
+{
+  "scope": "Disposable input-route capability check after all 40 planned runs. Not efficacy or energy data. No wheel inputs posted by computer control.",
+  "api": "getScreenshot on an existing benchmark-app binding after fresh process relaunch",
+  "call_interval_ms": [
+    0,
+    461.0
+  ],
+  "last_inactive_witness": {
+    "relative_to_screenshot_start_ms": 56.74492382812241,
+    "a11y_active": false,
+    "a11y_completed_frames": 0
+  },
+  "first_active_witness": {
+    "relative_to_screenshot_start_ms": 85.67608982812817,
+    "a11y_active": true,
+    "a11y_completed_frames": 1
+  },
+  "last_witness": {
+    "relative_to_screenshot_start_ms": 42439.64208982812,
+    "a11y_active": true,
+    "a11y_completed_frames": 824
+  },
+  "raw_frame_sha256": "279fdb6fe5651cd940b0323ca57b90124cd320d358be1245d9ad5d47a4e83293",
+  "interpretation": "Passive GPUI accessibility activation occurred during the screenshot-only API refresh. This route does not preserve the intended inactive-accessibility condition. It was not used for energy measurement.",
+  "assistance": "OpenAI Codex; this is not human review."
+}

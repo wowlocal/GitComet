@@ -1,0 +1,17 @@
+{
+  "format": "pr749-sanitized-saved-data-v1",
+  "arms": [
+    "normal",
+    "forced"
+  ],
+  "created_unix_s": 1794292173.478571,
+  "analyzer_sha256": "f9cf642b5c76cc41af6f2d067d704e63dfde098b7240a7ee9c1d5f98f354dc25",
+  "exporter_sha256": "a22031da9e3ce9932804fffe00709646a5aaf86820ee3af1141b6c64f4d43c44",
+  "readme_template_sha256": "9c94c0cd575d4c3c8427b0af50130e17337b182713154d9e63c58c0f0b85f5f9",
+  "python": "3.11.11 (main, Feb  9 2025, 18:40:15) [Clang 16.0.0 (clang-1600.0.26.6)]",
+  "libraries": {
+    "scipy": "1.17.1",
+    "matplotlib": "3.11.0"
+  },
+  "redaction": "Allowlisted frame/measurement fields; native bytes identical; paths/hashes rebased; no profiles or energy analysis"
+}

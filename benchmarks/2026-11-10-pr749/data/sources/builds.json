@@ -1,0 +1,120 @@
+{
+  "before": {
+    "condition": "before",
+    "commit": "14b3cba1a8fcd51ae6a32e8bbc385556625bf5b2",
+    "jobs": 4,
+    "started_at": "2026-11-10T07:43:34.172414+03:00",
+    "finished_at": "2026-11-10T08:07:59.507439+03:00",
+    "toolchain": "rustc 1.99.1 (58cf8f9c3 2026-10-13)\nbinary: rustc\ncommit-hash: 58cf8f9c35b355199727627d07ae34a4e2846d67\ncommit-date: 2026-10-13\nhost: aarch64-apple-darwin\nrelease: 1.99.1\nLLVM version: 23.1.1\n",
+    "cargo_lock_sha256": "8b9321569c19e8fc43c426643911be77e04f324259aefc1aae12c2ad478bb909",
+    "command": [
+      "taskpolicy",
+      "-b",
+      "nice",
+      "-n",
+      "10",
+      "cargo",
+      "+1.99",
+      "build",
+      "--release",
+      "--locked",
+      "--offline",
+      "-j4",
+      "-p",
+      "gitcomet",
+      "--features",
+      "ui-gpui,gix",
+      "--bin",
+      "gitcomet"
+    ],
+    "exit_code": 0,
+    "seconds": 1464.1808619580115,
+    "source_binary_sha256": "de4ceea539a5c8bd5a1cbf83e743f1d1da6a2523333bb2c0196aa940f1bd5ffb",
+    "binary_sha256": "63c9c71192df844e3d9af210d88d82babb98fb0a2f2cc793a09a3f62e6cc3f1d",
+    "sources": {
+      "app": {
+        "head": "14b3cba1a8fcd51ae6a32e8bbc385556625bf5b2",
+        "diff_sha256": "8b174605afc0f16548911748700940e56b9f358690c7d7372333c8270840ee56",
+        "files": {
+          "Cargo.lock": "8b9321569c19e8fc43c426643911be77e04f324259aefc1aae12c2ad478bb909",
+          "Cargo.toml": "13bb4a97f675e55dbb7334022f235163c9bb101f9f636142df269b2c30405446",
+          "crates/gitcomet-ui-gpui/src/view/scenario_driver.rs": "471870f7ae3a28037eda1094a357430665e5af5f28c640d2712830d753dba8f7",
+          "crates/gitcomet-ui-gpui/src/view/scenario_driver/windows.rs": "5bcacccd6bb2ed6d6dedb3f1422d0e4c1828135488ac383ff2011cf5c4d890ec"
+        }
+      },
+      "framework": {
+        "head": "c55d73659dd6560d3e70281056f841e6d366c0e5",
+        "diff_sha256": "88855f6db3343dfd0f9370fc8f456176ed88effbb4e60ca0856f81818fcc0e35",
+        "files": {
+          "Cargo.toml": "86f41d55fb711f6e4f5cb16520c2a619d90bcf791e34075053c72e84a70e0b3b",
+          "crates/gpui_apple/Cargo.toml": "e64aa00e26b6ddff016025eeeb7594e61b1c23b6d5dd4b5c483d3d1e9078d8d9",
+          "crates/gpui_apple/src/gpui_apple.rs": "c4557a606a02e4d0d96085cead2b53d1f58806ff227a1ccffe36a433b2ce2140",
+          "crates/gpui_apple/src/metal_renderer.rs": "3b85ec2e8dc5dcf6bbba0312692818104e7e1d6697b2b4d9238764b0338b480d",
+          "crates/gpui_apple/src/native_timing.rs": "06d8989ee36b78d1b57d0e2d9ade897699bbdae265422eaedb0d1ba5aee177d9",
+          "crates/gpui_macos/src/gpui_macos.rs": "e4065a4dd4ab0291e3bdcc4ed7f95dece37d733f1888ffba7f75f37ed888e9b9",
+          "crates/gpui_macos/src/window.rs": "4db12e8448404b9b0b66ed8c048dc9766205d28fda480ecc71918218e8a440fd",
+          "crates/gpui_platform/src/gpui_platform.rs": "b9a2a289d8bf2c896681654ccf1c9c0f323742be4a3f2b226326ba3dc7bfd3c2"
+        }
+      }
+    }
+  },
+  "after": {
+    "condition": "after",
+    "commit": "7b0229c82a09383a3cada51834dde4decc9aa7b4",
+    "jobs": 4,
+    "started_at": "2026-11-10T08:07:59.601182+03:00",
+    "finished_at": "2026-11-10T08:27:55.042277+03:00",
+    "toolchain": "rustc 1.99.1 (58cf8f9c3 2026-10-13)\nbinary: rustc\ncommit-hash: 58cf8f9c35b355199727627d07ae34a4e2846d67\ncommit-date: 2026-10-13\nhost: aarch64-apple-darwin\nrelease: 1.99.1\nLLVM version: 23.1.1\n",
+    "cargo_lock_sha256": "8b9321569c19e8fc43c426643911be77e04f324259aefc1aae12c2ad478bb909",
+    "command": [
+      "taskpolicy",
+      "-b",
+      "nice",
+      "-n",
+      "10",
+      "cargo",
+      "+1.99",
+      "build",
+      "--release",
+      "--locked",
+      "--offline",
+      "-j4",
+      "-p",
+      "gitcomet",
+      "--features",
+      "ui-gpui,gix",
+      "--bin",
+      "gitcomet"
+    ],
+    "exit_code": 0,
+    "seconds": 1194.414809000038,
+    "source_binary_sha256": "e5b10dc09700c8bdecf066f4e55ca6243e9fe4c97141786a6d6ab3bc84faf200",
+    "binary_sha256": "528a348402c19f1977bb8fa4fa8dba8b719ede4165c42d1641bf8edcbbb15303",
+    "sources": {
+      "app": {
+        "head": "7b0229c82a09383a3cada51834dde4decc9aa7b4",
+        "diff_sha256": "8b174605afc0f16548911748700940e56b9f358690c7d7372333c8270840ee56",
+        "files": {
+          "Cargo.lock": "8b9321569c19e8fc43c426643911be77e04f324259aefc1aae12c2ad478bb909",
+          "Cargo.toml": "13bb4a97f675e55dbb7334022f235163c9bb101f9f636142df269b2c30405446",
+          "crates/gitcomet-ui-gpui/src/view/scenario_driver.rs": "471870f7ae3a28037eda1094a357430665e5af5f28c640d2712830d753dba8f7",
+          "crates/gitcomet-ui-gpui/src/view/scenario_driver/windows.rs": "5bcacccd6bb2ed6d6dedb3f1422d0e4c1828135488ac383ff2011cf5c4d890ec"
+        }
+      },
+      "framework": {
+        "head": "c55d73659dd6560d3e70281056f841e6d366c0e5",
+        "diff_sha256": "88855f6db3343dfd0f9370fc8f456176ed88effbb4e60ca0856f81818fcc0e35",
+        "files": {
+          "Cargo.toml": "86f41d55fb711f6e4f5cb16520c2a619d90bcf791e34075053c72e84a70e0b3b",
+          "crates/gpui_apple/Cargo.toml": "e64aa00e26b6ddff016025eeeb7594e61b1c23b6d5dd4b5c483d3d1e9078d8d9",
+          "crates/gpui_apple/src/gpui_apple.rs": "c4557a606a02e4d0d96085cead2b53d1f58806ff227a1ccffe36a433b2ce2140",
+          "crates/gpui_apple/src/metal_renderer.rs": "3b85ec2e8dc5dcf6bbba0312692818104e7e1d6697b2b4d9238764b0338b480d",
+          "crates/gpui_apple/src/native_timing.rs": "06d8989ee36b78d1b57d0e2d9ade897699bbdae265422eaedb0d1ba5aee177d9",
+          "crates/gpui_macos/src/gpui_macos.rs": "e4065a4dd4ab0291e3bdcc4ed7f95dece37d733f1888ffba7f75f37ed888e9b9",
+          "crates/gpui_macos/src/window.rs": "4db12e8448404b9b0b66ed8c048dc9766205d28fda480ecc71918218e8a440fd",
+          "crates/gpui_platform/src/gpui_platform.rs": "b9a2a289d8bf2c896681654ccf1c9c0f323742be4a3f2b226326ba3dc7bfd3c2"
+        }
+      }
+    }
+  }
+}

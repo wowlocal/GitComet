@@ -1,0 +1,165 @@
+{
+  "ax": "normal",
+  "native_observer": true,
+  "profile_cpu": false,
+  "pilot": false,
+  "order": [
+    "before",
+    "after",
+    "after",
+    "before",
+    "after",
+    "before",
+    "before",
+    "after",
+    "before",
+    "after",
+    "after",
+    "before",
+    "after",
+    "before",
+    "before",
+    "after"
+  ],
+  "started_unix_s": 1794289176.254505,
+  "completed_unix_s": 1794290198.417353,
+  "input_plan_sha256": "3ab76a1962320ac20f7097dcb91d85c0b8e35ee4764ef06cbeae27ed6e9e51b3",
+  "runs": [
+    {
+      "condition": "before",
+      "ordinal": 1,
+      "path": "runs/normal/01-before",
+      "valid": true,
+      "status": "finished",
+      "failures": []
+    },
+    {
+      "condition": "after",
+      "ordinal": 2,
+      "path": "runs/normal/02-after",
+      "valid": true,
+      "status": "finished",
+      "failures": []
+    },
+    {
+      "condition": "after",
+      "ordinal": 3,
+      "path": "runs/normal/03-after",
+      "valid": true,
+      "status": "finished",
+      "failures": []
+    },
+    {
+      "condition": "before",
+      "ordinal": 4,
+      "path": "runs/normal/04-before",
+      "valid": true,
+      "status": "finished",
+      "failures": []
+    },
+    {
+      "condition": "after",
+      "ordinal": 5,
+      "path": "runs/normal/05-after",
+      "valid": true,
+      "status": "finished",
+      "failures": []
+    },
+    {
+      "condition": "before",
+      "ordinal": 6,
+      "path": "runs/normal/06-before",
+      "valid": true,
+      "status": "finished",
+      "failures": []
+    },
+    {
+      "condition": "before",
+      "ordinal": 7,
+      "path": "runs/normal/07-before",
+      "valid": true,
+      "status": "finished",
+      "failures": []
+    },
+    {
+      "condition": "after",
+      "ordinal": 8,
+      "path": "runs/normal/08-after",
+      "valid": true,
+      "status": "finished",
+      "failures": []
+    },
+    {
+      "condition": "before",
+      "ordinal": 9,
+      "path": "runs/normal/09-before",
+      "valid": true,
+      "status": "finished",
+      "failures": []
+    },
+    {
+      "condition": "after",
+      "ordinal": 10,
+      "path": "runs/normal/10-after",
+      "valid": true,
+      "status": "finished",
+      "failures": []
+    },
+    {
+      "condition": "after",
+      "ordinal": 11,
+      "path": "runs/normal/11-after",
+      "valid": true,
+      "status": "finished",
+      "failures": []
+    },
+    {
+      "condition": "before",
+      "ordinal": 12,
+      "path": "runs/normal/12-before",
+      "valid": true,
+      "status": "finished",
+      "failures": []
+    },
+    {
+      "condition": "after",
+      "ordinal": 13,
+      "path": "runs/normal/13-after",
+      "valid": true,
+      "status": "finished",
+      "failures": []
+    },
+    {
+      "condition": "before",
+      "ordinal": 14,
+      "path": "runs/normal/14-before",
+      "valid": true,
+      "status": "finished",
+      "failures": []
+    },
+    {
+      "condition": "before",
+      "ordinal": 15,
+      "path": "runs/normal/15-before",
+      "valid": true,
+      "status": "finished",
+      "failures": []
+    },
+    {
+      "condition": "after",
+      "ordinal": 16,
+      "path": "runs/normal/16-after",
+      "valid": true,
+      "status": "finished",
+      "failures": []
+    }
+  ],
+  "invalid_attempts": [],
+  "expected_viewport": [
+    243.0,
+    117.0,
+    1109.0,
+    882.0
+  ],
+  "repositories_open": 264
+}

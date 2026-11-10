@@ -1,0 +1,28 @@
+{
+  "scope": "Read-only machine metadata collected after the 40 acquisition runs, not sampled in each run. Per-run display, geometry, power-mode and thermal witnesses are in exported measurement records.",
+  "observations": [
+    {
+      "command": [
+        "/usr/bin/sw_vers"
+      ],
+      "stdout": "ProductName:\t\tmacOS\nProductVersion:\t\t27.2\nBuildVersion:\t\t26B123"
+    },
+    {
+      "command": [
+        "/usr/sbin/sysctl",
+        "-n",
+        "hw.model"
+      ],
+      "stdout": "Mac17,6"
+    },
+    {
+      "command": [
+        "/usr/sbin/sysctl",
+        "-n",
+        "machdep.cpu.brand_string"
+      ],
+      "stdout": "Apple M5 Max"
+    }
+  ],
+  "assistance": "OpenAI Codex"
+}

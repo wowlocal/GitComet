@@ -1,0 +1,3 @@
+# Preserve the byte hashes in the published evidence inventories.
+data/** -text
+controls/recorder-off-cpu.csv -text
