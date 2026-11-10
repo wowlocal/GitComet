@@ -1,0 +1,896 @@
+{
+  "schema": "public-energy-numeric-manifest-v1",
+  "order": [
+    "gitcomet",
+    "fork",
+    "fork",
+    "gitcomet",
+    "fork",
+    "gitcomet",
+    "gitcomet",
+    "fork",
+    "gitcomet",
+    "fork",
+    "fork",
+    "gitcomet",
+    "fork",
+    "gitcomet",
+    "gitcomet",
+    "fork"
+  ],
+  "series_stopped": false,
+  "runs": [
+    {
+      "slot": 1,
+      "original_ordinal": 1,
+      "condition": "gitcomet",
+      "valid": true,
+      "status": "finished",
+      "failures": [],
+      "fatal_series_stop": false,
+      "energy_file": "raw/01-gitcomet.energy.jsonl",
+      "energy_sha256": "653b11b645339ac588bfcf0d012fd580193ba5bf4d2e16a6dcedcd8a9931fa35",
+      "driver_origin_monotonic_ns": 377692265137666.6,
+      "driver_log_sha256": "c8e01c3f86659bfeae4ab25f19c8c518ac0dcb61338ba56a0997d1a3677d06aa",
+      "binary_sha256": "f3172102f1b0b9722424ea991ee229a51396ee43a87cffaabcd4adc36b9455c3",
+      "observers": {
+        "runner_parent": {
+          "observer_cpu_ns": 1430687000,
+          "observer_elapsed_ns": 146405870874,
+          "scope": "Runner own process CPU/elapsed across run setup, child monitoring and guarded cleanup; excludes child CPU; not app CPU or energy"
+        },
+        "collector": {
+          "observer_cpu_ns": 258502000,
+          "observer_elapsed_ns": 126986741625,
+          "scope": "Collector own process CPU/elapsed from before native subscription setup through last sample/release before footer; not app CPU or energy"
+        },
+        "native_driver": {
+          "cpu_end_ns": 417927000,
+          "cpu_ns": 411931000,
+          "cpu_start_ns": 5996000,
+          "kind": "driver_accounting",
+          "observer_end": {
+            "monotonic_ns": 377822269774729.1,
+            "pair_bracket_ns": 125,
+            "unix_s": 1794308940.3895612
+          },
+          "observer_start": {
+            "monotonic_ns": 377692265135500,
+            "pair_bracket_ns": 333.3333333333333,
+            "unix_s": 1794308810.384332
+          },
+          "run_id": "01-gitcomet-ordinal1",
+          "scope": "Own process CPU before timed origin through final guards/cursor restore; excludes buffered event serialization; not app CPU or energy"
+        }
+      }
+    },
+    {
+      "slot": 2,
+      "original_ordinal": 2,
+      "condition": "fork",
+      "valid": true,
+      "status": "finished",
+      "failures": [],
+      "fatal_series_stop": false,
+      "energy_file": "raw/02-fork.energy.jsonl",
+      "energy_sha256": "3c933f4d36d628c8c186d7268833faade0faf80bb70b81f8fb164c45616a8125",
+      "driver_origin_monotonic_ns": 377855169324000,
+      "driver_log_sha256": "cd4b047bce384fd39090dab7d097a29dab9393c7b1c2bf9f862431065ebe22d9",
+      "binary_sha256": "5e2a769758b352aad2e66d1c8607642b1d3b9f37b09475694cdfed9c3eedf8e1",
+      "observers": {
+        "runner_parent": {
+          "observer_cpu_ns": 1322783000,
+          "observer_elapsed_ns": 161348904000,
+          "scope": "Runner own process CPU/elapsed across run setup, child monitoring and guarded cleanup; excludes child CPU; not app CPU or energy"
+        },
+        "collector": {
+          "observer_cpu_ns": 190604000,
+          "observer_elapsed_ns": 126981990500,
+          "scope": "Collector own process CPU/elapsed from before native subscription setup through last sample/release before footer; not app CPU or energy"
+        },
+        "native_driver": {
+          "cpu_end_ns": 204564000,
+          "cpu_ns": 198086000,
+          "cpu_start_ns": 6478000,
+          "kind": "driver_accounting",
+          "observer_end": {
+            "monotonic_ns": 377985175432166.6,
+            "pair_bracket_ns": 333.3333333333333,
+            "unix_s": 1794309103.295625
+          },
+          "observer_start": {
+            "monotonic_ns": 377855169320666.6,
+            "pair_bracket_ns": 583.3333333333333,
+            "unix_s": 1794308973.28919
+          },
+          "run_id": "02-fork-ordinal2",
+          "scope": "Own process CPU before timed origin through final guards/cursor restore; excludes buffered event serialization; not app CPU or energy"
+        }
+      }
+    },
+    {
+      "slot": 3,
+      "original_ordinal": 3,
+      "condition": "fork",
+      "valid": true,
+      "status": "finished",
+      "failures": [],
+      "fatal_series_stop": false,
+      "energy_file": "raw/03-fork.energy.jsonl",
+      "energy_sha256": "0038d87b5add147914cee51003394cddeb3aca0fd54b823d4f05bad4b4091d9d",
+      "driver_origin_monotonic_ns": 378017965731000,
+      "driver_log_sha256": "1aa9cc4d4c4ea5272f21a31407c952a99122eb78a77d59e9af11af4b2d8517b9",
+      "binary_sha256": "5e2a769758b352aad2e66d1c8607642b1d3b9f37b09475694cdfed9c3eedf8e1",
+      "observers": {
+        "runner_parent": {
+          "observer_cpu_ns": 1322866000,
+          "observer_elapsed_ns": 161236789957,
+          "scope": "Runner own process CPU/elapsed across run setup, child monitoring and guarded cleanup; excludes child CPU; not app CPU or energy"
+        },
+        "collector": {
+          "observer_cpu_ns": 194645000,
+          "observer_elapsed_ns": 126984686583,
+          "scope": "Collector own process CPU/elapsed from before native subscription setup through last sample/release before footer; not app CPU or energy"
+        },
+        "native_driver": {
+          "cpu_end_ns": 207806000,
+          "cpu_ns": 201352000,
+          "cpu_start_ns": 6454000,
+          "kind": "driver_accounting",
+          "observer_end": {
+            "monotonic_ns": 378147971307041.6,
+            "pair_bracket_ns": 416.66666666666663,
+            "unix_s": 1794309266.091905
+          },
+          "observer_start": {
+            "monotonic_ns": 378017965728395.8,
+            "pair_bracket_ns": 458.3333333333333,
+            "unix_s": 1794309136.0860028
+          },
+          "run_id": "03-fork-ordinal3",
+          "scope": "Own process CPU before timed origin through final guards/cursor restore; excludes buffered event serialization; not app CPU or energy"
+        }
+      }
+    },
+    {
+      "slot": 4,
+      "original_ordinal": 4,
+      "condition": "gitcomet",
+      "valid": true,
+      "status": "finished",
+      "failures": [],
+      "fatal_series_stop": false,
+      "energy_file": "raw/04-gitcomet.energy.jsonl",
+      "energy_sha256": "26d63d6a7d4fcb396fc2bed1bf21a7e1fc827ebbb8b40f5f6fba58bdf9c64c08",
+      "driver_origin_monotonic_ns": 378165749355958.3,
+      "driver_log_sha256": "68ee9ae818671491f8e7578c8d260af942c405437527007b01c77c276c96e005",
+      "binary_sha256": "f3172102f1b0b9722424ea991ee229a51396ee43a87cffaabcd4adc36b9455c3",
+      "observers": {
+        "runner_parent": {
+          "observer_cpu_ns": 1428063000,
+          "observer_elapsed_ns": 146407196790,
+          "scope": "Runner own process CPU/elapsed across run setup, child monitoring and guarded cleanup; excludes child CPU; not app CPU or energy"
+        },
+        "collector": {
+          "observer_cpu_ns": 262576000,
+          "observer_elapsed_ns": 126983952125,
+          "scope": "Collector own process CPU/elapsed from before native subscription setup through last sample/release before footer; not app CPU or energy"
+        },
+        "native_driver": {
+          "cpu_end_ns": 457375000,
+          "cpu_ns": 451312000,
+          "cpu_start_ns": 6063000,
+          "kind": "driver_accounting",
+          "observer_end": {
+            "monotonic_ns": 378295756047520.8,
+            "pair_bracket_ns": 291.66666666666663,
+            "unix_s": 1794309413.8770142
+          },
+          "observer_start": {
+            "monotonic_ns": 378165749353458.3,
+            "pair_bracket_ns": 333.3333333333333,
+            "unix_s": 1794309283.869996
+          },
+          "run_id": "04-gitcomet-ordinal4",
+          "scope": "Own process CPU before timed origin through final guards/cursor restore; excludes buffered event serialization; not app CPU or energy"
+        }
+      }
+    },
+    {
+      "slot": 5,
+      "original_ordinal": 5,
+      "condition": "fork",
+      "valid": true,
+      "status": "finished",
+      "failures": [],
+      "fatal_series_stop": false,
+      "energy_file": "raw/05-fork.energy.jsonl",
+      "energy_sha256": "f219efebfde0040d709a8dcbe78c7782d82f70dcc911a348f7c5ca032cb767cf",
+      "driver_origin_monotonic_ns": 378328639302583.3,
+      "driver_log_sha256": "d4e2ddff1ea5a9e771d50ced52a1bb664e7edf40b9de80491394943982205d2a",
+      "binary_sha256": "5e2a769758b352aad2e66d1c8607642b1d3b9f37b09475694cdfed9c3eedf8e1",
+      "observers": {
+        "runner_parent": {
+          "observer_cpu_ns": 1304118000,
+          "observer_elapsed_ns": 161336582624,
+          "scope": "Runner own process CPU/elapsed across run setup, child monitoring and guarded cleanup; excludes child CPU; not app CPU or energy"
+        },
+        "collector": {
+          "observer_cpu_ns": 188983000,
+          "observer_elapsed_ns": 126988065417,
+          "scope": "Collector own process CPU/elapsed from before native subscription setup through last sample/release before footer; not app CPU or energy"
+        },
+        "native_driver": {
+          "cpu_end_ns": 170285000,
+          "cpu_ns": 164185000,
+          "cpu_start_ns": 6100000,
+          "kind": "driver_accounting",
+          "observer_end": {
+            "monotonic_ns": 378458642673416.6,
+            "pair_bracket_ns": 333.3333333333333,
+            "unix_s": 1794309576.764045
+          },
+          "observer_start": {
+            "monotonic_ns": 378328639300333.3,
+            "pair_bracket_ns": 333.3333333333333,
+            "unix_s": 1794309446.7603478
+          },
+          "run_id": "05-fork-ordinal5",
+          "scope": "Own process CPU before timed origin through final guards/cursor restore; excludes buffered event serialization; not app CPU or energy"
+        }
+      }
+    },
+    {
+      "slot": 6,
+      "original_ordinal": 6,
+      "condition": "gitcomet",
+      "valid": true,
+      "status": "finished",
+      "failures": [],
+      "fatal_series_stop": false,
+      "energy_file": "raw/06-gitcomet.energy.jsonl",
+      "energy_sha256": "8aedef77f2a2e2928b0fff3f876e0bd3e50a4f7dc3bc9c72046128698023b426",
+      "driver_origin_monotonic_ns": 378476719544583.3,
+      "driver_log_sha256": "6d77c2d17d2a7188f66eb1440a47662a3661045299940f1b5290651d4a0dcb61",
+      "binary_sha256": "f3172102f1b0b9722424ea991ee229a51396ee43a87cffaabcd4adc36b9455c3",
+      "observers": {
+        "runner_parent": {
+          "observer_cpu_ns": 1417971000,
+          "observer_elapsed_ns": 146468478583,
+          "scope": "Runner own process CPU/elapsed across run setup, child monitoring and guarded cleanup; excludes child CPU; not app CPU or energy"
+        },
+        "collector": {
+          "observer_cpu_ns": 255047000,
+          "observer_elapsed_ns": 126982839334,
+          "scope": "Collector own process CPU/elapsed from before native subscription setup through last sample/release before footer; not app CPU or energy"
+        },
+        "native_driver": {
+          "cpu_end_ns": 418063000,
+          "cpu_ns": 412183000,
+          "cpu_start_ns": 5880000,
+          "kind": "driver_accounting",
+          "observer_end": {
+            "monotonic_ns": 378606725402916.6,
+            "pair_bracket_ns": 250,
+            "unix_s": 1794309724.8471432
+          },
+          "observer_start": {
+            "monotonic_ns": 378476719542458.3,
+            "pair_bracket_ns": 333.3333333333333,
+            "unix_s": 1794309594.840959
+          },
+          "run_id": "06-gitcomet-ordinal6",
+          "scope": "Own process CPU before timed origin through final guards/cursor restore; excludes buffered event serialization; not app CPU or energy"
+        }
+      }
+    },
+    {
+      "slot": 7,
+      "original_ordinal": 7,
+      "condition": "gitcomet",
+      "valid": true,
+      "status": "finished",
+      "failures": [],
+      "fatal_series_stop": false,
+      "energy_file": "raw/07-gitcomet.energy.jsonl",
+      "energy_sha256": "8671ef60511c1e12d14ee2b107d8e0dcc422831893e63996c178865434635065",
+      "driver_origin_monotonic_ns": 378624735725291.6,
+      "driver_log_sha256": "dfcb89b1e7161dc5785eb2c03e891c2e6b2e0f3d751d003c3068965fbf4976ff",
+      "binary_sha256": "f3172102f1b0b9722424ea991ee229a51396ee43a87cffaabcd4adc36b9455c3",
+      "observers": {
+        "runner_parent": {
+          "observer_cpu_ns": 1448073000,
+          "observer_elapsed_ns": 146442188040,
+          "scope": "Runner own process CPU/elapsed across run setup, child monitoring and guarded cleanup; excludes child CPU; not app CPU or energy"
+        },
+        "collector": {
+          "observer_cpu_ns": 270116000,
+          "observer_elapsed_ns": 126984994875,
+          "scope": "Collector own process CPU/elapsed from before native subscription setup through last sample/release before footer; not app CPU or energy"
+        },
+        "native_driver": {
+          "cpu_end_ns": 403375000,
+          "cpu_ns": 397639000,
+          "cpu_start_ns": 5736000,
+          "kind": "driver_accounting",
+          "observer_end": {
+            "monotonic_ns": 378754741988708.3,
+            "pair_bracket_ns": 416.66666666666663,
+            "unix_s": 1794309872.864485
+          },
+          "observer_start": {
+            "monotonic_ns": 378624735723104.1,
+            "pair_bracket_ns": 375,
+            "unix_s": 1794309742.857508
+          },
+          "run_id": "07-gitcomet-ordinal7",
+          "scope": "Own process CPU before timed origin through final guards/cursor restore; excludes buffered event serialization; not app CPU or energy"
+        }
+      }
+    },
+    {
+      "slot": 8,
+      "original_ordinal": 8,
+      "condition": "fork",
+      "valid": true,
+      "status": "finished",
+      "failures": [],
+      "fatal_series_stop": false,
+      "energy_file": "raw/08-fork.energy.jsonl",
+      "energy_sha256": "20c667377133f5ab8c067f00bce4fad3ae0956d97871ba0c1c53ac6a80a271e3",
+      "driver_origin_monotonic_ns": 378787456959708.3,
+      "driver_log_sha256": "bd5c65ef844f15abae804f8b0a7924210c667553aacc8528860f636517bcb63f",
+      "binary_sha256": "5e2a769758b352aad2e66d1c8607642b1d3b9f37b09475694cdfed9c3eedf8e1",
+      "observers": {
+        "runner_parent": {
+          "observer_cpu_ns": 1325941000,
+          "observer_elapsed_ns": 161333023125,
+          "scope": "Runner own process CPU/elapsed across run setup, child monitoring and guarded cleanup; excludes child CPU; not app CPU or energy"
+        },
+        "collector": {
+          "observer_cpu_ns": 193076000,
+          "observer_elapsed_ns": 126981261833,
+          "scope": "Collector own process CPU/elapsed from before native subscription setup through last sample/release before footer; not app CPU or energy"
+        },
+        "native_driver": {
+          "cpu_end_ns": 194495000,
+          "cpu_ns": 188057000,
+          "cpu_start_ns": 6438000,
+          "kind": "driver_accounting",
+          "observer_end": {
+            "monotonic_ns": 378917459437125,
+            "pair_bracket_ns": 333.3333333333333,
+            "unix_s": 1794310035.5823631
+          },
+          "observer_start": {
+            "monotonic_ns": 378787456957520.8,
+            "pair_bracket_ns": 541.6666666666666,
+            "unix_s": 1794309905.579548
+          },
+          "run_id": "08-fork-ordinal8",
+          "scope": "Own process CPU before timed origin through final guards/cursor restore; excludes buffered event serialization; not app CPU or energy"
+        }
+      }
+    },
+    {
+      "slot": 9,
+      "original_ordinal": 9,
+      "condition": "gitcomet",
+      "valid": true,
+      "status": "finished",
+      "failures": [],
+      "fatal_series_stop": false,
+      "energy_file": "raw/09-gitcomet.energy.jsonl",
+      "energy_sha256": "70e06f489cd9e376df4a5dae4d323ada00e3ed93f0a4058f3759d2a89820f432",
+      "driver_origin_monotonic_ns": 378935395444500,
+      "driver_log_sha256": "1cbdb40d2f13b6dc2e67bda12340226d41457c8d412eab37a127abb2d4a09980",
+      "binary_sha256": "f3172102f1b0b9722424ea991ee229a51396ee43a87cffaabcd4adc36b9455c3",
+      "observers": {
+        "runner_parent": {
+          "observer_cpu_ns": 1434212000,
+          "observer_elapsed_ns": 146422956124,
+          "scope": "Runner own process CPU/elapsed across run setup, child monitoring and guarded cleanup; excludes child CPU; not app CPU or energy"
+        },
+        "collector": {
+          "observer_cpu_ns": 244723000,
+          "observer_elapsed_ns": 126982402000,
+          "scope": "Collector own process CPU/elapsed from before native subscription setup through last sample/release before footer; not app CPU or energy"
+        },
+        "native_driver": {
+          "cpu_end_ns": 391752000,
+          "cpu_ns": 385853000,
+          "cpu_start_ns": 5899000,
+          "kind": "driver_accounting",
+          "observer_end": {
+            "monotonic_ns": 379065403532687.5,
+            "pair_bracket_ns": 208.33333333333331,
+            "unix_s": 1794310183.5268378
+          },
+          "observer_start": {
+            "monotonic_ns": 378935395441791.6,
+            "pair_bracket_ns": 250,
+            "unix_s": 1794310053.518413
+          },
+          "run_id": "09-gitcomet-ordinal9",
+          "scope": "Own process CPU before timed origin through final guards/cursor restore; excludes buffered event serialization; not app CPU or energy"
+        }
+      }
+    },
+    {
+      "slot": 10,
+      "original_ordinal": 10,
+      "condition": "fork",
+      "valid": true,
+      "status": "finished",
+      "failures": [],
+      "fatal_series_stop": false,
+      "energy_file": "raw/10-fork.energy.jsonl",
+      "energy_sha256": "bc64e53be2b21268245d992e4d2ee5f811ba73997e5b1cae0c5787bd6d3a8678",
+      "driver_origin_monotonic_ns": 379098229308916.6,
+      "driver_log_sha256": "0980eb0d2400d9016f58348bad6f57dd3625570c9bda33647087d03efc8f7eaf",
+      "binary_sha256": "5e2a769758b352aad2e66d1c8607642b1d3b9f37b09475694cdfed9c3eedf8e1",
+      "observers": {
+        "runner_parent": {
+          "observer_cpu_ns": 1323671000,
+          "observer_elapsed_ns": 161259707708,
+          "scope": "Runner own process CPU/elapsed across run setup, child monitoring and guarded cleanup; excludes child CPU; not app CPU or energy"
+        },
+        "collector": {
+          "observer_cpu_ns": 195425000,
+          "observer_elapsed_ns": 126983108875,
+          "scope": "Collector own process CPU/elapsed from before native subscription setup through last sample/release before footer; not app CPU or energy"
+        },
+        "native_driver": {
+          "cpu_end_ns": 340251000,
+          "cpu_ns": 333790000,
+          "cpu_start_ns": 6461000,
+          "kind": "driver_accounting",
+          "observer_end": {
+            "monotonic_ns": 379228231044270.8,
+            "pair_bracket_ns": 291.66666666666663,
+            "unix_s": 1794310346.3547668
+          },
+          "observer_start": {
+            "monotonic_ns": 379098229306583.3,
+            "pair_bracket_ns": 333.3333333333333,
+            "unix_s": 1794310216.352696
+          },
+          "run_id": "10-fork-ordinal10",
+          "scope": "Own process CPU before timed origin through final guards/cursor restore; excludes buffered event serialization; not app CPU or energy"
+        }
+      }
+    },
+    {
+      "slot": 11,
+      "original_ordinal": 11,
+      "condition": "fork",
+      "valid": true,
+      "status": "finished",
+      "failures": [],
+      "fatal_series_stop": false,
+      "energy_file": "raw/11-fork.energy.jsonl",
+      "energy_sha256": "63e390fdd6e43404624ac235d0f14dc0b555edf10a6628caed5588edd309cb77",
+      "driver_origin_monotonic_ns": 379261011710375,
+      "driver_log_sha256": "00d446fdebd24dffb1e714276da0045bc758659a3968f23fd9d117bd0063f471",
+      "binary_sha256": "5e2a769758b352aad2e66d1c8607642b1d3b9f37b09475694cdfed9c3eedf8e1",
+      "observers": {
+        "runner_parent": {
+          "observer_cpu_ns": 1321356000,
+          "observer_elapsed_ns": 161287859292,
+          "scope": "Runner own process CPU/elapsed across run setup, child monitoring and guarded cleanup; excludes child CPU; not app CPU or energy"
+        },
+        "collector": {
+          "observer_cpu_ns": 182636000,
+          "observer_elapsed_ns": 126982265333,
+          "scope": "Collector own process CPU/elapsed from before native subscription setup through last sample/release before footer; not app CPU or energy"
+        },
+        "native_driver": {
+          "cpu_end_ns": 207615000,
+          "cpu_ns": 201540000,
+          "cpu_start_ns": 6075000,
+          "kind": "driver_accounting",
+          "observer_end": {
+            "monotonic_ns": 379391016655666.6,
+            "pair_bracket_ns": 166.66666666666666,
+            "unix_s": 1794310509.140796
+          },
+          "observer_start": {
+            "monotonic_ns": 379261011707895.8,
+            "pair_bracket_ns": 375,
+            "unix_s": 1794310379.135514
+          },
+          "run_id": "11-fork-ordinal11",
+          "scope": "Own process CPU before timed origin through final guards/cursor restore; excludes buffered event serialization; not app CPU or energy"
+        }
+      }
+    },
+    {
+      "slot": 12,
+      "original_ordinal": 12,
+      "condition": "gitcomet",
+      "valid": true,
+      "status": "finished",
+      "failures": [],
+      "fatal_series_stop": false,
+      "energy_file": "raw/12-gitcomet.energy.jsonl",
+      "energy_sha256": "65110cd5010ab5d05208449ac0150fedd64b7bdf03f9c73d7818742ed0cecca0",
+      "driver_origin_monotonic_ns": 379409035617333.3,
+      "driver_log_sha256": "79e60181a3302ed100d14307997124beb66f2cba3acd20be8ac2287671c50c01",
+      "binary_sha256": "f3172102f1b0b9722424ea991ee229a51396ee43a87cffaabcd4adc36b9455c3",
+      "observers": {
+        "runner_parent": {
+          "observer_cpu_ns": 1449607000,
+          "observer_elapsed_ns": 146457619749,
+          "scope": "Runner own process CPU/elapsed across run setup, child monitoring and guarded cleanup; excludes child CPU; not app CPU or energy"
+        },
+        "collector": {
+          "observer_cpu_ns": 241005000,
+          "observer_elapsed_ns": 126984158625,
+          "scope": "Collector own process CPU/elapsed from before native subscription setup through last sample/release before footer; not app CPU or energy"
+        },
+        "native_driver": {
+          "cpu_end_ns": 440606000,
+          "cpu_ns": 434539000,
+          "cpu_start_ns": 6067000,
+          "kind": "driver_accounting",
+          "observer_end": {
+            "monotonic_ns": 379539041271104.1,
+            "pair_bracket_ns": 291.66666666666663,
+            "unix_s": 1794310657.165791
+          },
+          "observer_start": {
+            "monotonic_ns": 379409035614333.3,
+            "pair_bracket_ns": 416.66666666666663,
+            "unix_s": 1794310527.159801
+          },
+          "run_id": "12-gitcomet-ordinal12",
+          "scope": "Own process CPU before timed origin through final guards/cursor restore; excludes buffered event serialization; not app CPU or energy"
+        }
+      }
+    },
+    {
+      "slot": 13,
+      "original_ordinal": 13,
+      "condition": "fork",
+      "valid": true,
+      "status": "finished",
+      "failures": [],
+      "fatal_series_stop": false,
+      "energy_file": "raw/13-fork.energy.jsonl",
+      "energy_sha256": "6f91ec2061b7b50d2ae018988ddd07785c31125b7aa792e56182ec3920f8562e",
+      "driver_origin_monotonic_ns": 379571868685375,
+      "driver_log_sha256": "44707e9cdd2c2dbb10664369380963d3ca96773a52f05e7a0d83ab65bd43773a",
+      "binary_sha256": "5e2a769758b352aad2e66d1c8607642b1d3b9f37b09475694cdfed9c3eedf8e1",
+      "observers": {
+        "runner_parent": {
+          "observer_cpu_ns": 1319247000,
+          "observer_elapsed_ns": 161342503583,
+          "scope": "Runner own process CPU/elapsed across run setup, child monitoring and guarded cleanup; excludes child CPU; not app CPU or energy"
+        },
+        "collector": {
+          "observer_cpu_ns": 199495000,
+          "observer_elapsed_ns": 126982281208,
+          "scope": "Collector own process CPU/elapsed from before native subscription setup through last sample/release before footer; not app CPU or energy"
+        },
+        "native_driver": {
+          "cpu_end_ns": 231594000,
+          "cpu_ns": 225583000,
+          "cpu_start_ns": 6011000,
+          "kind": "driver_accounting",
+          "observer_end": {
+            "monotonic_ns": 379701875932500,
+            "pair_bracket_ns": 250,
+            "unix_s": 1794310820.001847
+          },
+          "observer_start": {
+            "monotonic_ns": 379571868682895.8,
+            "pair_bracket_ns": 208.33333333333331,
+            "unix_s": 1794310689.993287
+          },
+          "run_id": "13-fork-ordinal13",
+          "scope": "Own process CPU before timed origin through final guards/cursor restore; excludes buffered event serialization; not app CPU or energy"
+        }
+      }
+    },
+    {
+      "slot": 14,
+      "original_ordinal": 14,
+      "condition": "gitcomet",
+      "valid": true,
+      "status": "finished",
+      "failures": [],
+      "fatal_series_stop": false,
+      "energy_file": "raw/14-gitcomet.energy.jsonl",
+      "energy_sha256": "7b0f6663d28d129696da03694e3cd4be353c9520c5e9a6cd684e6d0acc5a8ae5",
+      "driver_origin_monotonic_ns": 379719740962583.3,
+      "driver_log_sha256": "a9aacdab3c4079f7c413e2f97cbb1a2252d2176495bf246ea067e874a1c841cd",
+      "binary_sha256": "f3172102f1b0b9722424ea991ee229a51396ee43a87cffaabcd4adc36b9455c3",
+      "observers": {
+        "runner_parent": {
+          "observer_cpu_ns": 1443315000,
+          "observer_elapsed_ns": 146448856000,
+          "scope": "Runner own process CPU/elapsed across run setup, child monitoring and guarded cleanup; excludes child CPU; not app CPU or energy"
+        },
+        "collector": {
+          "observer_cpu_ns": 259365000,
+          "observer_elapsed_ns": 126986688833,
+          "scope": "Collector own process CPU/elapsed from before native subscription setup through last sample/release before footer; not app CPU or energy"
+        },
+        "native_driver": {
+          "cpu_end_ns": 398311000,
+          "cpu_ns": 392355000,
+          "cpu_start_ns": 5956000,
+          "kind": "driver_accounting",
+          "observer_end": {
+            "monotonic_ns": 379849749542312.5,
+            "pair_bracket_ns": 208.33333333333331,
+            "unix_s": 1794310967.875939
+          },
+          "observer_start": {
+            "monotonic_ns": 379719740959541.6,
+            "pair_bracket_ns": 166.66666666666666,
+            "unix_s": 1794310837.8669748
+          },
+          "run_id": "14-gitcomet-ordinal14",
+          "scope": "Own process CPU before timed origin through final guards/cursor restore; excludes buffered event serialization; not app CPU or energy"
+        }
+      }
+    },
+    {
+      "slot": 15,
+      "original_ordinal": 15,
+      "condition": "gitcomet",
+      "valid": true,
+      "status": "finished",
+      "failures": [],
+      "fatal_series_stop": false,
+      "energy_file": "raw/15-gitcomet.energy.jsonl",
+      "energy_sha256": "51696d4d416d97b36927090abcbccb2cceb533efc3e5912cd5722dde1323ad60",
+      "driver_origin_monotonic_ns": 379867737856583.3,
+      "driver_log_sha256": "917ff8004a16e026428a5e2d8d3e3bcb5bb002cfd27be55983f7e56181196588",
+      "binary_sha256": "f3172102f1b0b9722424ea991ee229a51396ee43a87cffaabcd4adc36b9455c3",
+      "observers": {
+        "runner_parent": {
+          "observer_cpu_ns": 1450388000,
+          "observer_elapsed_ns": 146467834667,
+          "scope": "Runner own process CPU/elapsed across run setup, child monitoring and guarded cleanup; excludes child CPU; not app CPU or energy"
+        },
+        "collector": {
+          "observer_cpu_ns": 262154000,
+          "observer_elapsed_ns": 126985119750,
+          "scope": "Collector own process CPU/elapsed from before native subscription setup through last sample/release before footer; not app CPU or energy"
+        },
+        "native_driver": {
+          "cpu_end_ns": 477288000,
+          "cpu_ns": 471335000,
+          "cpu_start_ns": 5953000,
+          "kind": "driver_accounting",
+          "observer_end": {
+            "monotonic_ns": 379997740606291.6,
+            "pair_bracket_ns": 250,
+            "unix_s": 1794311115.867409
+          },
+          "observer_start": {
+            "monotonic_ns": 379867737854208.3,
+            "pair_bracket_ns": 583.3333333333333,
+            "unix_s": 1794310985.8643
+          },
+          "run_id": "15-gitcomet-ordinal15",
+          "scope": "Own process CPU before timed origin through final guards/cursor restore; excludes buffered event serialization; not app CPU or energy"
+        }
+      }
+    },
+    {
+      "slot": 16,
+      "original_ordinal": 16,
+      "condition": "fork",
+      "valid": true,
+      "status": "finished",
+      "failures": [],
+      "fatal_series_stop": false,
+      "energy_file": "raw/16-fork.energy.jsonl",
+      "energy_sha256": "2f7bb7f2d0db9c7b486ffe4c543d424e290fe0cd9b47c38b5667228319677a69",
+      "driver_origin_monotonic_ns": 380030523534166.6,
+      "driver_log_sha256": "25f2ad24d2a84443273206d2e3a4b08067627c74762db25049ee812ee198ffd1",
+      "binary_sha256": "5e2a769758b352aad2e66d1c8607642b1d3b9f37b09475694cdfed9c3eedf8e1",
+      "observers": {
+        "runner_parent": {
+          "observer_cpu_ns": 1293272000,
+          "observer_elapsed_ns": 161314626667,
+          "scope": "Runner own process CPU/elapsed across run setup, child monitoring and guarded cleanup; excludes child CPU; not app CPU or energy"
+        },
+        "collector": {
+          "observer_cpu_ns": 190174000,
+          "observer_elapsed_ns": 126984249291,
+          "scope": "Collector own process CPU/elapsed from before native subscription setup through last sample/release before footer; not app CPU or energy"
+        },
+        "native_driver": {
+          "cpu_end_ns": 224875000,
+          "cpu_ns": 218905000,
+          "cpu_start_ns": 5970000,
+          "kind": "driver_accounting",
+          "observer_end": {
+            "monotonic_ns": 380160531476458.3,
+            "pair_bracket_ns": 166.66666666666666,
+            "unix_s": 1794311278.6587272
+          },
+          "observer_start": {
+            "monotonic_ns": 380030523531729.1,
+            "pair_bracket_ns": 291.66666666666663,
+            "unix_s": 1794311148.650425
+          },
+          "run_id": "16-fork-ordinal16",
+          "scope": "Own process CPU before timed origin through final guards/cursor restore; excludes buffered event serialization; not app CPU or energy"
+        }
+      }
+    }
+  ],
+  "analysis_source_sha256": "59bb74d9c4e9da0f2119405f42d207817a187bcaf1bb6bd82e3872ef6193a4d4",
+  "protocol_sha256": "45df462cfdc90c7c4351836ebb67b52650e8247113252c3fb92e23708fa9c8a9",
+  "sources": {
+    "collector_sha256": "45a5d38465f787ea818bc89fc42b9cb19d972420880c81cbd8962982f2fe53cc",
+    "binding_sha256": "a02c5d1312ebca2ab422864bb5d7e1114a744888995d4c0d8556f4530592ebd5",
+    "native_driver_source_sha256": "3fe488456fcc5457161fe2716bfa9788567f332191f4837079b25eac582cc3e6",
+    "native_driver_binary_sha256": "5ce234e991044a9eb3fe76af60c6f920b863c706eea57ab171561c9fd40db425",
+    "runner_source_sha256": "cd0cfbdef988d168394858cd2c4ecc4beead5508ef7d3f194cb5701ade5e579c",
+    "component_chart_sha256": "592760e6b136a393c4017a016a40ad0742cb50f1dd3754e5968bb0fcb52dfa43",
+    "main_liveness_addendum_sha256": "1e8e4d434e03cb93c01d54961bfc0468722b623fdf01e75af6f971f88fb9e468"
+  },
+  "builds": {
+    "gitcomet": {
+      "app": "/Applications/GitComet.app",
+      "binary_sha256": "f3172102f1b0b9722424ea991ee229a51396ee43a87cffaabcd4adc36b9455c3",
+      "source_commit": "fe34d0636fe35af0ccbc693ce2b0861499a003c9",
+      "framework_base": "4b3b9c5",
+      "selection": "User-selected smooth installed combined build; not official stock and not PR749 treatment"
+    },
+    "fork": {
+      "app": "/Applications/Fork.app",
+      "version": "2.71.1",
+      "binary_sha256": "5e2a769758b352aad2e66d1c8607642b1d3b9f37b09475694cdfed9c3eedf8e1"
+    }
+  },
+  "post_output_geometry": {
+    "gitcomet": {
+      "schema": "observed-output-characterization-v1",
+      "condition": "gitcomet",
+      "passed": true,
+      "reviewer": "OpenAI Codex automated offline/visual inspection, not human review",
+      "driver_source_sha256": "3fe488456fcc5457161fe2716bfa9788567f332191f4837079b25eac582cc3e6",
+      "driver_binary_sha256": "5ce234e991044a9eb3fe76af60c6f920b863c706eea57ab171561c9fd40db425",
+      "pixels": 4,
+      "point": [
+        1000,
+        400
+      ],
+      "repeat_count": 2,
+      "motion": true,
+      "no_edge": true,
+      "distance_repeat_fraction": 0.001668201351898627,
+      "return_error_rows": 0.05555555555555555,
+      "return_error_rows_kind": "Maximum of measured integrated return error and conservative2logicalpoint registration resolution, divided by unchanged observed rowheight. Direct registration must also be within2logicalpoints and confident; no calibrated subpixel precision claim",
+      "row_height_logical_px": 36,
+      "outer_window_quartz": [
+        0,
+        34,
+        1728,
+        1037
+      ],
+      "history_body_quartz_approx": [
+        243,
+        151,
+        1125,
+        882
+      ],
+      "return_error_resolution_logical_px": 2,
+      "measured_integrated_return_errors_logical_px": [
+        0.0007216504329790041,
+        0.0004383295349725813
+      ],
+      "repeat_results": [
+        {
+          "repeat": "repeat1",
+          "outbound_observed_distance_logical_px": 2395.947316878302,
+          "inbound_observed_distance_logical_px": 2395.946595227869,
+          "mean_half_distance_logical_px": 2395.946956053085,
+          "integrated_return_error_logical_px": 0.0007216504329790041,
+          "direct_snapshot_return_registration": {
+            "dx_logical_px": -0.00033768993851633974,
+            "dy_logical_px": 0.00020313845125290763,
+            "peak": 0.9993593084185876,
+            "second_peak": 0.000630712195834754
+          },
+          "positive_motion_each_half": true,
+          "no_edge": true
+        },
+        {
+          "repeat": "repeat2",
+          "outbound_observed_distance_logical_px": 2399.94699545786,
+          "inbound_observed_distance_logical_px": 2399.947433787395,
+          "mean_half_distance_logical_px": 2399.947214622627,
+          "integrated_return_error_logical_px": 0.0004383295349725813,
+          "direct_snapshot_return_registration": {
+            "dx_logical_px": -7.751503945041195e-05,
+            "dy_logical_px": -0.00011321022376077752,
+            "peak": 0.999645264967814,
+            "second_peak": 0.0004139259239734802
+          },
+          "positive_motion_each_half": true,
+          "no_edge": true
+        }
+      ],
+      "scope": "Automated post-main output geometry outside energy windows; compact numeric witness only. Full video/private acquisition controls are not in this packet; does not prove every main raster frame, capture latency, physical feel, or equivalent output."
+    },
+    "fork": {
+      "schema": "observed-output-characterization-v1",
+      "condition": "fork",
+      "passed": true,
+      "reviewer": "OpenAI Codex automated offline/visual inspection, not human review",
+      "driver_source_sha256": "3fe488456fcc5457161fe2716bfa9788567f332191f4837079b25eac582cc3e6",
+      "driver_binary_sha256": "5ce234e991044a9eb3fe76af60c6f920b863c706eea57ab171561c9fd40db425",
+      "pixels": 4,
+      "point": [
+        1000,
+        400
+      ],
+      "repeat_count": 2,
+      "motion": true,
+      "no_edge": true,
+      "distance_repeat_fraction": 0.003338879295231391,
+      "return_error_rows": 0.09090909090909091,
+      "return_error_rows_kind": "Maximum of measured integrated return error and conservative2logicalpoint registration resolution, divided by unchanged observed rowheight. Direct registration must also be within2logicalpoints and confident; no calibrated subpixel precision claim",
+      "row_height_logical_px": 22,
+      "outer_window_quartz": [
+        0,
+        34,
+        1728,
+        1037
+      ],
+      "history_body_quartz_approx": [
+        282,
+        122,
+        1446,
+        746
+      ],
+      "return_error_resolution_logical_px": 2,
+      "measured_integrated_return_errors_logical_px": [
+        0.0040274447368346955,
+        0.006697958979316354
+      ],
+      "repeat_results": [
+        {
+          "repeat": "repeat1",
+          "outbound_observed_distance_logical_px": 2391.939944991568,
+          "inbound_observed_distance_logical_px": 2391.935917546831,
+          "mean_half_distance_logical_px": 2391.9379312692,
+          "integrated_return_error_logical_px": 0.0040274447368346955,
+          "direct_snapshot_return_registration": {
+            "dx_logical_px": 3.7609769793448344e-05,
+            "dy_logical_px": -9.36911858432269e-05,
+            "peak": 0.9999281592944343,
+            "second_peak": 0.0002219942305221401
+          },
+          "positive_motion_each_half": true,
+          "no_edge": true
+        },
+        {
+          "repeat": "repeat2",
+          "outbound_observed_distance_logical_px": 2399.934329418932,
+          "inbound_observed_distance_logical_px": 2399.9410273779113,
+          "mean_half_distance_logical_px": 2399.9376783984217,
+          "integrated_return_error_logical_px": 0.006697958979316354,
+          "direct_snapshot_return_registration": {
+            "dx_logical_px": -8.306553447514179e-05,
+            "dy_logical_px": -0.00023799811951580343,
+            "peak": 0.9996239892632037,
+            "second_peak": 0.0004844210990813903
+          },
+          "positive_motion_each_half": true,
+          "no_edge": true
+        }
+      ],
+      "scope": "Automated post-main output geometry outside energy windows; compact numeric witness only. Full video/private acquisition controls are not in this packet; does not prove every main raster frame, capture latency, physical feel, or equivalent output."
+    }
+  },
+  "scope": "Numeric reproducibility only: exact raw model counters/source hashes and public observer metadata. Full native input logs, private profiles/environment/cleanup evidence, video and acquisition are not reproducible from this packet. Not PR749 effect, app energy, physical energy or equivalent-output ranking."
+}

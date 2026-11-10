@@ -1,0 +1,262 @@
+{
+  "schema": "energy-identical-pixel-event-stream-v9-clpc",
+  "status": "PRE-MAIN CLPC method amendment after legacy CPU liveness failure; no app comparison values collected",
+  "primary_measurand": "Primary GPU model energy from native Energy Model GPU Energy nJ. Separate CPUmodel counter, nJ as mapped by macmonv0.11.0 firmware-derived AppleCLPC report; unit/name are assigned, not independently API-declared. Conditional sum only; no physical, whole-machine or app energy efficiency ranking.",
+  "conditions": {
+    "gitcomet": {
+      "app": "/Applications/GitComet.app",
+      "binary_sha256": "f3172102f1b0b9722424ea991ee229a51396ee43a87cffaabcd4adc36b9455c3",
+      "source_commit": "fe34d0636fe35af0ccbc693ce2b0861499a003c9",
+      "framework_base": "4b3b9c5",
+      "selection": "User-selected smooth installed combined build; not official stock and not PR749 treatment"
+    },
+    "fork": {
+      "app": "/Applications/Fork.app",
+      "version": "2.71.1",
+      "binary_sha256": "5e2a769758b352aad2e66d1c8607642b1d3b9f37b09475694cdfed9c3eedf8e1"
+    }
+  },
+  "identity_gate": "Recheck both binaries before and after; stop affected run on mismatch. Do not replace the selected GitComet with another build.",
+  "order": [
+    "gitcomet",
+    "fork",
+    "fork",
+    "gitcomet",
+    "fork",
+    "gitcomet",
+    "gitcomet",
+    "fork",
+    "gitcomet",
+    "fork",
+    "fork",
+    "gitcomet",
+    "fork",
+    "gitcomet",
+    "gitcomet",
+    "fork"
+  ],
+  "runs_per_app": 8,
+  "adjacent_pairs": [
+    [
+      1,
+      2
+    ],
+    [
+      3,
+      4
+    ],
+    [
+      5,
+      6
+    ],
+    [
+      7,
+      8
+    ],
+    [
+      9,
+      10
+    ],
+    [
+      11,
+      12
+    ],
+    [
+      13,
+      14
+    ],
+    [
+      15,
+      16
+    ]
+  ],
+  "fresh_process_each_run": true,
+  "common_repo_count": 40,
+  "profile_input": "Previously frozen common40 copied profiles and large-repository history region; real profiles preserved. Protected-folder4 exclusions predate energy outcomes. Record copied-profile and repository identity hashes privately. GITCOMET_DISABLE_SESSION_PERSIST must be absent; its presence, even with an empty value, disables load.",
+  "geometry": "Use same usable-screen opaque outer-window frame where supported. Record actual outer/history rectangles, visible rows, scale, theme and chrome; hold each app geometry fixed across its own repeats. Cross-app history dimensions, rows and distance are descriptive, not equality gates.",
+  "environment": "Same physical Mac, display mode, brightness behavior, AC/charge, LowPowerMode and quiet background. No other benchmark/build/game/video/stack-profiler during numeric phases. Record before/after and phase-event witnesses.",
+  "idle_before_seconds": 20,
+  "sustained_active_seconds": 90,
+  "idle_after_seconds": 20,
+  "setup_budget_seconds_per_run": 120,
+  "gesture_plan": "gesture-plan-v8.json",
+  "driver": "energy-scroll-v8.swift: publicCGEvent.post(cgSessionEventTap) after oneCGWarpMouseCursorPosition to verifiedhistorypoint; foregroundPID+unchangedpointer eachrequest, exactsingleownedonscreenopaque windowID/bounds/point before/after, guardedrestore. NoAX/HIDtap/listener/appactivation/permissionrequest. Posting is not delivery acknowledgement.",
+  "output_characterization": {
+    "required_before_capture": "After native source review and permitted bounded compilation, access gate must already be true without a request. Two characterize-mode10s cycle repeats per app from same history start, same frozen integer pixels and coordinates. External output witnesses must show movement each half, return and no boundary hits. Save witnesses outside energy numeric phases; record distance/rows/cadence at available resolution.",
+    "within_app_gates": {
+      "motion_each_half_cycle": true,
+      "no_edge_hits": true,
+      "distance_repeat_relative_difference_max": 0.1,
+      "return_to_start_error_max_visible_rows": 1,
+      "geometry_and_scale_unchanged": true
+    },
+    "cross_app_report_not_gate": [
+      "actual distance and rows traversed",
+      "history rectangle and visible rows",
+      "endpoint/return behavior",
+      "cadence class or measured cadence only if common witness supports it",
+      "theme, chrome and scale"
+    ],
+    "after_main": "Repeat each app characterization outside numeric phases. Changed within-app response invalidates affected app/pairs under declared rules. Main delivery logs plus pre/post witnesses do not prove every main raster frame.",
+    "claim_limit": "Energy per identical posted generated pixel-event stream with observed output differences. No delivery guarantee, pixels/rows-per-joule, equivalent-output efficiency ranking, physical-trackpad or native momentum claim."
+  },
+  "input_acceptance": {
+    "required_command_count": 10800,
+    "all_signed_deltas_and_order_exact": true,
+    "scheduled_rate_hz": 120,
+    "period_seconds": 10,
+    "maximum_start_or_end_lateness_ms": 50,
+    "fail_instead_of_catch_up_burst": true,
+    "retain_per_event_paired_clocks": true,
+    "same_count_schedule_and_pixel_magnitude_across_apps": true,
+    "pixel_magnitude": "Required calibrated integer1..64; freeze exact value and full argv before authorization, using no energy result to select it.",
+    "event_semantics": "Continuous pixel wheel events; no touch or momentum phase metadata is invented. No physical-trackpad/native momentum claim.",
+    "point": "Fresh ownedwindowID discovered perlaunch by samecompiledhelper --describe-target usingpublicCGWindowList/NSWorkspacemetadata against frozenrectangle/point; no posts/warp inthatmode. Pass exactID/boundsallmodes; cursorwarpedbeforeorigin andrestoredonlyifstillunchanged."
+  },
+  "app_failure_policy": {
+    "invalidate": "Both members of affected adjacent pair; preserve all attempts and reason before energy unblinding. Rerun same original pair order at series end. Never select based on energy or distance between apps.",
+    "maximum_pair_replacements": 2,
+    "maximum_main_and_replacement_runs": 20,
+    "no_time_left": "Stop app work; keep finite collector bound. Report incomplete series descriptively; no full-eight-pair directional result."
+  },
+  "analysis": "All16planned+allfailures/replacements. Same8adjacentpairs Fork-minus-GitComet J60 component differences/95%tCI/MAD gates, plus paired CPUmodel ratio (scale-independent). Sum direction additionally requires both component CIs excludezero in same direction and individual gates. Mapping-dependent sum not total/app/physical energy. No equivalent-output winner.",
+  "stop_series_conditions": [
+    "Anyraw/schema/provider/provenance/clock/integrityresetfailure",
+    "Thermal/power/display/LowPower/quiet-background/ownedcleanup failure",
+    "MissingrequiredCPU/GPUliveness or newCLPCGPU-vsAGXcrosscheck failure; no convenientlyselectedunits"
+  ],
+  "scope_limit": "Compares installedcombinedGCfe34d063/privateGPUI4b3b9c5vsFork2.71.1. Not PR749effect, notattributiontobackend, notphysical/appenergy. Reportactualoutputdifferences.",
+  "native_driver_source": "energy-scroll-v8.swift; v5modes+reviewedv7sessionroute plusmetadata-onlydescribe-target; priorv4-v7sources/binaries/evidence preserved.",
+  "measurand_amendment": "Legacy v8 fixedcapability actualCPU/cluster/GPU0 counters frozen despite verified2workerpulse; strictgate failed and no main series executed. Fiveidle-onlyofficialmacmon0.11forcedCLPC rows established candidate live source before this new planned diagnostic; not app outcomes. Prior source/data/verdicts unchanged. No favorable unit/value selection.",
+  "collector": {
+    "source": "ioreport-clpc-v1/collect.py",
+    "mode": "ordinary-user only; no root, subprocess, app operation, settings or network",
+    "main_channels": [
+      "CPU Energy",
+      "GPU Energy",
+      "ANE0",
+      "CLPC GPU Energy"
+    ],
+    "primary_channels": [
+      "CPU Energy",
+      "GPU Energy"
+    ],
+    "secondary_only": [
+      "ANE0",
+      "CLPC GPU Energy"
+    ],
+    "main_subscription_filtered_to_selected_channels": true,
+    "unit_schema": "AllnJ exactmappedidentity. CPU Energy/ANE0/CLPCGPU haveCLPC/EnergyCounters constructeddescriptors withunit_origin explicitlyassignedfrommacmon0.11firmwaresource; GPU Energy is native Energy Model/nullsubgroup/nJ. LocalAppleT6050CLPC DriverID0x1000005ce;OS27.2build26B123. No inferredunitfallback.",
+    "counter_validation": "Everyselectedcumulativecounter nonnegative/nondecreasing; fullmetadata identity+provenance stable; API delta equals exactrawsubtraction. CLPCGPU/ANEsecondarynotadded. Acquisition clocks/schedule remain125at+3..127.",
+    "clock": "Native driver and Python monotonic must both use mach_absolute_time. Main origin must be0..1s old at collector startup; a future/wrong-unit/stale origin fails before waiting. Native header origin supplied before first snapshot at+3s. No powermetrics date alignment/sync pulse.",
+    "schedule": "125snapshots at native origin+3..127seconds inclusive, fixed1Hz absolute deadlines. Main energy endpoints5/15,35/95,115/125; no interpolation.",
+    "bounds": {
+      "native_call_span_ms_max": 50,
+      "scheduled_start_lateness_ms_max": 50,
+      "host_unix_monotonic_offset_drift_ms_max": 50
+    },
+    "measurement_limit": "Recorded brackets cover API acquisition calls, not independently proven physical energy-integration freshness. Retain actual midpoint exposure and bracketing uncertainty."
+  },
+  "capability_gate": {
+    "source": "ioreport-clpc-v1/check-capability.py",
+    "required_before_main": true,
+    "raw_integrity": "Exactsource/schema/driver/channel/assignedprovenance,nonnegative/nondecreasing/API-delta-equality/existing50msclockgates,complete46snapshotsfixed0..45. Integrityfailfatal, nofallback/changedunits.",
+    "gpu_check": "CLPCGPU vsnativeAGXGPU same30..40window: absoluteJdifference<=.10*max+.01J. This checks GPU mapping scale only, not CPU unitcalibration. NativeGPUscrollrate-idlerate>max(.01W,.05*idleGPUW). OldGPU0 frozen; replaced explicitly innewversion.",
+    "cpu_check": "CPUcounter live idle10s. Exact1/2/4workers3seach; actualstarts/endswithin50ms. Eachnetrate>max(.05W,.05*idleCPUW);netP2/netP1 in[1.25,3.5],netP4/netP1 in[2,8]. AllfiniteCPU/GPUrates0..100W,pulse/idleCPU+GPUboundsasfrozen. No pre-windowspin,nomorethan4activeworkers.",
+    "fixed_windows": {
+      "idle": [
+        0,
+        10
+      ],
+      "cpu1": [
+        10,
+        13
+      ],
+      "cpu2": [
+        16,
+        19
+      ],
+      "cpu4": [
+        22,
+        25
+      ],
+      "gpu": [
+        30,
+        40
+      ]
+    },
+    "independent_witness": "Actualsame-driver-source/pixels/point/ownedwindow30..40outputmovement/noedge,source/binary/exactnativeclocksbound. No deliveryinferfrompostcount.",
+    "unit_limit": "CLPCnJ descriptorlabelsassignedusingfirmware-derivedupstreammap. GPUcrosscheckdoesnotindependentlycalibrateCPUenergy; CPUmodelratios scaleindependent, conditional total not physical or appenergy.",
+    "attempt_budget": "Oneactualfixedcapability; atmostonepure-setupfaultcorrectednewsourceattempt,retainallfailures. Nooutcome-drivenweakening."
+  },
+  "windows": {
+    "idle_before_origin_offsets_s": [
+      5,
+      15
+    ],
+    "active_core_origin_offsets_s": [
+      35,
+      95
+    ],
+    "idle_after_origin_offsets_s": [
+      115,
+      125
+    ],
+    "main_driver_phases": "20still/90active/20still; active core has15s margins and six10s cycles",
+    "selection": "Difference raw cumulative endpoints; normalize to60s using actual snapshot-midpoint exposure; retain both native-call endpoint brackets. No result-dependent window."
+  },
+  "integration": "Allselectedraws nJ under registered chip/OS/source mapping. J=raw/1e9. Components first; conditional CPUmodel+GPU sum second. Never addCLPCGPU/ANE0. Endpoint/normalization/exposure/still arithmetic unchanged.",
+  "same_app_increment": "Secondary component/sum activeW minus exposure-weighted same-app stillW, then\u00d760s. Keep negatives. Never subtract no-app baseline.",
+  "optional_root_crosscheck": "Powermetrics can be a separately authorized future model-vs-model crosscheck, not prerequisite. Existing ROOT-COMMAND.txt is optional reviewed90min-bound argv; not launched or authorized by this amendment.",
+  "no_unvalidated_energy_alternative": "Exactregistered macmon0.11CLPCsource/chip/OSmapping withassignedunitprovenance; no legacyzeroCPU substitution, no SMCmax/guessedwatts. One source review/one capability attempt; at mostone pure setup correction. If CPUmodelgatesfail, stopthatcomponentanduse separatelyfrozenGPU+CPUtime floor without claimingtotalenergy.",
+  "current_capability_blocker": "Source-only newCLPC chain awaits review and fixedcapability. Old video geometry/input/source gates remainvalid; newmeasurement source must pass ownraw/integrity/GPUcrosscheck/CPUladder before selected modelseries.",
+  "failure_classification_clarification": {
+    "recorded_before_first_new_energy_values": true,
+    "fatal_series_stop": [
+      "named-model schema/unit/identity/reset/clock/integrity failures",
+      "unexplained missing/truncated counter capture or capture watchdog",
+      "nonnominal thermal/power/display state, sleep, competing workload",
+      "unsafe owned-child cleanup or unexpected user/session/repository state"
+    ],
+    "blind_pair_replaceable": [
+      "app readiness/foreground/input timing failure",
+      "explicit collector setup-origin/read-span/scheduled-start lateness reported by its reviewed failure path"
+    ],
+    "expected_partial": "An input/app failure can intentionally cancel the owned collector; retain that partial attempt under the app failure classification. Unexplained counter partials remain fatal.",
+    "no_reset": "Persist fatal series-stop flag before another slot; next invocation refuses launch/profile change. No energy-outcome-based reclassification."
+  },
+  "initializer": {
+    "purpose": "Fresh-process interior history prerequisite; installed session schema does not persist history scroll position. Branch-focus is a ref filter, not viewport position.",
+    "mode": "--initialize;initialize=true,characterize=false",
+    "duration_seconds": 2,
+    "request_count": 240,
+    "rate_hz": 120,
+    "signed_delta": "All negative calibrated pixel magnitude; actual direction/motion/interior noedge must be independently characterized before main.",
+    "ordering": "Owned app ready and activated, then2s initializer, then unchanged10s warmup and3s settle; only then130s driver and origin-bound collector.",
+    "bounds": "Same50ms creation/prepost/post-return lateness failure and no catchup; v8 runner strictly verifies complete240-event log, order/polarity/deadlines/clocks and completion before numeric launch.",
+    "scope": "Outside130s measurement; same240negative2s prefix onbothapps/everyfreshprocess before10swarmup+3ssettle. Route nowexplicitv8session+cursorwarp, nevermidcycleinterruption.",
+    "validity": "Initializer must independently establish interior start with enough margin for full subsequent5s halfcycle in both directions; if2s insufficient, STOP and revise prerequisite version before main, not amplitude chosen from energy."
+  },
+  "prerequisite_amendment": "Nativev8input/initializer/geometry/endpoints/order/pairreplacementpolicyunchanged; onlynewCLPCmeasurementbinding/versionedcomponentreporting replacesunusablelegacyCPUsource.",
+  "geometry_reference_sources": {
+    "gitcomet": {
+      "native_metadata": "calibration/gitcomet-routing-v7/environment.json",
+      "sha256": "7bc7345114f17a886f95713d435f383a94df54abea9003f74c869aba0ceda1ab"
+    },
+    "fork": {
+      "native_metadata": "calibration/fork-geometry-v1/environment.json",
+      "sha256": "bb261c643d8b60eb43068606a66168f0cc5d08fe8d6da55e3861320043c1eb68"
+    }
+  },
+  "frozen_outer_window_reference": {
+    "X": 0,
+    "Y": 34,
+    "Width": 1728,
+    "Height": 1037
+  },
+  "route_validation": "Beforeenergy,parentv7movement-onlyForkandGitCometbothadvancedwith240posts sum\u2212960;GCnativecallbacks coalesced236packetswithsame\u2212960sumandlogicaloffset960. These are preliminaryrouteproofs,notv8fullcycle/output-repeat/countercapabilityevidence.",
+  "native_target_description": "Metadata-only --describe-target returnsactualfreshwindowID aftervalidatingsuppliedownedPID/exactfrozenbounds/point/frontmost; doesnotwarp/post/checkorrequestpermission. Mainrunnerfirstperformsseparateexistingaccessgatebeforeprofilemods.",
+  "observer_accounting": "Per-requestNSWorkspaceforeground/currentPointerqueriesareintentionalnativeobserverwork includedmachine-widenamedmodelcounters. Driveradds2publicCLOCK_PROCESS_CPUTIME_IDreadsoutsidehotloop;driver_accounting ownCPUspanbeforeoriginthroughfinalguards/cursorrestore,excludesbufferedserialization. Collector+parentCPUremainseparate. DoNOTsubtractCPUorconvertitappwatts.",
+  "observer_metadata_integrity": "Exactlyonedriver_accountingpercompleteinputcapture;matchingrunID,nonnegativeintegerstart/end/delta,exactsubtraction,finitepairedclockbrackets\u226450msbracketingorigin. Integrityonly;noCPUvalue/rateacceptanceorenergy-windowchange.",
+  "calibration_orchestration": "New CLPCcapability coordinator, exact45s idle0..10; CPUworker1at10..13,2at16..19,4at22..25; identical10snativescroll30..40. Exactlymax4activeworkers nice10; no background timerpolicy/no prespin. Freshowned40profile+verified240prefix+10warmup+3settle; sameownedlock/finitecleanup. Freezeallactualclocks/witnesses beforemain."
+}

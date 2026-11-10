@@ -1,0 +1,3566 @@
+{
+  "schema": "public-independent-numeric-review-extract-v1",
+  "source_review_sha256": "5fbb233b0c04d80941108e96ed27c1feabaf72ff206065f805e4caf29e99dbf3",
+  "verdict": "PASS",
+  "independent_method": "Exact Fraction endpoint energies/exposures, separately implemented sum/sorted median/sample-variance tCI and log-ratio. No registered analyzer/helpers imported or executed; no native/process/app/input/video queries.",
+  "input_lock_sha256": "581a9628ae1eec6d4535bc39748b0d18cdfea0ab6a7275ae31c57279a264a6d2",
+  "registered_analysis_sha256": "5635711d4259a6c3c639b8268a62309aa015c1e702fa1a7a70f8b8f7d1381099",
+  "numeric_comparisons": 9802,
+  "largest_absolute_float_difference": 5.684341886080802e-14,
+  "inventory_files_verified": 586,
+  "frozen_config_pins_verified": 187,
+  "counts": {
+    "planned_runs": 16,
+    "valid_runs": 16,
+    "pairs": 8,
+    "failed_or_replacement_runs": 0,
+    "snapshots": 2000,
+    "contiguous_intervals": 1984,
+    "channel_interval_deltas": 7936,
+    "endpoint_windows": 48,
+    "channel_endpoint_deltas": 192,
+    "CPU_liveness_windows_positive": 48,
+    "native_GPU_active_windows_positive": 16,
+    "CLPC_GPU_active_windows_positive": 16
+  },
+  "exposure_seconds_ranges": {
+    "idle_before": [
+      9.995097771,
+      10.0043026045
+    ],
+    "active_core": [
+      59.996185937,
+      60.004971042
+    ],
+    "idle_after": [
+      9.9955739375,
+      10.0045943125
+    ]
+  },
+  "zero_endpoint_windows": {
+    "gitcomet": {
+      "idle_before": {
+        "CPU Energy": 0,
+        "GPU Energy": 0,
+        "ANE0": 8,
+        "CLPC GPU Energy": 0
+      },
+      "active_core": {
+        "CPU Energy": 0,
+        "GPU Energy": 0,
+        "ANE0": 8,
+        "CLPC GPU Energy": 0
+      },
+      "idle_after": {
+        "CPU Energy": 0,
+        "GPU Energy": 0,
+        "ANE0": 8,
+        "CLPC GPU Energy": 0
+      }
+    },
+    "fork": {
+      "idle_before": {
+        "CPU Energy": 0,
+        "GPU Energy": 0,
+        "ANE0": 8,
+        "CLPC GPU Energy": 0
+      },
+      "active_core": {
+        "CPU Energy": 0,
+        "GPU Energy": 0,
+        "ANE0": 8,
+        "CLPC GPU Energy": 0
+      },
+      "idle_after": {
+        "CPU Energy": 0,
+        "GPU Energy": 0,
+        "ANE0": 8,
+        "CLPC GPU Energy": 0
+      }
+    }
+  },
+  "zero_contiguous_intervals_in_fixed_windows": {
+    "gitcomet": {
+      "idle_before": {
+        "CPU Energy": 0,
+        "GPU Energy": 0,
+        "ANE0": 80,
+        "CLPC GPU Energy": 0
+      },
+      "active_core": {
+        "CPU Energy": 0,
+        "GPU Energy": 62,
+        "ANE0": 480,
+        "CLPC GPU Energy": 0
+      },
+      "idle_after": {
+        "CPU Energy": 0,
+        "GPU Energy": 0,
+        "ANE0": 80,
+        "CLPC GPU Energy": 0
+      }
+    },
+    "fork": {
+      "idle_before": {
+        "CPU Energy": 0,
+        "GPU Energy": 0,
+        "ANE0": 80,
+        "CLPC GPU Energy": 0
+      },
+      "active_core": {
+        "CPU Energy": 0,
+        "GPU Energy": 64,
+        "ANE0": 480,
+        "CLPC GPU Energy": 0
+      },
+      "idle_after": {
+        "CPU Energy": 0,
+        "GPU Energy": 1,
+        "ANE0": 80,
+        "CLPC GPU Energy": 0
+      }
+    }
+  },
+  "negative_secondary_counts": {
+    "gitcomet": {
+      "CPU Energy": 0,
+      "GPU Energy": 0,
+      "CPU+GPU named sum": 0,
+      "ANE0": 0
+    },
+    "fork": {
+      "CPU Energy": 0,
+      "GPU Energy": 0,
+      "CPU+GPU named sum": 0,
+      "ANE0": 0
+    }
+  },
+  "observer_one_core_cpu_percent_summary": {
+    "gitcomet": {
+      "runner_parent": {
+        "n": 8,
+        "mean": 0.9818271795920515,
+        "median": 0.9825207132837359,
+        "range": [
+          0.9681065944823558,
+          0.9902433549983929
+        ],
+        "MAD": 0.006715514801216627
+      },
+      "collector": {
+        "n": 8,
+        "mean": 0.20213941402965518,
+        "median": 0.2039059752217072,
+        "range": [
+          0.18979139020932345,
+          0.2127148961701291
+        ],
+        "MAD": 0.00296366777694404
+      },
+      "native_driver": {
+        "n": 8,
+        "mean": 0.32278774200488175,
+        "median": 0.316954122939364,
+        "range": [
+          0.296791528389594,
+          0.36255770931521825
+        ],
+        "MAD": 0.01622730559224428
+      },
+      "outer_controller": {
+        "n": 8,
+        "mean": 0.04704983465115162,
+        "median": 0.04656032092476625,
+        "range": [
+          0.04184953445914902,
+          0.05229421033363382
+        ],
+        "MAD": 0.0034056329269996598
+      }
+    },
+    "fork": {
+      "runner_parent": {
+        "n": 8,
+        "mean": 0.8162406974852549,
+        "median": 0.8195404633003356,
+        "range": [
+          0.8017078343860827,
+          0.8218658364646572
+        ],
+        "MAD": 0.0015816089305485947
+      },
+      "collector": {
+        "n": 8,
+        "mean": 0.151106071484037,
+        "median": 0.15107697809472534,
+        "range": [
+          0.14382795859016445,
+          0.15710459609181412
+        ],
+        "MAD": 0.0022313825848811197
+      },
+      "native_driver": {
+        "n": 8,
+        "mean": 0.16648404930178712,
+        "median": 0.15495218828677537,
+        "range": [
+          0.12629287695080207,
+          0.25675810642036884
+        ],
+        "MAD": 0.011860849891615205
+      },
+      "outer_controller": {
+        "n": 8,
+        "mean": 0.051085215802877594,
+        "median": 0.0517893940056542,
+        "range": [
+          0.04378148099579727,
+          0.057092842109074435
+        ],
+        "MAD": 0.0037815808489170648
+      }
+    }
+  },
+  "outer_controller_full_series_cpu": {
+    "cpu_ns": 1592091000,
+    "elapsed_ns": 2486289252250,
+    "one_core_cpu_percent": 0.06403482613936477
+  },
+  "same_app_pid_CPU_point_snapshot_summary": {
+    "gitcomet": {
+      "cpu_seconds": {
+        "n": 8,
+        "mean": 39.31875,
+        "median": 39.3,
+        "range": [
+          38.87,
+          39.65
+        ],
+        "MAD": 0.16000000000000014
+      },
+      "one_core_cpu_percent": {
+        "n": 8,
+        "mean": 30.9570821201307,
+        "median": 30.9309249316639,
+        "range": [
+          30.616470229051625,
+          31.225013400968745
+        ],
+        "MAD": 0.12680492037639723
+      }
+    },
+    "fork": {
+      "cpu_seconds": {
+        "n": 8,
+        "mean": 39.6025,
+        "median": 39.69,
+        "range": [
+          38.02,
+          40.55
+        ],
+        "MAD": 0.5450000000000017
+      },
+      "one_core_cpu_percent": {
+        "n": 8,
+        "mean": 31.185978402928654,
+        "median": 31.292810277792853,
+        "range": [
+          29.93645749695907,
+          31.90654188058728
+        ],
+        "MAD": 0.46085429537505895
+      }
+    }
+  },
+  "runs": [
+    {
+      "slot": 1,
+      "condition": "gitcomet",
+      "pid": 59417,
+      "windows": {
+        "idle_before": {
+          "offsets_s": [
+            5,
+            15
+          ],
+          "exposure_ns_x2": 19999697792,
+          "exposure_seconds": 9.999848896,
+          "exposure_bounds_ns": [
+            9997519125,
+            10002178667
+          ],
+          "endpoint_brackets_ns": [
+            [
+              377697265961916,
+              377697268331375
+            ],
+            [
+              377707265850500,
+              377707268140583
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 21871505641,
+              "raw_J": 21.871505641,
+              "mean_model_W": 2.1871836133192706,
+              "normalized_J60": 131.23101679915624
+            },
+            "GPU Energy": {
+              "raw_nj": 680846088,
+              "raw_J": 0.680846088,
+              "mean_model_W": 0.06808563760121841,
+              "normalized_J60": 4.085138256073105
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 662937055,
+              "raw_J": 0.662937055,
+              "mean_model_W": 0.06629470723954427,
+              "normalized_J60": 3.9776824343726562
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 22552351729,
+              "raw_J": 22.552351729,
+              "mean_model_W": 2.255269250920489,
+              "normalized_J60": 135.31615505522936
+            }
+          }
+        },
+        "active_core": {
+          "offsets_s": [
+            35,
+            95
+          ],
+          "exposure_ns_x2": 120001328292,
+          "exposure_seconds": 60.000664146,
+          "exposure_bounds_ns": [
+            60000052834,
+            60001275458
+          ],
+          "endpoint_brackets_ns": [
+            [
+              377727269612958,
+              377727270101416
+            ],
+            [
+              377787270154250,
+              377787270888416
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 470822750088,
+              "raw_J": 470.822750088,
+              "mean_model_W": 7.846958976026398,
+              "normalized_J60": 470.8175385615839
+            },
+            "GPU Energy": {
+              "raw_nj": 64801251790,
+              "raw_J": 64.80125179,
+              "mean_model_W": 1.0800089084400581,
+              "normalized_J60": 64.8005345064035
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 63487963009,
+              "raw_J": 63.487963009,
+              "mean_model_W": 1.058121004369457,
+              "normalized_J60": 63.48726026216743
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 535624001878,
+              "raw_J": 535.624001878,
+              "mean_model_W": 8.926967884466457,
+              "normalized_J60": 535.6180730679874
+            }
+          }
+        },
+        "idle_after": {
+          "offsets_s": [
+            115,
+            125
+          ],
+          "exposure_ns_x2": 19997044292,
+          "exposure_seconds": 9.998522146,
+          "exposure_bounds_ns": [
+            9997120000,
+            9999924292
+          ],
+          "endpoint_brackets_ns": [
+            [
+              377807269645291,
+              377807270266083
+            ],
+            [
+              377817267386083,
+              377817269569583
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 18852383682,
+              "raw_J": 18.852383682,
+              "mean_model_W": 1.8855170200870204,
+              "normalized_J60": 113.13102120522122
+            },
+            "GPU Energy": {
+              "raw_nj": 434911975,
+              "raw_J": 0.434911975,
+              "mean_model_W": 0.04349762581402997,
+              "normalized_J60": 2.6098575488417985
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 418904175,
+              "raw_J": 0.418904175,
+              "mean_model_W": 0.04189660920715032,
+              "normalized_J60": 2.5137965524290196
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 19287295657,
+              "raw_J": 19.287295657,
+              "mean_model_W": 1.9290146459010504,
+              "normalized_J60": 115.74087875406302
+            }
+          }
+        },
+        "secondary_active_minus_exposure_weighted_still_J60": {
+          "CPU Energy": 348.6359191562647,
+          "GPU Energy": 61.452987666743255,
+          "CPU+GPU named sum": 410.088906823008,
+          "ANE0": 0.0
+        }
+      },
+      "observers": {
+        "runner_parent": {
+          "cpu_ns": 1430687000,
+          "elapsed_ns": 146405870874,
+          "one_core_cpu_percent": 0.977206031055462
+        },
+        "collector": {
+          "cpu_ns": 258502000,
+          "elapsed_ns": 126986741625,
+          "one_core_cpu_percent": 0.20356613351287728
+        },
+        "native_driver": {
+          "cpu_ns": 411931000,
+          "elapsed_ns": 130004639229.125,
+          "one_core_cpu_percent": 0.3168586924609648
+        },
+        "outer_controller": {
+          "cpu_ns": 61474000,
+          "elapsed_ns": 146892912417,
+          "one_core_cpu_percent": 0.04184953445914902
+        }
+      },
+      "same_app_pid_cpu": {
+        "cpu_seconds": 39.49,
+        "snapshot_midpoint_exposure_seconds": 127.031980833,
+        "one_core_cpu_percent": 31.086660021396284,
+        "ps_start": "0:06.37",
+        "ps_end": "0:45.86"
+      },
+      "daemon_cpu_centiseconds": 0
+    },
+    {
+      "slot": 2,
+      "condition": "fork",
+      "pid": 60075,
+      "windows": {
+        "idle_before": {
+          "offsets_s": [
+            5,
+            15
+          ],
+          "exposure_ns_x2": 20003065584,
+          "exposure_seconds": 10.001532792,
+          "exposure_bounds_ns": [
+            9999324667,
+            10003740917
+          ],
+          "endpoint_brackets_ns": [
+            [
+              377860172863541,
+              377860175041708
+            ],
+            [
+              377870174366375,
+              377870176604458
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 39303752908,
+              "raw_J": 39.303752908,
+              "mean_model_W": 3.9297729383478286,
+              "normalized_J60": 235.7863763008697
+            },
+            "GPU Energy": {
+              "raw_nj": 538718694,
+              "raw_J": 0.538718694,
+              "mean_model_W": 0.05386361322845523,
+              "normalized_J60": 3.231816793707314
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 517714072,
+              "raw_J": 0.517714072,
+              "mean_model_W": 0.05176347293627911,
+              "normalized_J60": 3.1058083761767463
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 39842471602,
+              "raw_J": 39.842471602,
+              "mean_model_W": 3.9836365515762835,
+              "normalized_J60": 239.01819309457701
+            }
+          }
+        },
+        "active_core": {
+          "offsets_s": [
+            35,
+            95
+          ],
+          "exposure_ns_x2": 120000044501,
+          "exposure_seconds": 60.0000222505,
+          "exposure_bounds_ns": [
+            59999534292,
+            60000510209
+          ],
+          "endpoint_brackets_ns": [
+            [
+              377890174338166,
+              377890174806916
+            ],
+            [
+              377950174341208,
+              377950174848375
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 588076340728,
+              "raw_J": 588.076340728,
+              "mean_model_W": 9.801268710747843,
+              "normalized_J60": 588.0761226448706
+            },
+            "GPU Energy": {
+              "raw_nj": 45617219683,
+              "raw_J": 45.617219683,
+              "mean_model_W": 0.7602867127706749,
+              "normalized_J60": 45.617202766240496
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 44363193546,
+              "raw_J": 44.363193546,
+              "mean_model_W": 0.7393862849047578,
+              "normalized_J60": 44.36317709428547
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 633693560411,
+              "raw_J": 633.693560411,
+              "mean_model_W": 10.561555423518518,
+              "normalized_J60": 633.693325411111
+            }
+          }
+        },
+        "idle_after": {
+          "offsets_s": [
+            115,
+            125
+          ],
+          "exposure_ns_x2": 19999623542,
+          "exposure_seconds": 9.999811771,
+          "exposure_bounds_ns": [
+            9998225125,
+            10001398417
+          ],
+          "endpoint_brackets_ns": [
+            [
+              377970170776791,
+              377970172093291
+            ],
+            [
+              377980170318416,
+              377980172175208
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 26515596349,
+              "raw_J": 26.515596349,
+              "mean_model_W": 2.651609545881321,
+              "normalized_J60": 159.09657275287927
+            },
+            "GPU Energy": {
+              "raw_nj": 578048849,
+              "raw_J": 0.578048849,
+              "mean_model_W": 0.05780597297604873,
+              "normalized_J60": 3.468358378562924
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 558158551,
+              "raw_J": 0.558158551,
+              "mean_model_W": 0.055816905736034976,
+              "normalized_J60": 3.3490143441620988
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 27093645198,
+              "raw_J": 27.093645198,
+              "mean_model_W": 2.70941551885737,
+              "normalized_J60": 162.5649311314422
+            }
+          }
+        },
+        "secondary_active_minus_exposure_weighted_still_J60": {
+          "CPU Energy": 390.63134872074863,
+          "GPU Energy": 42.267125356747094,
+          "CPU+GPU named sum": 432.89847407749573,
+          "ANE0": 0.0
+        }
+      },
+      "observers": {
+        "runner_parent": {
+          "cpu_ns": 1322783000,
+          "elapsed_ns": 161348904000,
+          "one_core_cpu_percent": 0.8198276946461316
+        },
+        "collector": {
+          "cpu_ns": 190604000,
+          "elapsed_ns": 126981990500,
+          "one_core_cpu_percent": 0.15010317545778273
+        },
+        "native_driver": {
+          "cpu_ns": 198086000,
+          "elapsed_ns": 130006111500.0,
+          "one_core_cpu_percent": 0.15236668316166044
+        },
+        "outer_controller": {
+          "cpu_ns": 70804000,
+          "elapsed_ns": 161721345166,
+          "one_core_cpu_percent": 0.04378148099579727
+        }
+      },
+      "same_app_pid_cpu": {
+        "cpu_seconds": 39.65,
+        "snapshot_midpoint_exposure_seconds": 126.854075625,
+        "one_core_cpu_percent": 31.25638636728665,
+        "ps_start": "0:11.37",
+        "ps_end": "0:51.02"
+      },
+      "daemon_cpu_centiseconds": 0
+    },
+    {
+      "slot": 3,
+      "condition": "fork",
+      "pid": 60585,
+      "windows": {
+        "idle_before": {
+          "offsets_s": [
+            5,
+            15
+          ],
+          "exposure_ns_x2": 19999746584,
+          "exposure_seconds": 9.999873292,
+          "exposure_bounds_ns": [
+            9997887459,
+            10001859125
+          ],
+          "endpoint_brackets_ns": [
+            [
+              378022966215958,
+              378022968172291
+            ],
+            [
+              378032966059750,
+              378032968075083
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 31517285099,
+              "raw_J": 31.517285099,
+              "mean_model_W": 3.151768445327617,
+              "normalized_J60": 189.10610671965702
+            },
+            "GPU Energy": {
+              "raw_nj": 528891405,
+              "raw_J": 0.528891405,
+              "mean_model_W": 0.052889810656212864,
+              "normalized_J60": 3.1733886393727717
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 510666301,
+              "raw_J": 0.510666301,
+              "mean_model_W": 0.05106727716325548,
+              "normalized_J60": 3.064036629795329
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 32046176504,
+              "raw_J": 32.046176504,
+              "mean_model_W": 3.20465825598383,
+              "normalized_J60": 192.2794953590298
+            }
+          }
+        },
+        "active_core": {
+          "offsets_s": [
+            35,
+            95
+          ],
+          "exposure_ns_x2": 120006600251,
+          "exposure_seconds": 60.0033001255,
+          "exposure_bounds_ns": [
+            60002803167,
+            60003797084
+          ],
+          "endpoint_brackets_ns": [
+            [
+              378052967409666,
+              378052967942541
+            ],
+            [
+              378112970745708,
+              378112971206750
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 609182136380,
+              "raw_J": 609.18213638,
+              "mean_model_W": 10.152477198851798,
+              "normalized_J60": 609.148631931108
+            },
+            "GPU Energy": {
+              "raw_nj": 48810661785,
+              "raw_J": 48.810661785,
+              "mean_model_W": 0.8134662874026926,
+              "normalized_J60": 48.80797724416155
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 48235872231,
+              "raw_J": 48.235872231,
+              "mean_model_W": 0.8038869883841753,
+              "normalized_J60": 48.23321930305052
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 657992798165,
+              "raw_J": 657.992798165,
+              "mean_model_W": 10.96594348625449,
+              "normalized_J60": 657.9566091752695
+            }
+          }
+        },
+        "idle_after": {
+          "offsets_s": [
+            115,
+            125
+          ],
+          "exposure_ns_x2": 20002551126,
+          "exposure_seconds": 10.001275563,
+          "exposure_bounds_ns": [
+            10000038584,
+            10002512542
+          ],
+          "endpoint_brackets_ns": [
+            [
+              378132969439041,
+              378132970124541
+            ],
+            [
+              378142970163125,
+              378142971951583
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 26446862002,
+              "raw_J": 26.446862002,
+              "mean_model_W": 2.6443488968388102,
+              "normalized_J60": 158.6609338103286
+            },
+            "GPU Energy": {
+              "raw_nj": 833012704,
+              "raw_J": 0.833012704,
+              "mean_model_W": 0.08329064615335206,
+              "normalized_J60": 4.997438769201124
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 801536452,
+              "raw_J": 0.801536452,
+              "mean_model_W": 0.08014342240156912,
+              "normalized_J60": 4.808605344094147
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 27279874706,
+              "raw_J": 27.279874706,
+              "mean_model_W": 2.7276395429921623,
+              "normalized_J60": 163.65837257952973
+            }
+          }
+        },
+        "secondary_active_minus_exposure_weighted_still_J60": {
+          "CPU Energy": 435.26617891438593,
+          "GPU Energy": 44.722499598232595,
+          "CPU+GPU named sum": 479.98867851261855,
+          "ANE0": 0.0
+        }
+      },
+      "observers": {
+        "runner_parent": {
+          "cpu_ns": 1322866000,
+          "elapsed_ns": 161236789957,
+          "one_core_cpu_percent": 0.8204492289587216
+        },
+        "collector": {
+          "cpu_ns": 194645000,
+          "elapsed_ns": 126984686583,
+          "one_core_cpu_percent": 0.15328226200942405
+        },
+        "native_driver": {
+          "cpu_ns": 201352000,
+          "elapsed_ns": 130005578645.8125,
+          "one_core_cpu_percent": 0.15487950755449031
+        },
+        "outer_controller": {
+          "cpu_ns": 74354000,
+          "elapsed_ns": 161464988167,
+          "one_core_cpu_percent": 0.04604961164899548
+        }
+      },
+      "same_app_pid_cpu": {
+        "cpu_seconds": 40.55,
+        "snapshot_midpoint_exposure_seconds": 127.089924542,
+        "one_core_cpu_percent": 31.90654188058728,
+        "ps_start": "0:11.46",
+        "ps_end": "0:52.01"
+      },
+      "daemon_cpu_centiseconds": 0
+    },
+    {
+      "slot": 4,
+      "condition": "gitcomet",
+      "pid": 61093,
+      "windows": {
+        "idle_before": {
+          "offsets_s": [
+            5,
+            15
+          ],
+          "exposure_ns_x2": 19999664917,
+          "exposure_seconds": 9.9998324585,
+          "exposure_bounds_ns": [
+            9997481542,
+            10002183375
+          ],
+          "endpoint_brackets_ns": [
+            [
+              378170754405125,
+              378170756918083
+            ],
+            [
+              378180754399625,
+              378180756588500
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 13722877602,
+              "raw_J": 13.722877602,
+              "mean_model_W": 1.3723107521001874,
+              "normalized_J60": 82.33864512601124
+            },
+            "GPU Energy": {
+              "raw_nj": 467760886,
+              "raw_J": 0.467760886,
+              "mean_model_W": 0.046776872306735155,
+              "normalized_J60": 2.8066123384041095
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 448748308,
+              "raw_J": 0.448748308,
+              "mean_model_W": 0.04487558265224309,
+              "normalized_J60": 2.6925349591345857
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 14190638488,
+              "raw_J": 14.190638488,
+              "mean_model_W": 1.4190876244069224,
+              "normalized_J60": 85.14525746441535
+            }
+          }
+        },
+        "active_core": {
+          "offsets_s": [
+            35,
+            95
+          ],
+          "exposure_ns_x2": 119998976792,
+          "exposure_seconds": 59.999488396,
+          "exposure_bounds_ns": [
+            59998648542,
+            60000328250
+          ],
+          "endpoint_brackets_ns": [
+            [
+              378200754377875,
+              378200754870666
+            ],
+            [
+              378260753519208,
+              378260754706125
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 469763071548,
+              "raw_J": 469.763071548,
+              "mean_model_W": 7.829451285443257,
+              "normalized_J60": 469.76707712659544
+            },
+            "GPU Energy": {
+              "raw_nj": 65825351401,
+              "raw_J": 65.825351401,
+              "mean_model_W": 1.0970985446833976,
+              "normalized_J60": 65.82591268100386
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 65498955456,
+              "raw_J": 65.498955456,
+              "mean_model_W": 1.0916585658814824,
+              "normalized_J60": 65.49951395288893
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 535588422949,
+              "raw_J": 535.588422949,
+              "mean_model_W": 8.926549830126655,
+              "normalized_J60": 535.5929898075993
+            }
+          }
+        },
+        "idle_after": {
+          "offsets_s": [
+            115,
+            125
+          ],
+          "exposure_ns_x2": 20008323708,
+          "exposure_seconds": 10.004161854,
+          "exposure_bounds_ns": [
+            10002697333,
+            10005626375
+          ],
+          "endpoint_brackets_ns": [
+            [
+              378280750976208,
+              378280751690833
+            ],
+            [
+              378290754388166,
+              378290756602583
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 20465738456,
+              "raw_J": 20.465738456,
+              "mean_model_W": 2.0457224457856116,
+              "normalized_J60": 122.7433467471367
+            },
+            "GPU Energy": {
+              "raw_nj": 448503596,
+              "raw_J": 0.448503596,
+              "mean_model_W": 0.04483170130046159,
+              "normalized_J60": 2.6899020780276954
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 428097717,
+              "raw_J": 0.428097717,
+              "mean_model_W": 0.042791962310049204,
+              "normalized_J60": 2.5675177386029526
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 20914242052,
+              "raw_J": 20.914242052,
+              "mean_model_W": 2.090554147086073,
+              "normalized_J60": 125.4332488251644
+            }
+          }
+        },
+        "secondary_active_minus_exposure_weighted_still_J60": {
+          "CPU Energy": 367.2217088649087,
+          "GPU Energy": 63.07766810238753,
+          "CPU+GPU named sum": 430.2993769672962,
+          "ANE0": 0.0
+        }
+      },
+      "observers": {
+        "runner_parent": {
+          "cpu_ns": 1428063000,
+          "elapsed_ns": 146407196790,
+          "one_core_cpu_percent": 0.975404919505665
+        },
+        "collector": {
+          "cpu_ns": 262576000,
+          "elapsed_ns": 126983952125,
+          "one_core_cpu_percent": 0.20677888473775521
+        },
+        "native_driver": {
+          "cpu_ns": 451312000,
+          "elapsed_ns": 130006694062.5,
+          "one_core_cpu_percent": 0.3471452014486533
+        },
+        "outer_controller": {
+          "cpu_ns": 63417000,
+          "elapsed_ns": 146832380959,
+          "one_core_cpu_percent": 0.043190064470661906
+        }
+      },
+      "same_app_pid_cpu": {
+        "cpu_seconds": 39.26,
+        "snapshot_midpoint_exposure_seconds": 126.9839203125,
+        "one_core_cpu_percent": 30.917300319113977,
+        "ps_start": "0:06.16",
+        "ps_end": "0:45.42"
+      },
+      "daemon_cpu_centiseconds": 0
+    },
+    {
+      "slot": 5,
+      "condition": "fork",
+      "pid": 61695,
+      "windows": {
+        "idle_before": {
+          "offsets_s": [
+            5,
+            15
+          ],
+          "exposure_ns_x2": 19993165791,
+          "exposure_seconds": 9.9965828955,
+          "exposure_bounds_ns": [
+            9995143916,
+            9998021875
+          ],
+          "endpoint_brackets_ns": [
+            [
+              378333644331916,
+              378333645407125
+            ],
+            [
+              378343640551041,
+              378343642353791
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 34452475096,
+              "raw_J": 34.452475096,
+              "mean_model_W": 3.4464251891022593,
+              "normalized_J60": 206.78551134613556
+            },
+            "GPU Energy": {
+              "raw_nj": 470080135,
+              "raw_J": 0.470080135,
+              "mean_model_W": 0.04702408212026215,
+              "normalized_J60": 2.821444927215729
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 451897480,
+              "raw_J": 0.45189748,
+              "mean_model_W": 0.04520519508755571,
+              "normalized_J60": 2.7123117052533425
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 34922555231,
+              "raw_J": 34.922555231,
+              "mean_model_W": 3.493449271222522,
+              "normalized_J60": 209.6069562733513
+            }
+          }
+        },
+        "active_core": {
+          "offsets_s": [
+            35,
+            95
+          ],
+          "exposure_ns_x2": 120000025750,
+          "exposure_seconds": 60.000012875,
+          "exposure_bounds_ns": [
+            59999548292,
+            60000477458
+          ],
+          "endpoint_brackets_ns": [
+            [
+              378363644317375,
+              378363644771666
+            ],
+            [
+              378423644319958,
+              378423644794833
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 590621583544,
+              "raw_J": 590.621583544,
+              "mean_model_W": 9.84369094677465,
+              "normalized_J60": 590.621456806479
+            },
+            "GPU Energy": {
+              "raw_nj": 46622414183,
+              "raw_J": 46.622414183,
+              "mean_model_W": 0.777040069643485,
+              "normalized_J60": 46.6224041786091
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 46139780338,
+              "raw_J": 46.139780338,
+              "mean_model_W": 0.7689961739529043,
+              "normalized_J60": 46.13977043717426
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 637243997727,
+              "raw_J": 637.243997727,
+              "mean_model_W": 10.620731016418135,
+              "normalized_J60": 637.2438609850882
+            }
+          }
+        },
+        "idle_after": {
+          "offsets_s": [
+            115,
+            125
+          ],
+          "exposure_ns_x2": 20001774292,
+          "exposure_seconds": 10.000887146,
+          "exposure_bounds_ns": [
+            9999279125,
+            10002495167
+          ],
+          "endpoint_brackets_ns": [
+            [
+              378443641503291,
+              378443643150875
+            ],
+            [
+              378453642430000,
+              378453643998458
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 22722631403,
+              "raw_J": 22.722631403,
+              "mean_model_W": 2.272061575266175,
+              "normalized_J60": 136.3236945159705
+            },
+            "GPU Energy": {
+              "raw_nj": 580848661,
+              "raw_J": 0.580848661,
+              "mean_model_W": 0.05807971358144151,
+              "normalized_J60": 3.4847828148864903
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 559982239,
+              "raw_J": 0.559982239,
+              "mean_model_W": 0.05599325648064862,
+              "normalized_J60": 3.359595388838917
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 23303480064,
+              "raw_J": 23.303480064,
+              "mean_model_W": 2.3301412888476163,
+              "normalized_J60": 139.808477330857
+            }
+          }
+        },
+        "secondary_active_minus_exposure_weighted_still_J60": {
+          "CPU Energy": 419.0744369674295,
+          "GPU Energy": 43.46921891921665,
+          "CPU+GPU named sum": 462.54365588664615,
+          "ANE0": 0.0
+        }
+      },
+      "observers": {
+        "runner_parent": {
+          "cpu_ns": 1304118000,
+          "elapsed_ns": 161336582624,
+          "one_core_cpu_percent": 0.8083213235272797
+        },
+        "collector": {
+          "cpu_ns": 188983000,
+          "elapsed_ns": 126988065417,
+          "one_core_cpu_percent": 0.1488194968396618
+        },
+        "native_driver": {
+          "cpu_ns": 164185000,
+          "elapsed_ns": 130003373083.3125,
+          "one_core_cpu_percent": 0.12629287695080207
+        },
+        "outer_controller": {
+          "cpu_ns": 78534000,
+          "elapsed_ns": 161725706792,
+          "one_core_cpu_percent": 0.048559998010090505
+        }
+      },
+      "same_app_pid_cpu": {
+        "cpu_seconds": 39.31,
+        "snapshot_midpoint_exposure_seconds": 127.0757176665,
+        "one_core_cpu_percent": 30.93431280330514,
+        "ps_start": "0:11.21",
+        "ps_end": "0:50.52"
+      },
+      "daemon_cpu_centiseconds": 0
+    },
+    {
+      "slot": 6,
+      "condition": "gitcomet",
+      "pid": 62266,
+      "windows": {
+        "idle_before": {
+          "offsets_s": [
+            5,
+            15
+          ],
+          "exposure_ns_x2": 19993579500,
+          "exposure_seconds": 9.99678975,
+          "exposure_bounds_ns": [
+            9994408292,
+            9999171208
+          ],
+          "endpoint_brackets_ns": [
+            [
+              378481724598583,
+              378481726801541
+            ],
+            [
+              378491721209833,
+              378491723769791
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 18946019108,
+              "raw_J": 18.946019108,
+              "mean_model_W": 1.8952103206932005,
+              "normalized_J60": 113.71261924159204
+            },
+            "GPU Energy": {
+              "raw_nj": 452562191,
+              "raw_J": 0.452562191,
+              "mean_model_W": 0.04527075214320677,
+              "normalized_J60": 2.7162451285924063
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 434453660,
+              "raw_J": 0.43445366,
+              "mean_model_W": 0.04345931752740924,
+              "normalized_J60": 2.607559051644554
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 19398581299,
+              "raw_J": 19.398581299,
+              "mean_model_W": 1.9404810728364073,
+              "normalized_J60": 116.42886437018444
+            }
+          }
+        },
+        "active_core": {
+          "offsets_s": [
+            35,
+            95
+          ],
+          "exposure_ns_x2": 119993893874,
+          "exposure_seconds": 59.996946937,
+          "exposure_bounds_ns": [
+            59995972333,
+            59997921541
+          ],
+          "endpoint_brackets_ns": [
+            [
+              378511723310750,
+              378511724226750
+            ],
+            [
+              378571720199083,
+              378571721232291
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 467807757380,
+              "raw_J": 467.80775738,
+              "mean_model_W": 7.797192711676198,
+              "normalized_J60": 467.8315627005719
+            },
+            "GPU Energy": {
+              "raw_nj": 66054213842,
+              "raw_J": 66.054213842,
+              "mean_model_W": 1.1009595856829257,
+              "normalized_J60": 66.05757514097554
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 65738466664,
+              "raw_J": 65.738466664,
+              "mean_model_W": 1.0956968649259586,
+              "normalized_J60": 65.74181189555752
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 533861971222,
+              "raw_J": 533.861971222,
+              "mean_model_W": 8.898152297359124,
+              "normalized_J60": 533.8891378415474
+            }
+          }
+        },
+        "idle_after": {
+          "offsets_s": [
+            115,
+            125
+          ],
+          "exposure_ns_x2": 19998975583,
+          "exposure_seconds": 9.9994877915,
+          "exposure_bounds_ns": [
+            9998209541,
+            10000766042
+          ],
+          "endpoint_brackets_ns": [
+            [
+              378591724456333,
+              378591725064125
+            ],
+            [
+              378601723273666,
+              378601725222375
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 11976509640,
+              "raw_J": 11.97650964,
+              "mean_model_W": 1.197712311842668,
+              "normalized_J60": 71.86273871056008
+            },
+            "GPU Energy": {
+              "raw_nj": 463020706,
+              "raw_J": 0.463020706,
+              "mean_model_W": 0.04630444235289609,
+              "normalized_J60": 2.7782665411737653
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 447750398,
+              "raw_J": 0.447750398,
+              "mean_model_W": 0.04477733333307405,
+              "normalized_J60": 2.6866399999844433
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 12439530346,
+              "raw_J": 12.439530346,
+              "mean_model_W": 1.2440167541955642,
+              "normalized_J60": 74.64100525173384
+            }
+          }
+        },
+        "secondary_active_minus_exposure_weighted_still_J60": {
+          "CPU Energy": 375.04670706784583,
+          "GPU Energy": 63.310315121905056,
+          "CPU+GPU named sum": 438.35702218975086,
+          "ANE0": 0.0
+        }
+      },
+      "observers": {
+        "runner_parent": {
+          "cpu_ns": 1417971000,
+          "elapsed_ns": 146468478583,
+          "one_core_cpu_percent": 0.9681065944823558
+        },
+        "collector": {
+          "cpu_ns": 255047000,
+          "elapsed_ns": 126982839334,
+          "one_core_cpu_percent": 0.20085154918386713
+        },
+        "native_driver": {
+          "cpu_ns": 412183000,
+          "elapsed_ns": 130005860458.3125,
+          "one_core_cpu_percent": 0.3170495534177631
+        },
+        "outer_controller": {
+          "cpu_ns": 66706000,
+          "elapsed_ns": 146898064541,
+          "one_core_cpu_percent": 0.045409720140582255
+        }
+      },
+      "same_app_pid_cpu": {
+        "cpu_seconds": 39.17,
+        "snapshot_midpoint_exposure_seconds": 127.039004479,
+        "one_core_cpu_percent": 30.83305018064349,
+        "ps_start": "0:06.15",
+        "ps_end": "0:45.32"
+      },
+      "daemon_cpu_centiseconds": 0
+    },
+    {
+      "slot": 7,
+      "condition": "gitcomet",
+      "pid": 62863,
+      "windows": {
+        "idle_before": {
+          "offsets_s": [
+            5,
+            15
+          ],
+          "exposure_ns_x2": 19995119875,
+          "exposure_seconds": 9.9975599375,
+          "exposure_bounds_ns": [
+            9995295208,
+            9999824667
+          ],
+          "endpoint_brackets_ns": [
+            [
+              378629737897541,
+              378629740812500
+            ],
+            [
+              378639736107708,
+              378639737722208
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 29803354337,
+              "raw_J": 29.803354337,
+              "mean_model_W": 2.9810628316625682,
+              "normalized_J60": 178.8637698997541
+            },
+            "GPU Energy": {
+              "raw_nj": 450640957,
+              "raw_J": 0.450640957,
+              "mean_model_W": 0.045075094304729696,
+              "normalized_J60": 2.7045056582837814
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 433863235,
+              "raw_J": 0.433863235,
+              "mean_model_W": 0.043396912617909476,
+              "normalized_J60": 2.603814757074568
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 30253995294,
+              "raw_J": 30.253995294,
+              "mean_model_W": 3.0261379259672982,
+              "normalized_J60": 181.5682755580379
+            }
+          }
+        },
+        "active_core": {
+          "offsets_s": [
+            35,
+            95
+          ],
+          "exposure_ns_x2": 120009942084,
+          "exposure_seconds": 60.004971042,
+          "exposure_bounds_ns": [
+            60004171709,
+            60005770375
+          ],
+          "endpoint_brackets_ns": [
+            [
+              378659736108208,
+              378659736583666
+            ],
+            [
+              378719740755375,
+              378719741878583
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 461110363668,
+              "raw_J": 461.110363668,
+              "mean_model_W": 7.684536058608369,
+              "normalized_J60": 461.07216351650214
+            },
+            "GPU Energy": {
+              "raw_nj": 65570838604,
+              "raw_J": 65.570838604,
+              "mean_model_W": 1.0927567744029776,
+              "normalized_J60": 65.56540646417866
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 65250898208,
+              "raw_J": 65.250898208,
+              "mean_model_W": 1.087424876221141,
+              "normalized_J60": 65.24549257326846
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 526681202272,
+              "raw_J": 526.681202272,
+              "mean_model_W": 8.777292833011346,
+              "normalized_J60": 526.6375699806808
+            }
+          }
+        },
+        "idle_after": {
+          "offsets_s": [
+            115,
+            125
+          ],
+          "exposure_ns_x2": 20007953291,
+          "exposure_seconds": 10.0039766455,
+          "exposure_bounds_ns": [
+            10003305791,
+            10004647500
+          ],
+          "endpoint_brackets_ns": [
+            [
+              378739736865375,
+              378739737383000
+            ],
+            [
+              378749740688791,
+              378749741512875
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 12594892566,
+              "raw_J": 12.594892566,
+              "mean_model_W": 1.2589886014643437,
+              "normalized_J60": 75.53931608786061
+            },
+            "GPU Energy": {
+              "raw_nj": 509799217,
+              "raw_J": 0.509799217,
+              "mean_model_W": 0.050959656850990194,
+              "normalized_J60": 3.057579411059412
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 487342577,
+              "raw_J": 0.487342577,
+              "mean_model_W": 0.04871488551697259,
+              "normalized_J60": 2.9228931310183555
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 13104691783,
+              "raw_J": 13.104691783,
+              "mean_model_W": 1.3099482583153337,
+              "normalized_J60": 78.59689549892002
+            }
+          }
+        },
+        "secondary_active_minus_exposure_weighted_still_J60": {
+          "CPU Energy": 333.88719432057826,
+          "GPU Energy": 62.68430729457892,
+          "CPU+GPU named sum": 396.57150161515716,
+          "ANE0": 0.0
+        }
+      },
+      "observers": {
+        "runner_parent": {
+          "cpu_ns": 1448073000,
+          "elapsed_ns": 146442188040,
+          "one_core_cpu_percent": 0.9888359491080982
+        },
+        "collector": {
+          "cpu_ns": 270116000,
+          "elapsed_ns": 126984994875,
+          "one_core_cpu_percent": 0.2127148961701291
+        },
+        "native_driver": {
+          "cpu_ns": 397639000,
+          "elapsed_ns": 130006265604.1875,
+          "one_core_cpu_percent": 0.3058614122573428
+        },
+        "outer_controller": {
+          "cpu_ns": 66533000,
+          "elapsed_ns": 146744476042,
+          "one_core_cpu_percent": 0.045339355725361324
+        }
+      },
+      "same_app_pid_cpu": {
+        "cpu_seconds": 39.33,
+        "snapshot_midpoint_exposure_seconds": 127.164932146,
+        "one_core_cpu_percent": 30.928337975161757,
+        "ps_start": "0:06.04",
+        "ps_end": "0:45.37"
+      },
+      "daemon_cpu_centiseconds": 0
+    },
+    {
+      "slot": 8,
+      "condition": "fork",
+      "pid": 63907,
+      "windows": {
+        "idle_before": {
+          "offsets_s": [
+            5,
+            15
+          ],
+          "exposure_ns_x2": 20008605209,
+          "exposure_seconds": 10.0043026045,
+          "exposure_bounds_ns": [
+            10001936959,
+            10006668250
+          ],
+          "endpoint_brackets_ns": [
+            [
+              378792457042833,
+              378792459453416
+            ],
+            [
+              378802461390375,
+              378802463711083
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 24117415557,
+              "raw_J": 24.117415557,
+              "mean_model_W": 2.4107043249723206,
+              "normalized_J60": 144.64225949833923
+            },
+            "GPU Energy": {
+              "raw_nj": 484997294,
+              "raw_J": 0.484997294,
+              "mean_model_W": 0.04847887085920863,
+              "normalized_J60": 2.9087322515525176
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 470294943,
+              "raw_J": 0.470294943,
+              "mean_model_W": 0.04700926807116553,
+              "normalized_J60": 2.8205560842699318
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 24602412851,
+              "raw_J": 24.602412851,
+              "mean_model_W": 2.459183195831529,
+              "normalized_J60": 147.55099174989175
+            }
+          }
+        },
+        "active_core": {
+          "offsets_s": [
+            35,
+            95
+          ],
+          "exposure_ns_x2": 120000196624,
+          "exposure_seconds": 60.000098312,
+          "exposure_bounds_ns": [
+            59999510416,
+            60000686208
+          ],
+          "endpoint_brackets_ns": [
+            [
+              378822461870583,
+              378822462469875
+            ],
+            [
+              378882461980291,
+              378882462556791
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 601068027296,
+              "raw_J": 601.068027296,
+              "mean_model_W": 10.017784040460256,
+              "normalized_J60": 601.0670424276154
+            },
+            "GPU Energy": {
+              "raw_nj": 46341751140,
+              "raw_J": 46.34175114,
+              "mean_model_W": 0.7723612534603408,
+              "normalized_J60": 46.34167520762045
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 45874441065,
+              "raw_J": 45.874441065,
+              "mean_model_W": 0.7645727649720389,
+              "normalized_J60": 45.87436589832233
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 647409778436,
+              "raw_J": 647.409778436,
+              "mean_model_W": 10.790145293920597,
+              "normalized_J60": 647.4087176352359
+            }
+          }
+        },
+        "idle_after": {
+          "offsets_s": [
+            115,
+            125
+          ],
+          "exposure_ns_x2": 19998836542,
+          "exposure_seconds": 9.999418271,
+          "exposure_bounds_ns": [
+            9997807667,
+            10001028875
+          ],
+          "endpoint_brackets_ns": [
+            [
+              378902461884583,
+              378902463503458
+            ],
+            [
+              378912461311125,
+              378912462913458
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 14445740475,
+              "raw_J": 14.445740475,
+              "mean_model_W": 1.4446580874504555,
+              "normalized_J60": 86.67948524702733
+            },
+            "GPU Energy": {
+              "raw_nj": 545057347,
+              "raw_J": 0.545057347,
+              "mean_model_W": 0.05450890564111697,
+              "normalized_J60": 3.270534338467018
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 527008181,
+              "raw_J": 0.527008181,
+              "mean_model_W": 0.05270388403777574,
+              "normalized_J60": 3.1622330422665446
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 14990797822,
+              "raw_J": 14.990797822,
+              "mean_model_W": 1.4991669930915723,
+              "normalized_J60": 89.95001958549435
+            }
+          }
+        },
+        "secondary_active_minus_exposure_weighted_still_J60": {
+          "CPU Energy": 485.3990936334556,
+          "GPU Energy": 43.25208608344431,
+          "CPU+GPU named sum": 528.6511797169,
+          "ANE0": 0.0
+        }
+      },
+      "observers": {
+        "runner_parent": {
+          "cpu_ns": 1325941000,
+          "elapsed_ns": 161333023125,
+          "one_core_cpu_percent": 0.8218658364646572
+        },
+        "collector": {
+          "cpu_ns": 193076000,
+          "elapsed_ns": 126981261833,
+          "one_core_cpu_percent": 0.15205078073166794
+        },
+        "native_driver": {
+          "cpu_ns": 188057000,
+          "elapsed_ns": 130002479604.1875,
+          "one_core_cpu_percent": 0.14465647160928652
+        },
+        "outer_controller": {
+          "cpu_ns": 82926000,
+          "elapsed_ns": 161656217291,
+          "one_core_cpu_percent": 0.051297748635750616
+        }
+      },
+      "same_app_pid_cpu": {
+        "cpu_seconds": 39.73,
+        "snapshot_midpoint_exposure_seconds": 126.8144626875,
+        "one_core_cpu_percent": 31.329234188299058,
+        "ps_start": "0:11.43",
+        "ps_end": "0:51.16"
+      },
+      "daemon_cpu_centiseconds": 0
+    },
+    {
+      "slot": 9,
+      "condition": "gitcomet",
+      "pid": 64499,
+      "windows": {
+        "idle_before": {
+          "offsets_s": [
+            5,
+            15
+          ],
+          "exposure_ns_x2": 19996613876,
+          "exposure_seconds": 9.998306938,
+          "exposure_bounds_ns": [
+            9996094209,
+            10000519667
+          ],
+          "endpoint_brackets_ns": [
+            [
+              378940400491416,
+              378940402798291
+            ],
+            [
+              378950398892500,
+              378950401011083
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 27057704808,
+              "raw_J": 27.057704808,
+              "mean_model_W": 2.70622866209111,
+              "normalized_J60": 162.37371972546657
+            },
+            "GPU Energy": {
+              "raw_nj": 438231189,
+              "raw_J": 0.438231189,
+              "mean_model_W": 0.04383053968211753,
+              "normalized_J60": 2.6298323809270516
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 417844302,
+              "raw_J": 0.417844302,
+              "mean_model_W": 0.04179150576103268,
+              "normalized_J60": 2.5074903456619606
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 27495935997,
+              "raw_J": 27.495935997,
+              "mean_model_W": 2.7500592017732273,
+              "normalized_J60": 165.00355210639364
+            }
+          }
+        },
+        "active_core": {
+          "offsets_s": [
+            35,
+            95
+          ],
+          "exposure_ns_x2": 120000721750,
+          "exposure_seconds": 60.000360875,
+          "exposure_bounds_ns": [
+            59999533833,
+            60001187917
+          ],
+          "endpoint_brackets_ns": [
+            [
+              378970400458958,
+              378970400940208
+            ],
+            [
+              379030400474041,
+              379030401646875
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 450740843504,
+              "raw_J": 450.740843504,
+              "mean_model_W": 7.512302208365676,
+              "normalized_J60": 450.7381325019406
+            },
+            "GPU Energy": {
+              "raw_nj": 65325443933,
+              "raw_J": 65.325443933,
+              "mean_model_W": 1.0887508505006138,
+              "normalized_J60": 65.32505103003683
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 65009889431,
+              "raw_J": 65.009889431,
+              "mean_model_W": 1.083491640432571,
+              "normalized_J60": 65.00949842595426
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 516066287437,
+              "raw_J": 516.066287437,
+              "mean_model_W": 8.60105305886629,
+              "normalized_J60": 516.0631835319774
+            }
+          }
+        },
+        "idle_after": {
+          "offsets_s": [
+            115,
+            125
+          ],
+          "exposure_ns_x2": 20000677792,
+          "exposure_seconds": 10.000338896,
+          "exposure_bounds_ns": [
+            9998760875,
+            10001916917
+          ],
+          "endpoint_brackets_ns": [
+            [
+              379050399407291,
+              379050401739791
+            ],
+            [
+              379060400500666,
+              379060401324208
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 36185413029,
+              "raw_J": 36.185413029,
+              "mean_model_W": 3.618418676138433,
+              "normalized_J60": 217.10512056830598
+            },
+            "GPU Energy": {
+              "raw_nj": 512814918,
+              "raw_J": 0.512814918,
+              "mean_model_W": 0.05127975394965055,
+              "normalized_J60": 3.076785236979033
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 492118453,
+              "raw_J": 0.492118453,
+              "mean_model_W": 0.04921017758676566,
+              "normalized_J60": 2.9526106552059392
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 36698227947,
+              "raw_J": 36.698227947,
+              "mean_model_W": 3.6696984300880837,
+              "normalized_J60": 220.18190580528503
+            }
+          }
+        },
+        "secondary_active_minus_exposure_weighted_still_J60": {
+          "CPU Energy": 260.99593186909743,
+          "GPU Energy": 62.471719514810594,
+          "CPU+GPU named sum": 323.46765138390805,
+          "ANE0": 0.0
+        }
+      },
+      "observers": {
+        "runner_parent": {
+          "cpu_ns": 1434212000,
+          "elapsed_ns": 146422956124,
+          "one_core_cpu_percent": 0.9794994159149613
+        },
+        "collector": {
+          "cpu_ns": 244723000,
+          "elapsed_ns": 126982402000,
+          "one_core_cpu_percent": 0.19272198048356337
+        },
+        "native_driver": {
+          "cpu_ns": 385853000,
+          "elapsed_ns": 130008090895.875,
+          "one_core_cpu_percent": 0.296791528389594
+        },
+        "outer_controller": {
+          "cpu_ns": 70054000,
+          "elapsed_ns": 146830112458,
+          "one_core_cpu_percent": 0.047710921708950256
+        }
+      },
+      "same_app_pid_cpu": {
+        "cpu_seconds": 39.65,
+        "snapshot_midpoint_exposure_seconds": 126.981530771,
+        "one_core_cpu_percent": 31.225013400968745,
+        "ps_start": "0:06.12",
+        "ps_end": "0:45.77"
+      },
+      "daemon_cpu_centiseconds": 0
+    },
+    {
+      "slot": 10,
+      "condition": "fork",
+      "pid": 65095,
+      "windows": {
+        "idle_before": {
+          "offsets_s": [
+            5,
+            15
+          ],
+          "exposure_ns_x2": 19999719916,
+          "exposure_seconds": 9.999859958,
+          "exposure_bounds_ns": [
+            9997664958,
+            10002054958
+          ],
+          "endpoint_brackets_ns": [
+            [
+              379103234349750,
+              379103236682625
+            ],
+            [
+              379113234347583,
+              379113236404708
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 15847473981,
+              "raw_J": 15.847473981,
+              "mean_model_W": 1.5847695915303137,
+              "normalized_J60": 95.08617549181882
+            },
+            "GPU Energy": {
+              "raw_nj": 506888374,
+              "raw_J": 0.506888374,
+              "mean_model_W": 0.05068954726655783,
+              "normalized_J60": 3.04137283599347
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 488458211,
+              "raw_J": 0.488458211,
+              "mean_model_W": 0.04884650515622751,
+              "normalized_J60": 2.9307903093736507
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 16354362355,
+              "raw_J": 16.354362355,
+              "mean_model_W": 1.6354591387968715,
+              "normalized_J60": 98.12754832781229
+            }
+          }
+        },
+        "active_core": {
+          "offsets_s": [
+            35,
+            95
+          ],
+          "exposure_ns_x2": 120001116875,
+          "exposure_seconds": 60.0005584375,
+          "exposure_bounds_ns": [
+            60000032375,
+            60001084500
+          ],
+          "endpoint_brackets_ns": [
+            [
+              379133233743291,
+              379133234284333
+            ],
+            [
+              379193234316708,
+              379193234827791
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 601450161176,
+              "raw_J": 601.450161176,
+              "mean_model_W": 10.024076055933792,
+              "normalized_J60": 601.4445633560275
+            },
+            "GPU Energy": {
+              "raw_nj": 46256398035,
+              "raw_J": 46.256398035,
+              "mean_model_W": 0.7709327919536499,
+              "normalized_J60": 46.25596751721899
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 45771806890,
+              "raw_J": 45.77180689,
+              "mean_model_W": 0.7628563480401357,
+              "normalized_J60": 45.77138088240814
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 647706559211,
+              "raw_J": 647.706559211,
+              "mean_model_W": 10.795008847887441,
+              "normalized_J60": 647.7005308732465
+            }
+          }
+        },
+        "idle_after": {
+          "offsets_s": [
+            115,
+            125
+          ],
+          "exposure_ns_x2": 19996153708,
+          "exposure_seconds": 9.998076854,
+          "exposure_bounds_ns": [
+            9996619250,
+            9999534458
+          ],
+          "endpoint_brackets_ns": [
+            [
+              379213232026083,
+              379213233045000
+            ],
+            [
+              379223229664250,
+              379223231560541
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 14424773598,
+              "raw_J": 14.424773598,
+              "mean_model_W": 1.4427548226166096,
+              "normalized_J60": 86.56528935699657
+            },
+            "GPU Energy": {
+              "raw_nj": 583619280,
+              "raw_J": 0.58361928,
+              "mean_model_W": 0.058373154009764124,
+              "normalized_J60": 3.5023892405858477
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 562694940,
+              "raw_J": 0.56269494,
+              "mean_model_W": 0.05628031752675303,
+              "normalized_J60": 3.3768190516051817
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 15008392878,
+              "raw_J": 15.008392878,
+              "mean_model_W": 1.5011279766263737,
+              "normalized_J60": 90.06767859758243
+            }
+          }
+        },
+        "secondary_active_minus_exposure_weighted_still_J60": {
+          "CPU Energy": 510.61845105177787,
+          "GPU Energy": 42.98410703205446,
+          "CPU+GPU named sum": 553.6025580838324,
+          "ANE0": 0.0
+        }
+      },
+      "observers": {
+        "runner_parent": {
+          "cpu_ns": 1323671000,
+          "elapsed_ns": 161259707708,
+          "one_core_cpu_percent": 0.8208318239028617
+        },
+        "collector": {
+          "cpu_ns": 195425000,
+          "elapsed_ns": 126983108875,
+          "one_core_cpu_percent": 0.15389842139742618
+        },
+        "native_driver": {
+          "cpu_ns": 333790000,
+          "elapsed_ns": 130001737687.5,
+          "one_core_cpu_percent": 0.25675810642036884
+        },
+        "outer_controller": {
+          "cpu_ns": 90712000,
+          "elapsed_ns": 161630244042,
+          "one_core_cpu_percent": 0.056123159707924634
+        }
+      },
+      "same_app_pid_cpu": {
+        "cpu_seconds": 40.45,
+        "snapshot_midpoint_exposure_seconds": 126.977564146,
+        "one_core_cpu_percent": 31.856021394055258,
+        "ps_start": "0:11.37",
+        "ps_end": "0:51.82"
+      },
+      "daemon_cpu_centiseconds": 0
+    },
+    {
+      "slot": 11,
+      "condition": "fork",
+      "pid": 65602,
+      "windows": {
+        "idle_before": {
+          "offsets_s": [
+            5,
+            15
+          ],
+          "exposure_ns_x2": 19990195542,
+          "exposure_seconds": 9.995097771,
+          "exposure_bounds_ns": [
+            9993838917,
+            9996356625
+          ],
+          "endpoint_brackets_ns": [
+            [
+              379266016765250,
+              379266018054958
+            ],
+            [
+              379276011893875,
+              379276013121875
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 32445768927,
+              "raw_J": 32.445768927,
+              "mean_model_W": 3.246168238707867,
+              "normalized_J60": 194.77009432247203
+            },
+            "GPU Energy": {
+              "raw_nj": 536614562,
+              "raw_J": 0.536614562,
+              "mean_model_W": 0.05368777517684174,
+              "normalized_J60": 3.2212665106105045
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 517518049,
+              "raw_J": 0.517518049,
+              "mean_model_W": 0.05177718726289386,
+              "normalized_J60": 3.1066312357736314
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 32982383489,
+              "raw_J": 32.982383489,
+              "mean_model_W": 3.299856013884709,
+              "normalized_J60": 197.99136083308255
+            }
+          }
+        },
+        "active_core": {
+          "offsets_s": [
+            35,
+            95
+          ],
+          "exposure_ns_x2": 120000202874,
+          "exposure_seconds": 60.000101437,
+          "exposure_bounds_ns": [
+            59999737708,
+            60000465166
+          ],
+          "endpoint_brackets_ns": [
+            [
+              379296016729250,
+              379296016989333
+            ],
+            [
+              379356016727041,
+              379356017194416
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 581438881928,
+              "raw_J": 581.438881928,
+              "mean_model_W": 9.690631648989957,
+              "normalized_J60": 581.4378989393974
+            },
+            "GPU Energy": {
+              "raw_nj": 46766736284,
+              "raw_J": 46.766736284,
+              "mean_model_W": 0.779444286991831,
+              "normalized_J60": 46.76665721950986
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 45517233687,
+              "raw_J": 45.517233687,
+              "mean_model_W": 0.7586192789156034,
+              "normalized_J60": 45.51715673493621
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 628205618212,
+              "raw_J": 628.205618212,
+              "mean_model_W": 10.470075935981788,
+              "normalized_J60": 628.2045561589073
+            }
+          }
+        },
+        "idle_after": {
+          "offsets_s": [
+            115,
+            125
+          ],
+          "exposure_ns_x2": 20006818126,
+          "exposure_seconds": 10.003409063,
+          "exposure_bounds_ns": [
+            10001857292,
+            10004960834
+          ],
+          "endpoint_brackets_ns": [
+            [
+              379376013345041,
+              379376014739583
+            ],
+            [
+              379386016596875,
+              379386018305875
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 43857400860,
+              "raw_J": 43.85740086,
+              "mean_model_W": 4.384245469098838,
+              "normalized_J60": 263.05472814593026
+            },
+            "GPU Energy": {
+              "raw_nj": 510453619,
+              "raw_J": 0.510453619,
+              "mean_model_W": 0.05102796614486503,
+              "normalized_J60": 3.061677968691902
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 490860804,
+              "raw_J": 0.490860804,
+              "mean_model_W": 0.04906935234864743,
+              "normalized_J60": 2.9441611409188457
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 44367854479,
+              "raw_J": 44.367854479,
+              "mean_model_W": 4.435273435243703,
+              "normalized_J60": 266.1164061146222
+            }
+          }
+        },
+        "secondary_active_minus_exposure_weighted_still_J60": {
+          "CPU Energy": 352.51129830756946,
+          "GPU Energy": 43.625218142008784,
+          "CPU+GPU named sum": 396.13651644957827,
+          "ANE0": 0.0
+        }
+      },
+      "observers": {
+        "runner_parent": {
+          "cpu_ns": 1321356000,
+          "elapsed_ns": 161287859292,
+          "one_core_cpu_percent": 0.8192532319545395
+        },
+        "collector": {
+          "cpu_ns": 182636000,
+          "elapsed_ns": 126982265333,
+          "one_core_cpu_percent": 0.14382795859016445
+        },
+        "native_driver": {
+          "cpu_ns": 201540000,
+          "elapsed_ns": 130004947770.8125,
+          "one_core_cpu_percent": 0.15502486901906043
+        },
+        "outer_controller": {
+          "cpu_ns": 86481000,
+          "elapsed_ns": 161659281166,
+          "one_core_cpu_percent": 0.05349584593983001
+        }
+      },
+      "same_app_pid_cpu": {
+        "cpu_seconds": 40.1,
+        "snapshot_midpoint_exposure_seconds": 127.0289336045,
+        "one_core_cpu_percent": 31.567611300941802,
+        "ps_start": "0:11.31",
+        "ps_end": "0:51.41"
+      },
+      "daemon_cpu_centiseconds": 0
+    },
+    {
+      "slot": 12,
+      "condition": "gitcomet",
+      "pid": 66102,
+      "windows": {
+        "idle_before": {
+          "offsets_s": [
+            5,
+            15
+          ],
+          "exposure_ns_x2": 20000737583,
+          "exposure_seconds": 10.0003687915,
+          "exposure_bounds_ns": [
+            9998044416,
+            10002693167
+          ],
+          "endpoint_brackets_ns": [
+            [
+              379414038065458,
+              379414040676625
+            ],
+            [
+              379424038721041,
+              379424040758625
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 10928858347,
+              "raw_J": 10.928858347,
+              "mean_model_W": 1.0928455314857175,
+              "normalized_J60": 65.57073188914305
+            },
+            "GPU Energy": {
+              "raw_nj": 513571014,
+              "raw_J": 0.513571014,
+              "mean_model_W": 0.05135520746360067,
+              "normalized_J60": 3.0813124478160403
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 495245121,
+              "raw_J": 0.495245121,
+              "mean_model_W": 0.04952268574544399,
+              "normalized_J60": 2.9713611447266395
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 11442429361,
+              "raw_J": 11.442429361,
+              "mean_model_W": 1.1442007389493183,
+              "normalized_J60": 68.6520443369591
+            }
+          }
+        },
+        "active_core": {
+          "offsets_s": [
+            35,
+            95
+          ],
+          "exposure_ns_x2": 119998894542,
+          "exposure_seconds": 59.999447271,
+          "exposure_bounds_ns": [
+            59998769875,
+            60000124667
+          ],
+          "endpoint_brackets_ns": [
+            [
+              379444038095291,
+              379444038570166
+            ],
+            [
+              379504037340041,
+              379504038219958
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 481766812940,
+              "raw_J": 481.76681294,
+              "mean_model_W": 8.029520851483845,
+              "normalized_J60": 481.7712510890307
+            },
+            "GPU Energy": {
+              "raw_nj": 65367034902,
+              "raw_J": 65.367034902,
+              "mean_model_W": 1.0894606179746318,
+              "normalized_J60": 65.36763707847791
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 65064255454,
+              "raw_J": 65.064255454,
+              "mean_model_W": 1.0844142473533753,
+              "normalized_J60": 65.06485484120253
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 547133847842,
+              "raw_J": 547.133847842,
+              "mean_model_W": 9.118981469458477,
+              "normalized_J60": 547.1388881675086
+            }
+          }
+        },
+        "idle_after": {
+          "offsets_s": [
+            115,
+            125
+          ],
+          "exposure_ns_x2": 19991147875,
+          "exposure_seconds": 9.9955739375,
+          "exposure_bounds_ns": [
+            9994757750,
+            9996390125
+          ],
+          "endpoint_brackets_ns": [
+            [
+              379524040025916,
+              379524040978458
+            ],
+            [
+              379534035736208,
+              379534036416041
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 19603024402,
+              "raw_J": 19.603024402,
+              "mean_model_W": 1.961170466505791,
+              "normalized_J60": 117.67022799034746
+            },
+            "GPU Energy": {
+              "raw_nj": 498057438,
+              "raw_J": 0.498057438,
+              "mean_model_W": 0.049827797894771965,
+              "normalized_J60": 2.989667873686318
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 478558799,
+              "raw_J": 0.478558799,
+              "mean_model_W": 0.04787707059067512,
+              "normalized_J60": 2.8726242354405076
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 20101081840,
+              "raw_J": 20.10108184,
+              "mean_model_W": 2.010998264400563,
+              "normalized_J60": 120.65989586403377
+            }
+          }
+        },
+        "secondary_active_minus_exposure_weighted_still_J60": {
+          "CPU Energy": 390.15701765340543,
+          "GPU Energy": 62.33213592993889,
+          "CPU+GPU named sum": 452.4891535833443,
+          "ANE0": 0.0
+        }
+      },
+      "observers": {
+        "runner_parent": {
+          "cpu_ns": 1449607000,
+          "elapsed_ns": 146457619749,
+          "one_core_cpu_percent": 0.9897791610189662
+        },
+        "collector": {
+          "cpu_ns": 241005000,
+          "elapsed_ns": 126984158625,
+          "one_core_cpu_percent": 0.18979139020932345
+        },
+        "native_driver": {
+          "cpu_ns": 434539000,
+          "elapsed_ns": 130005656770.8125,
+          "one_core_cpu_percent": 0.33424622496700324
+        },
+        "outer_controller": {
+          "cpu_ns": 73427000,
+          "elapsed_ns": 146850092834,
+          "one_core_cpu_percent": 0.050001330324661225
+        }
+      },
+      "same_app_pid_cpu": {
+        "cpu_seconds": 39.51,
+        "snapshot_midpoint_exposure_seconds": 126.975198083,
+        "one_core_cpu_percent": 31.116312946543673,
+        "ps_start": "0:06.12",
+        "ps_end": "0:45.63"
+      },
+      "daemon_cpu_centiseconds": 0
+    },
+    {
+      "slot": 13,
+      "condition": "fork",
+      "pid": 66707,
+      "windows": {
+        "idle_before": {
+          "offsets_s": [
+            5,
+            15
+          ],
+          "exposure_ns_x2": 19999403083,
+          "exposure_seconds": 9.9997015415,
+          "exposure_bounds_ns": [
+            9998849166,
+            10000553917
+          ],
+          "endpoint_brackets_ns": [
+            [
+              379576873717958,
+              379576874873125
+            ],
+            [
+              379586873722291,
+              379586874271875
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 24081661503,
+              "raw_J": 24.081661503,
+              "mean_model_W": 2.4082380262108947,
+              "normalized_J60": 144.49428157265368
+            },
+            "GPU Energy": {
+              "raw_nj": 540004424,
+              "raw_J": 0.540004424,
+              "mean_model_W": 0.05400205413720747,
+              "normalized_J60": 3.2401232482324485
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 522967818,
+              "raw_J": 0.522967818,
+              "mean_model_W": 0.05229834268849113,
+              "normalized_J60": 3.137900561309468
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 24621665927,
+              "raw_J": 24.621665927,
+              "mean_model_W": 2.462240080348102,
+              "normalized_J60": 147.7344048208861
+            }
+          }
+        },
+        "active_core": {
+          "offsets_s": [
+            35,
+            95
+          ],
+          "exposure_ns_x2": 120000037709,
+          "exposure_seconds": 60.0000188545,
+          "exposure_bounds_ns": [
+            59999503250,
+            60000534459
+          ],
+          "endpoint_brackets_ns": [
+            [
+              379606873703166,
+              379606874196208
+            ],
+            [
+              379666873699458,
+              379666874237625
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 553352495180,
+              "raw_J": 553.35249518,
+              "mean_model_W": 9.222538688227406,
+              "normalized_J60": 553.3523212936443
+            },
+            "GPU Energy": {
+              "raw_nj": 40315595167,
+              "raw_J": 40.315595167,
+              "mean_model_W": 0.6719263749694028,
+              "normalized_J60": 40.31558249816416
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 39906865572,
+              "raw_J": 39.906865572,
+              "mean_model_W": 0.6651142171933999,
+              "normalized_J60": 39.906853031603994
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 593668090347,
+              "raw_J": 593.668090347,
+              "mean_model_W": 9.894465063196808,
+              "normalized_J60": 593.6679037918085
+            }
+          }
+        },
+        "idle_after": {
+          "offsets_s": [
+            115,
+            125
+          ],
+          "exposure_ns_x2": 19994440167,
+          "exposure_seconds": 9.9972200835,
+          "exposure_bounds_ns": [
+            9995029875,
+            9999410292
+          ],
+          "endpoint_brackets_ns": [
+            [
+              379686873800708,
+              379686876063833
+            ],
+            [
+              379696871093708,
+              379696873211000
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 23269879212,
+              "raw_J": 23.269879212,
+              "mean_model_W": 2.3276349842898805,
+              "normalized_J60": 139.65809905739283
+            },
+            "GPU Energy": {
+              "raw_nj": 501283179,
+              "raw_J": 0.501283179,
+              "mean_model_W": 0.05014225702876615,
+              "normalized_J60": 3.008535421725969
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 480804491,
+              "raw_J": 0.480804491,
+              "mean_model_W": 0.04809381878003746,
+              "normalized_J60": 2.885629126802248
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 23771162391,
+              "raw_J": 23.771162391,
+              "mean_model_W": 2.3777772413186464,
+              "normalized_J60": 142.66663447911878
+            }
+          }
+        },
+        "secondary_active_minus_exposure_weighted_still_J60": {
+          "CPU Energy": 411.2758309128405,
+          "GPU Energy": 37.19123879408666,
+          "CPU+GPU named sum": 448.4670697069272,
+          "ANE0": 0.0
+        }
+      },
+      "observers": {
+        "runner_parent": {
+          "cpu_ns": 1319247000,
+          "elapsed_ns": 161342503583,
+          "one_core_cpu_percent": 0.8176686060417645
+        },
+        "collector": {
+          "cpu_ns": 199495000,
+          "elapsed_ns": 126982281208,
+          "one_core_cpu_percent": 0.15710459609181412
+        },
+        "native_driver": {
+          "cpu_ns": 225583000,
+          "elapsed_ns": 130007249604.1875,
+          "one_core_cpu_percent": 0.1735157083061113
+        },
+        "outer_controller": {
+          "cpu_ns": 84490000,
+          "elapsed_ns": 161607345625,
+          "one_core_cpu_percent": 0.05228103937555778
+        }
+      },
+      "same_app_pid_cpu": {
+        "cpu_seconds": 38.02,
+        "snapshot_midpoint_exposure_seconds": 127.002334875,
+        "one_core_cpu_percent": 29.93645749695907,
+        "ps_start": "0:11.38",
+        "ps_end": "0:49.40"
+      },
+      "daemon_cpu_centiseconds": 0
+    },
+    {
+      "slot": 14,
+      "condition": "gitcomet",
+      "pid": 67216,
+      "windows": {
+        "idle_before": {
+          "offsets_s": [
+            5,
+            15
+          ],
+          "exposure_ns_x2": 20001578750,
+          "exposure_seconds": 10.000789375,
+          "exposure_bounds_ns": [
+            9998380375,
+            10003198375
+          ],
+          "endpoint_brackets_ns": [
+            [
+              379724745241583,
+              379724747626125
+            ],
+            [
+              379734746006500,
+              379734748439958
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 19483503769,
+              "raw_J": 19.483503769,
+              "mean_model_W": 1.9481965911315875,
+              "normalized_J60": 116.89179546789525
+            },
+            "GPU Energy": {
+              "raw_nj": 439312346,
+              "raw_J": 0.439312346,
+              "mean_model_W": 0.04392776705188834,
+              "normalized_J60": 2.6356660231133007
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 421641193,
+              "raw_J": 0.421641193,
+              "mean_model_W": 0.04216079123254208,
+              "normalized_J60": 2.529647473952525
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 19922816115,
+              "raw_J": 19.922816115,
+              "mean_model_W": 1.992124358183476,
+              "normalized_J60": 119.52746149100855
+            }
+          }
+        },
+        "active_core": {
+          "offsets_s": [
+            35,
+            95
+          ],
+          "exposure_ns_x2": 120006332916,
+          "exposure_seconds": 60.003166458,
+          "exposure_bounds_ns": [
+            60002273041,
+            60004059875
+          ],
+          "endpoint_brackets_ns": [
+            [
+              379754741400708,
+              379754741916375
+            ],
+            [
+              379814744189416,
+              379814745460583
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 462889384368,
+              "raw_J": 462.889384368,
+              "mean_model_W": 7.714415949898335,
+              "normalized_J60": 462.86495699390014
+            },
+            "GPU Energy": {
+              "raw_nj": 63918606169,
+              "raw_J": 63.918606169,
+              "mean_model_W": 1.0652538847885746,
+              "normalized_J60": 63.91523308731448
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 64728005770,
+              "raw_J": 64.72800577,
+              "mean_model_W": 1.078743166251188,
+              "normalized_J60": 64.72458997507128
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 526807990537,
+              "raw_J": 526.807990537,
+              "mean_model_W": 8.77966983468691,
+              "normalized_J60": 526.7801900812146
+            }
+          }
+        },
+        "idle_after": {
+          "offsets_s": [
+            115,
+            125
+          ],
+          "exposure_ns_x2": 20009188625,
+          "exposure_seconds": 10.0045943125,
+          "exposure_bounds_ns": [
+            10004071250,
+            10005117375
+          ],
+          "endpoint_brackets_ns": [
+            [
+              379834741378416,
+              379834741912250
+            ],
+            [
+              379844745983500,
+              379844746495791
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 19178777001,
+              "raw_J": 19.178777001,
+              "mean_model_W": 1.9169969717850066,
+              "normalized_J60": 115.0198183071004
+            },
+            "GPU Energy": {
+              "raw_nj": 411549673,
+              "raw_J": 0.411549673,
+              "mean_model_W": 0.04113606810481052,
+              "normalized_J60": 2.468164086288631
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 393857416,
+              "raw_J": 0.393857416,
+              "mean_model_W": 0.039367654869113915,
+              "normalized_J60": 2.362059292146835
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 19590326674,
+              "raw_J": 19.590326674,
+              "mean_model_W": 1.9581330398898171,
+              "normalized_J60": 117.48798239338903
+            }
+          }
+        },
+        "secondary_active_minus_exposure_weighted_still_J60": {
+          "CPU Energy": 346.9093281273843,
+          "GPU Energy": 61.363333961685676,
+          "CPU+GPU named sum": 408.27266208906997,
+          "ANE0": 0.0
+        }
+      },
+      "observers": {
+        "runner_parent": {
+          "cpu_ns": 1443315000,
+          "elapsed_ns": 146448856000,
+          "one_core_cpu_percent": 0.9855420106525107
+        },
+        "collector": {
+          "cpu_ns": 259365000,
+          "elapsed_ns": 126986688833,
+          "one_core_cpu_percent": 0.20424581693053712
+        },
+        "native_driver": {
+          "cpu_ns": 392355000,
+          "elapsed_ns": 130008582770.875,
+          "one_core_cpu_percent": 0.3017916137825147
+        },
+        "outer_controller": {
+          "cpu_ns": 74299000,
+          "elapsed_ns": 146825696250,
+          "one_core_cpu_percent": 0.05060354004621313
+        }
+      },
+      "same_app_pid_cpu": {
+        "cpu_seconds": 39.27,
+        "snapshot_midpoint_exposure_seconds": 126.9496982495,
+        "one_core_cpu_percent": 30.93351188816604,
+        "ps_start": "0:06.12",
+        "ps_end": "0:45.39"
+      },
+      "daemon_cpu_centiseconds": 0
+    },
+    {
+      "slot": 15,
+      "condition": "gitcomet",
+      "pid": 67871,
+      "windows": {
+        "idle_before": {
+          "offsets_s": [
+            5,
+            15
+          ],
+          "exposure_ns_x2": 20008426041,
+          "exposure_seconds": 10.0042130205,
+          "exposure_bounds_ns": [
+            10002271041,
+            10006155000
+          ],
+          "endpoint_brackets_ns": [
+            [
+              379872738642916,
+              379872740623625
+            ],
+            [
+              379882742894666,
+              379882744797916
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 24658399561,
+              "raw_J": 24.658399561,
+              "mean_model_W": 2.4648015301624993,
+              "normalized_J60": 147.88809180974997
+            },
+            "GPU Energy": {
+              "raw_nj": 431264639,
+              "raw_J": 0.431264639,
+              "mean_model_W": 0.043108302283875785,
+              "normalized_J60": 2.586498137032547
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 416426321,
+              "raw_J": 0.416426321,
+              "mean_model_W": 0.04162509536199255,
+              "normalized_J60": 2.497505721719553
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 25089664200,
+              "raw_J": 25.0896642,
+              "mean_model_W": 2.507909832446375,
+              "normalized_J60": 150.47458994678252
+            }
+          }
+        },
+        "active_core": {
+          "offsets_s": [
+            35,
+            95
+          ],
+          "exposure_ns_x2": 119992371874,
+          "exposure_seconds": 59.996185937,
+          "exposure_bounds_ns": [
+            59995428666,
+            59996943208
+          ],
+          "endpoint_brackets_ns": [
+            [
+              379902742873583,
+              379902743347875
+            ],
+            [
+              379962738776541,
+              379962739816791
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 468355901692,
+              "raw_J": 468.355901692,
+              "mean_model_W": 7.806427931665605,
+              "normalized_J60": 468.38567589993636
+            },
+            "GPU Energy": {
+              "raw_nj": 65369745302,
+              "raw_J": 65.369745302,
+              "mean_model_W": 1.0895650161935726,
+              "normalized_J60": 65.37390097161436
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 65057424658,
+              "raw_J": 65.057424658,
+              "mean_model_W": 1.0843593412140338,
+              "normalized_J60": 65.06156047284203
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 533725646994,
+              "raw_J": 533.725646994,
+              "mean_model_W": 8.895992947859177,
+              "normalized_J60": 533.7595768715507
+            }
+          }
+        },
+        "idle_after": {
+          "offsets_s": [
+            115,
+            125
+          ],
+          "exposure_ns_x2": 19991456459,
+          "exposure_seconds": 9.9957282295,
+          "exposure_bounds_ns": [
+            9994432042,
+            9997024417
+          ],
+          "endpoint_brackets_ns": [
+            [
+              379982742141916,
+              379982744169958
+            ],
+            [
+              379992738602000,
+              379992739166333
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 11379460851,
+              "raw_J": 11.379460851,
+              "mean_model_W": 1.1384323972931,
+              "normalized_J60": 68.305943837586
+            },
+            "GPU Energy": {
+              "raw_nj": 470965696,
+              "raw_J": 0.470965696,
+              "mean_model_W": 0.04711669677153261,
+              "normalized_J60": 2.8270018062919564
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 452111351,
+              "raw_J": 0.452111351,
+              "mean_model_W": 0.045230456512983366,
+              "normalized_J60": 2.7138273907790023
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 11850426547,
+              "raw_J": 11.850426547,
+              "mean_model_W": 1.1855490940646327,
+              "normalized_J60": 71.13294564387796
+            }
+          }
+        },
+        "secondary_active_minus_exposure_weighted_still_J60": {
+          "CPU Energy": 360.27177707935857,
+          "GPU Energy": 62.66720201568617,
+          "CPU+GPU named sum": 422.9389790950447,
+          "ANE0": 0.0
+        }
+      },
+      "observers": {
+        "runner_parent": {
+          "cpu_ns": 1450388000,
+          "elapsed_ns": 146467834667,
+          "one_core_cpu_percent": 0.9902433549983929
+        },
+        "collector": {
+          "cpu_ns": 262154000,
+          "elapsed_ns": 126985119750,
+          "one_core_cpu_percent": 0.20644466100918885
+        },
+        "native_driver": {
+          "cpu_ns": 471335000,
+          "elapsed_ns": 130002752083.3125,
+          "one_core_cpu_percent": 0.36255770931521825
+        },
+        "outer_controller": {
+          "cpu_ns": 76784000,
+          "elapsed_ns": 146830785875,
+          "one_core_cpu_percent": 0.05229421033363382
+        }
+      },
+      "same_app_pid_cpu": {
+        "cpu_seconds": 38.87,
+        "snapshot_midpoint_exposure_seconds": 126.9578096665,
+        "one_core_cpu_percent": 30.616470229051625,
+        "ps_start": "0:06.15",
+        "ps_end": "0:45.02"
+      },
+      "daemon_cpu_centiseconds": 0
+    },
+    {
+      "slot": 16,
+      "condition": "fork",
+      "pid": 68469,
+      "windows": {
+        "idle_before": {
+          "offsets_s": [
+            5,
+            15
+          ],
+          "exposure_ns_x2": 20006591333,
+          "exposure_seconds": 10.0032956665,
+          "exposure_bounds_ns": [
+            10001366917,
+            10005224416
+          ],
+          "endpoint_brackets_ns": [
+            [
+              380035525029000,
+              380035527143416
+            ],
+            [
+              380045528510333,
+              380045530253416
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 21499841709,
+              "raw_J": 21.499841709,
+              "mean_model_W": 2.1492758412610695,
+              "normalized_J60": 128.9565504756642
+            },
+            "GPU Energy": {
+              "raw_nj": 496731078,
+              "raw_J": 0.496731078,
+              "mean_model_W": 0.04965674259369349,
+              "normalized_J60": 2.979404555621609
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 477978063,
+              "raw_J": 0.477978063,
+              "mean_model_W": 0.04778205892690936,
+              "normalized_J60": 2.8669235356145615
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 21996572787,
+              "raw_J": 21.996572787,
+              "mean_model_W": 2.1989325838547633,
+              "normalized_J60": 131.9359550312858
+            }
+          }
+        },
+        "active_core": {
+          "offsets_s": [
+            35,
+            95
+          ],
+          "exposure_ns_x2": 120000207959,
+          "exposure_seconds": 60.0001039795,
+          "exposure_bounds_ns": [
+            59999616750,
+            60000591209
+          ],
+          "endpoint_brackets_ns": [
+            [
+              380065528461791,
+              380065528942791
+            ],
+            [
+              380125528559541,
+              380125529053000
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 568263669184,
+              "raw_J": 568.263669184,
+              "mean_model_W": 9.471044739825057,
+              "normalized_J60": 568.2626843895034
+            },
+            "GPU Energy": {
+              "raw_nj": 41316858195,
+              "raw_J": 41.316858195,
+              "mean_model_W": 0.688613109889219,
+              "normalized_J60": 41.31678659335314
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 40891204783,
+              "raw_J": 40.891204783,
+              "mean_model_W": 0.6815188986500946,
+              "normalized_J60": 40.891133919005675
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 609580527379,
+              "raw_J": 609.580527379,
+              "mean_model_W": 10.159657849714277,
+              "normalized_J60": 609.5794709828566
+            }
+          }
+        },
+        "idle_after": {
+          "offsets_s": [
+            115,
+            125
+          ],
+          "exposure_ns_x2": 19997183542,
+          "exposure_seconds": 9.998591771,
+          "exposure_bounds_ns": [
+            9996050209,
+            10001133333
+          ],
+          "endpoint_brackets_ns": [
+            [
+              380145525484875,
+              380145527961291
+            ],
+            [
+              380155524011500,
+              380155526618208
+            ]
+          ],
+          "components": {
+            "CPU Energy": {
+              "raw_nj": 27820225832,
+              "raw_J": 27.820225832,
+              "mean_model_W": 2.78241441086634,
+              "normalized_J60": 166.9448646519804
+            },
+            "GPU Energy": {
+              "raw_nj": 481600372,
+              "raw_J": 0.481600372,
+              "mean_model_W": 0.04816682019130312,
+              "normalized_J60": 2.890009211478187
+            },
+            "ANE0": {
+              "raw_nj": 0,
+              "raw_J": 0.0,
+              "mean_model_W": 0.0,
+              "normalized_J60": 0.0
+            },
+            "CLPC GPU Energy": {
+              "raw_nj": 466608396,
+              "raw_J": 0.466608396,
+              "mean_model_W": 0.0466674114402145,
+              "normalized_J60": 2.8000446864128703
+            },
+            "CPU+GPU named sum": {
+              "raw_nj": 28301826204,
+              "raw_J": 28.301826204,
+              "mean_model_W": 2.8305812310576433,
+              "normalized_J60": 169.8348738634586
+            }
+          }
+        },
+        "secondary_active_minus_exposure_weighted_still_J60": {
+          "CPU Energy": 420.31644373063364,
+          "GPU Energy": 38.38206919813632,
+          "CPU+GPU named sum": 458.69851292876996,
+          "ANE0": 0.0
+        }
+      },
+      "observers": {
+        "runner_parent": {
+          "cpu_ns": 1293272000,
+          "elapsed_ns": 161314626667,
+          "one_core_cpu_percent": 0.8017078343860827
+        },
+        "collector": {
+          "cpu_ns": 190174000,
+          "elapsed_ns": 126984249291,
+          "one_core_cpu_percent": 0.14976188075435476
+        },
+        "native_driver": {
+          "cpu_ns": 218905000,
+          "elapsed_ns": 130007944729.1875,
+          "one_core_cpu_percent": 0.16837817139251693
+        },
+        "outer_controller": {
+          "cpu_ns": 92316000,
+          "elapsed_ns": 161694525250,
+          "one_core_cpu_percent": 0.057092842109074435
+        }
+      },
+      "same_app_pid_cpu": {
+        "cpu_seconds": 39.01,
+        "snapshot_midpoint_exposure_seconds": 127.063181521,
+        "one_core_cpu_percent": 30.70126179199498,
+        "ps_start": "0:11.66",
+        "ps_end": "0:50.67"
+      },
+      "daemon_cpu_centiseconds": 0
+    }
+  ],
+  "scope_limits": [
+    "Named machine-wide GPU model energy and separately assigned CLPC CPU model counter, not app/physical/total-system energy. CPU ratio needs one common positive unit scale. Mixed sum direction blocked by opposite component directions.",
+    "Exact posted stream does not establish identical per-app visible work or every main frame. Pre/post output measurements are descriptive; different history areas and row heights remain.",
+    "Observer roles have different scopes and are included in the measured machine-wide envelope; do not add percentages, subtract CPU or convert it to watts.",
+    "Same-app main-PID ps TIME delta is over actual ~127s between two samples, quantized to centiseconds; excludes nonpersistent children and is not active60s CPU. Daemon CPU is full-run report-only, not app attribution or endpoint-window CPU.",
+    "Sixteen runs on one Mac/session; exploratory paired t intervals have8units and do not guarantee independent temporal errors. No physical-trackpad feel, stock-vs-PR749 efficacy or264repo performance claim."
+  ],
+  "audit_input_inventory_sha256": "51e89d013cf1d3b02d9047f9b07886383c800bca7f57e9aeede9508e6e1de047",
+  "audit_source_sha256": "1b9b40cc9ec5d14e9ad201b3995aa9bf3a7fbe1d3a1d74e47e4618c5813c3896"
+}

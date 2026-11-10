@@ -1,0 +1,60 @@
+{
+  "schema": "main-clpc-liveness-addendum-v2",
+  "status": "Frozen after diagnostic and before ANY app-comparison values; parent confirms main not started",
+  "reason": "Actual automated Fable17 pre-main review identified that nondecreasing counters can remain stalled. Add per-run positive-delta checks after existing integrity validation; Fable18 approved legitimate stillGPU zero and existing fatal-stop treatment. No model outcome selected this change.",
+  "semantics": {
+    "CPU Energy": {
+      "required_positive_raw_delta_windows_s": [
+        [
+          5,
+          15
+        ],
+        [
+          35,
+          95
+        ],
+        [
+          115,
+          125
+        ]
+      ]
+    },
+    "GPU Energy": {
+      "required_positive_raw_delta_windows_s": [
+        [
+          35,
+          95
+        ]
+      ],
+      "still_window_zero_allowed": true
+    },
+    "CLPC GPU Energy": {
+      "required_positive_raw_delta_windows_s": [
+        [
+          35,
+          95
+        ]
+      ],
+      "still_window_zero_allowed": true
+    },
+    "ANE0": {
+      "zero_allowed_all_windows": true
+    }
+  },
+  "failure_policy": "Fatal instrument/integrity failure retained by existing FatalTrial/series-stop path; never pair-replaceable, never reclassified from outcomes. No threshold/rate gate or retry introduced.",
+  "unchanged": "Raw schema, sources/hardware map, units, event input, clocks, metadata, fixed windows, integration/normalization, paired contrasts/ratio/CI/MAD/directional gates, replacement rules and fatal classification machinery unchanged.",
+  "original_sources_preserved": {
+    "runner": "1af3139cbf6a6341324ca8d92dc9c1ae4b8bf3a7f668f1f930be0e999eaf9dfe",
+    "analyzer": "f14ccc4db0ba07e578757154b4e3157d9141786d9f3f7e3eacd5a2571fc76306"
+  },
+  "v2_sources": {
+    "runner": "cd0cfbdef988d168394858cd2c4ecc4beead5508ef7d3f194cb5701ade5e579c",
+    "analyzer": "59bb74d9c4e9da0f2119405f42d207817a187bcaf1bb6bd82e3872ef6193a4d4"
+  },
+  "reporting_commitments": [
+    "Report legitimate GPU-zero still-window counts per app without filtering those runs.",
+    "A fatal stall stops the series; do not present completed subsets as a smaller comparative result.",
+    "Automation/Fable assistance is not human review or independent acquisition replication."
+  ],
+  "author_no_actual_data_reads_or_native_calls": true
+}

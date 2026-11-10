@@ -1,0 +1,16 @@
+{
+  "schema": "public-numeric-reproduction-scope-v1",
+  "raw_energy_jsonl": "All16 complete files copied byte-for-byte; no fields removed/reformatted.",
+  "analysis": "Exact frozen analyzer copied unchanged; wrapper calls pure validation/integration/statistics/graphs. The full private analyzer CLI is not portable without acquisition/profile/control files.",
+  "labels": "Machine-wide model energy under posted streams. Native GPU nJ; CPU CLPC nJ assigned from firmware mapping, not independently calibrated. CPU ratio scale-independent; conditional sum gate false with opposite component directions.",
+  "reproduction_dependencies": [
+    "Python3.10+",
+    "matplotlib"
+  ],
+  "limits": [
+    "Post return is not delivery acknowledgment; pre/post output witnesses do not prove every main raster frame.",
+    "CPU units/names assigned using macmon0.11.0 firmware map, not independent CPU energy calibration. GPU/CPU components separate; sum conditional.",
+    "Model acquisition brackets do not prove physical integration freshness; no equivalent-output winner or app-specific energy attribution.",
+    "Secondary exposure-weighted still subtraction retains negative values; ANE0 excluded from primary sum."
+  ]
+}

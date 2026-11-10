@@ -1,0 +1,11 @@
+{
+  "scope": "Exact source provenance, not a portable acquisition setup. Private profiles/configs are intentionally absent; only recompute.py is the numeric reproduction entrypoint.",
+  "files_sha256": {
+    "source/acquisition/clpc-binding-v1.py": "a02c5d1312ebca2ab422864bb5d7e1114a744888995d4c0d8556f4530592ebd5",
+    "source/acquisition/ioreport-clpc-v1/collect.py": "45a5d38465f787ea818bc89fc42b9cb19d972420880c81cbd8962982f2fe53cc",
+    "source/acquisition/ioreport-model-v1/collect.py": "d4b098c69a27319c866f16c1ef8cd7a03072f4f7bc25f2403766d827dc9ba9e2",
+    "source/acquisition/energy-scroll-v8.swift": "3fe488456fcc5457161fe2716bfa9788567f332191f4837079b25eac582cc3e6",
+    "source/acquisition/runner-clpc-v2.py": "cd0cfbdef988d168394858cd2c4ecc4beead5508ef7d3f194cb5701ade5e579c",
+    "source/acquisition/run-series-v10.py": "5559225577540220511ef0eb433b4d3a9f6c9bdf6a04a5eea473f1b9459b9840"
+  }
+}
